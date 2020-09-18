@@ -9,6 +9,7 @@
 
 #finnwake {
 	opacity: .05;
+	position: fixed !important;
 }
 
 #linkedin {
@@ -21,6 +22,11 @@
 
 #medium {
 	color: white;
+}
+
+#titles {
+	z-index: 1;
+	position: relative;
 }
 
 html, body, div, span, applet, object,
