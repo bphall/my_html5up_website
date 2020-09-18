@@ -15,20 +15,21 @@
 }
 
 #linkedin {
-	color: white;
+	color: black;
 }
 
 #github {
-	color: white;
+	color: black;
 }
 
 #medium {
-	color: white;
+	color: black;
 }
 
 #titles {
 	z-index: 1 !important;
 	position: relative;
+	color: white;
 }
 
 
