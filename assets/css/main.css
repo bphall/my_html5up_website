@@ -10,7 +10,8 @@
 #finnwake {
 	opacity: .05;
 	position: fixed !important;
-	zoom: .5;
+	zoom: .75;
+	padding-left: 80px;
 }
 
 #linkedin {
