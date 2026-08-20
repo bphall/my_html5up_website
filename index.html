@@ -1,587 +1,601 @@
-<!DOCTYPE HTML>
-<!--
-	Paradigm Shift by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>braytonhall</title>
-		<link rel="icon" type="image/png" href="images/favicon.png">
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<meta name="description" content="" />
-		<meta name="keywords" content="" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-	</head>
-	<body class="is-preload">
-			<img id="finnwake" src="images/finnwake.png"/>
-		<!-- Wrapper -->
-			<div id="wrapper">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brayton Hall</title>
+<meta name="description" content="Brayton Hall, data scientist. Language models in production; philosophy and literature always.">
+<meta property="og:title" content="Brayton Hall">
+<meta property="og:description" content="Data Scientist · Language Models · Philosophy and Literature">
+<meta property="og:image" content="https://braytonhall.com/images/cliffs.jpeg">
+<meta property="og:url" content="https://braytonhall.com">
+<meta property="og:type" content="website">
+<link rel="icon" href="images/favicon.png">
+<style>
+  /* Hand-written. No framework, no build step, no tracker. */
+  :root {
+    --bg: #f5f6f7;
+    --card: #ffffff;
+    --ink: #1c2732;
+    --dim: #5f6e7d;
+    --line: #e2e7ec;
+    --accent: #2e6a8e;
+    --accent-soft: #b6cad8;
+    --shadow: 0 1px 2px rgba(30,42,54,.05), 0 10px 28px rgba(30,42,54,.06);
+  }
+  html.dark {
+    --bg: #151d26;
+    --card: #1c2631;
+    --ink: #e3eaf1;
+    --dim: #92a3b3;
+    --line: #2b3a48;
+    --accent: #8db3d2;
+    --accent-soft: #40607c;
+    --shadow: 0 1px 2px rgba(0,0,0,.25), 0 10px 28px rgba(0,0,0,.25);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; position: relative; overflow-x: hidden;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16.5px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    transition: background .25s, color .25s;
+  }
+  .serif { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
+  main { max-width: 46rem; margin: 0 auto; padding: 0 1.25rem 5rem; position: relative; z-index: 1; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
 
-				<!-- Intro -->
-					<section class="intro">
-						<div>
-							<span class="image fill" data-position="center"><img src="images/cliffs.jpeg" alt="" /></span>
-							</div>
-						<header>
-							<h1>brayton hall</h1>
-							<p id="titles">
-								<br>
-								<br>
-								Data Scientist
-								<br>
-								 Natural Language Processing
-								<br>
-								Philosophy and Literature
-								<br>
-								<Br>
-							</p>
-							<ul class="icons" id="icon_colors">
-								<!-- <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li> -->
-								<!-- <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li> -->
-								<!-- <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li> -->
-								<li><a href="https://www.linkedin.com/in/braytonhall/" id="linkedin" target="_blank" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-								<li><a href="https://github.com/bphall" id="github" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-								<li><a href="https://medium.com/@braytonhall" id="medium" target="_blank" class="icon brands fa-medium"><span class="label">Medium</span></a></li>
-							</ul>
-							<ul class="actions">
-								<li><a href="#first" id="small_a" class="arrow scrolly"><span class="label">Next</span></a></li>
-							</ul>
-						</header>
-						
-					</section>
+  /* ——— the whispers: passages hidden down the whole page ——— */
+  #rr, #rr2 {
+    position: absolute; inset: 0; overflow: hidden;
+    font-family: "Snell Roundhand", "Apple Chancery", "Segoe Script", cursive;
+    font-size: 2rem; line-height: 2.2;
+    color: var(--ink); pointer-events: none; user-select: none;
+    z-index: 0;
+  }
+  #rr  { opacity: .03; filter: blur(2.5px); }
+  #rr2 {
+    opacity: .14;
+    -webkit-mask-image: radial-gradient(circle 11rem at var(--mx, -200px) var(--my, -200px), black 0%, transparent 72%);
+            mask-image: radial-gradient(circle 11rem at var(--mx, -200px) var(--my, -200px), black 0%, transparent 72%);
+  }
+  html.dark #rr { opacity: .035; }
+  html.dark #rr2 { opacity: .18; }
+  .whisper { position: absolute; left: 0; right: 0; padding: 0 7vw; }
+  .w1 { top: 6.5rem; }
+  .w2 { top: 34%; padding-left: 14vw; }
+  .w3 { top: 60%; padding-right: 12vw; }
+  .w4 { top: 88%; text-align: right; }
 
-				<!-- Section -->
-					<section id="first">
-						<header>
-							<h2>About</h2>
-						</header>
-						<div class="content">
-							<span class="image main"><img src="images/me_praha.png" alt="" /></span>
-							<p>
-								<strong>B.S. Psychology</strong>, UNC Chapel Hill
-								<br>
-								<strong>M.A. Philosophy</strong>, Virginia Tech
-								<br>
-								<br>
-								<em><strong>I currently work</strong></em> on a variety of NLP problems, including summarization and classification
-								on large volumes of text by fine-tuning GPT, T5, Pegasus, and other LLMs for a variety of tasks. I enjoy the
-								math and alchemy of fine-tuning.
-								<br>
-								<br>
-								<em><strong>I'm a data scientist with experience</strong></em> in data acquisition and modeling, statistical analysis, machine learning,
-								and natural language processing. With a background in mathematical logic and philosophy
-								of science at Virginia Tech, I excel at communicating insights on technical, high
-								dimensional, and  structured or unstructured data in a way that is interpretable
-								and precise.
-								<br>
-							</p>
-							<ul class="actions">
-								<li><a href="images/resume_braytonhall_february2023.pdf" target="_blank" class="button large">View My Resume</a></li>
-								<li><a href="#last" class="button primary large">Contact Me</a></li>
-							</ul>
-						</div>
-					</section>
+  header {
+    display: flex; flex-wrap: wrap; gap: .4rem 1rem;
+    justify-content: flex-end; align-items: baseline;
+    padding: 1.2rem 0 0; font-size: .85rem;
+  }
+  header nav { display: flex; flex-wrap: wrap; gap: .3rem 1.2rem; }
+  header nav a { color: var(--dim); }
+  header nav a:hover { color: var(--accent); text-decoration: none; }
+  #theme { cursor: pointer; background: none; border: none; color: var(--dim); font-size: .95rem; padding: 0; }
+  #theme:hover { color: var(--accent); }
 
-				<!-- Section -->
-					<section>
-						<header>
-							<h2>Skills</h2>
-						</header>
-						<div class="content">
-							<ul class="feature-icons">
-								<li class="icon solid brands fa-python">Python</li>
-								<li class="icon solid fa-language">Large Language Model Alchemist</li>
-								<li class="icon solid fa-database">SQL</li>
-								<li class="icon solid fa-laptop">Machine Learning</li>
-								<li class="icon solid fa-cube">Data Visualization</li>
-								<li class="icon solid fa-percent">Statistics</li>
-								<li class="icon solid brands fa-js">JavaScript</li>
-								<li class="icon solid fa-code">HTML</li>
-								<li class="icon solid brands fa-css3">CSS</li>
-								<li class="icon solid brands fa-react">React</li>
-								
-							</ul>
-						</div>
-					</section>
+  .hero { margin: 4.6rem 0 2.2rem; }
+  .hero h1 { font-size: 2.9rem; font-weight: 500; margin: 0 0 .55rem; letter-spacing: -.01em; }
+  .hero .tag { font-size: 1.04rem; color: var(--dim); margin: 0; }
+  .hero .tag b { color: var(--ink); font-weight: 500; }
 
-				<!-- Section -->
-					<section>
-						<header>
-							<h2>Portfolio</h2>
-						</header>
-						<div class="content">
-							<p><strong>These are some</strong> of my recent projects, updated February 2023.</p>
+  /* the attention pair breaks out of the text column */
+  .wide {
+    position: relative; left: 50%;
+    transform: translateX(-50%); width: min(94vw, 66rem);
+  }
+  .cliffs { margin: 2.6rem 0 1.4rem; }
+  .cliffwrap { position: relative; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); }
+  .cliffwrap img { width: 100%; display: block; }
+  #lens { position: absolute; inset: 0; width: 100%; height: 100%; }
+  figcaption, .demo-note { font-size: .78rem; color: var(--dim); margin-top: .55rem; text-align: center; }
 
-				<!-- Section -->
-				<section>
-					<header>
-						<h3>Novel Summarization with fine-tuned Transformers</h3>
-						<p>
-							To use state-of-the-art transformers in novel ways, and quite possibly on novels themselves.
-							<br>
-							<br>
-							Specifically, to test the ways in which transformers with many parameters can be fine-tuned with very little labeled data (i.e. few-shot learning), 
-							so that a large language model can learn, by itself, to approximate the task of summarizing, for example, the entirety of War and Peace (or any long form document) 
-							with output options along different embeddings to capture desired themes. The potential of this type of few-shot learning, in conjunction with active learning, is enormous.
-						</p>
-					</header>
-					<div class="content">
-						<div class="gallery">
-							<p>
-								Summarization of the entirety of War and Peace with zero-shot chunking summarization.
-							</p>
-							<a href="images/gallery/fulls/wp1.png" class="landscape"><img src="images/gallery/fulls/wp1.png" alt="" /></a>
-							<p>
-								The example above represents the first 512 tokens of War and Peace. The following summary corresponds to the 
-								first approximately 5,120 words of War and Peace, or about 1/100 of the novel.
-								This could be adjusted, and fine-tuned upon certain 'themes' or embeddings produced 
-								from a bit of manual supervision and active learning.
-							</p>
-							<a href="images/gallery/fulls/wp2.png" class="landscape"><img src="images/gallery/fulls/wp2.png" alt="" /></a>
-							<!-- <a href="images/gallery/fulls/03.jpg"><img src="images/gallery/thumbs/03.jpg" alt="" /></a> -->
-							<!-- <a href="images/gallery/fulls/04.jpg" class="landscape"><img src="images/gallery/thumbs/04.jpg" alt="" /></a> -->
-						</div>
-						<br>
-						<ul class="actions">
-							<li><a href="https://github.com/bphall/abstractive_summ" class="button large">See Code</a></li>
-						</ul>
-					</div>
-				</section>
+  #parabox {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    box-shadow: var(--shadow); padding: 2.2rem 2.6rem; margin: 0 0 .6rem;
+  }
+  #para {
+    font-size: 1.28rem; line-height: 2; margin: 0;
+  }
+  #para .w { transition: opacity .22s, background .22s; border-radius: 3px; padding: 0 .06em; }
+  #para .w.hot { background: color-mix(in srgb, var(--accent) 18%, transparent); }
+  #para .w.q { outline: 1.5px solid var(--accent); outline-offset: 1px; }
+  #para .coin { border-bottom: 1px dotted var(--accent-soft); }
+  #para .src { display: block; margin-top: 1rem; font-size: .78rem; color: var(--dim); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.5; }
+  @media (max-width: 620px) { #parabox { padding: 1.4rem 1.2rem; } #para { font-size: 1.08rem; } }
 
-							<!-- Section -->
-								<section>
-									<header>
-										<h3>Semantic Search</h3>
-										<p>
-											A 'search-between-lines' app, to search by connotations and misremembered quotes, rather than exact fragments.
-											<br>
-											<br>
-											Created using Doc2Vec, a variant of Word2Vec, which is a Python library for creating paragraph embeddings. The model was trained on free ebooks from Project Gutenberg.											
-											The model is hosted on AWS S3, and Docker was used to deploy the app on Heroku.
-										</p>
-									</header>
-									<div class="content">
-										<div class="gallery">
-											<a href="images/gallery/fulls/semsearch.png" class="landscape"><img src="images/gallery/fulls/semsearch.png" alt="" /></a>
-											<a href="images/gallery/fulls/embedding.png" class="landscape"><img src="images/gallery/fulls/embedding.png" alt="" /></a>
-											<!-- <a href="images/gallery/fulls/03.jpg"><img src="images/gallery/thumbs/03.jpg" alt="" /></a> -->
-											<!-- <a href="images/gallery/fulls/04.jpg" class="landscape"><img src="images/gallery/thumbs/04.jpg" alt="" /></a> -->
-										</div>
-										<br>
-										<ul class="actions">
-											<li><a href="https://github.com/bphall/semantic_search" class="button large">See Code</a></li>		
-											<!-- <li><a href="https://limitless-plains-12586.herokuapp.com/" class="button primary large">Visit Deployed App</a></li> -->
-										</ul>
-									</div>
-								</section>
+  .math {
+    margin: 2.2rem auto 0; max-width: 46rem; padding: 0 1.25rem;
+    font-size: .92rem; color: var(--dim); text-align: center;
+  }
+  .math .eq {
+    font-family: "Iowan Old Style", Palatino, Georgia, serif; font-style: italic;
+    font-size: 1.18rem; color: var(--ink); margin: .6rem 0 .9rem; letter-spacing: .01em;
+  }
+  .math .eq sup, .math .eq sub { font-size: .7em; }
 
-							<!-- Section -->
-							<section>
-								<header>
-									<h3>Ulysses Plot and Sentiment Visualization</h3>
-									<p>
-										The aim of this project was to provide some proof of interdisciplinary collaboration between data science 
-										and literary criticism. Ulysses is the ideal novel for such a project, 
-										since its reputation, difficulty, and variety of themes is perfect for NLP analysis in conjuction with 
-										an already existing plethora of academic research on the novel, which can be used for both corroboration 
-										and as a starting off point for representing literary ideas mathematically or otherwise.
-										<br>
-										<br>
-										The project is also proof of concept for creative and unexplored applications of NLP. The graphic illustrates 
-										how each chapter can be vectorized using TF-IDF, converted into two dimensions using PCA, and plotted with lines 
-										connecting the chapters in chronological order. The sizes of the bubbles correspond to the word counts of each chapter.
-									</p>
-								</header>
-								<div class="content">
-									<div class="gallery">
-										<a href="images/gallery/fulls/ulyssescover.jpg" class="landscape"><img src="images/gallery/fulls/ulyssescover.jpg" alt="" /></a>
-										<a href="images/gallery/fulls/ulysses_tfidf_pca.png" class="landscape"><img src="images/gallery/fulls/ulysses_tfidf_pca.png" alt="" /></a>
-										<a href="images/gallery/fulls/usent_timeline.png" class="landscape"><img src="images/gallery/fulls/usent_timeline.png" alt="" /></a>
-										<!-- <a href="images/gallery/fulls/03.jpg"><img src="images/gallery/thumbs/03.jpg" alt="" /></a> -->
-										<!-- <a href="images/gallery/fulls/04.jpg" class="landscape"><img src="images/gallery/thumbs/04.jpg" alt="" /></a> -->
-									</div>
-									<br>
-										<ul class="actions">
-											<li><a href="https://github.com/bphall/ulysses_map" class="button large">See Code</a></li>
-											<li><a href="https://medium.com/swlh/using-nlp-to-visualize-ulysses-part-two-8ead745f320c?source=friends_link&sk=d48e93db48b8daaaeaab67883c220611" class="button primary large">See Medium Blog Post</a></li>
-										</ul>
-								</div>
-							</section>
+  .intro { overflow: hidden; margin: 3.4rem 0 3.2rem; }
+  .intro img {
+    float: right; width: 10.5rem; margin: .3rem 0 .8rem 1.4rem;
+    border-radius: 10px; box-shadow: var(--shadow);
+  }
+  .intro p { margin: 0 0 1rem; }
+  @media (max-width: 540px) { .intro img { width: 8rem; margin-left: 1rem; } }
 
-							<!-- Section -->
-								<section>
-									<header>
-										<h3>Covid-19 Twitter Topic Modeling</h3>
-										<p>Used unsupervised learning on 100,000 tweets to find the most intelligibly-distinct Twitter communities 
-											(e.g.'Economy', 'Trump', 'Healthcare') using LDA (latent Dirichlet allocation), and performed sentiment analysis on those clusters.
-										</p>
-									</header>
-									<div class="content">
-										<div class="gallery">
-											<a href="images/gallery/fulls/lda_clusters.png" class="landscape"><img src="images/gallery/fulls/lda_clusters.png" alt="" /></a>
-											<a href="images/gallery/fulls/lda_sentiment.png" class="landscape"><img src="images/gallery/fulls/lda_sentiment.png" alt="" /></a>
-										</div>
-										<br>
-										<ul class="actions">
-											<li><a href="https://github.com/bphall/tweet_nlp" class="button large">See Code</a></li>
-										</ul>
-									</div>
-								</section>
-						</div>
-					</section>
+  h2 { font-size: 1.5rem; font-weight: 550; margin: 0 0 1.3rem; }
+  section { margin: 3.6rem 0; }
 
-				<!-- Section -->
-					<!-- <section>
-						<header>
-							<h2>Duis sed adpiscing veroeros amet</h2>
-						</header>
-						<div class="content">
-							<p><strong>Proin tempus feugiat</strong> sed varius enim lorem ullamcorper dolore aliquam aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore.</p>
-							<ul class="actions">
-								<li><a href="#" class="button primary large">Get Started</a></li>
-								<li><a href="#" class="button large">Learn More</a></li>
-							</ul>
-						</div>
-					</section> -->
+  .features { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.6rem; }
+  @media (max-width: 620px) { .features { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    overflow: hidden; display: flex; flex-direction: column;
+    box-shadow: var(--shadow); transition: transform .18s;
+  }
+  .card:hover { transform: translateY(-2px); }
+  .card .thumb { aspect-ratio: 16/10; overflow: hidden; border-bottom: 1px solid var(--line); background: #fff; }
+  .card .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+  .card .body { padding: 1rem 1.1rem 1.1rem; display: flex; flex-direction: column; gap: .45rem; flex: 1; }
+  .card h3 { margin: 0; font-size: 1.05rem; font-weight: 600; }
+  .card h3 a { color: var(--ink); }
+  .card h3 a:hover { color: var(--accent); text-decoration: none; }
+  .card p { margin: 0; font-size: .89rem; color: var(--dim); flex: 1; }
+  .card .links { font-size: .83rem; display: flex; gap: 1rem; }
 
-<!-- 				
-				<!-- Section --
-					<section>
-						<header>
-							<h2>Elements</h2>
-						</header>
-						<div class="content">
+  .more { border-top: 1px solid var(--line); }
+  .more .row { display: flex; flex-wrap: wrap; align-items: baseline; gap: .3rem .8rem; padding: .85rem 0; border-bottom: 1px solid var(--line); }
+  .more .row h3 { margin: 0; font-size: .98rem; font-weight: 600; }
+  .more .row h3 a { color: var(--ink); }
+  .more .row h3 a:hover { color: var(--accent); text-decoration: none; }
+  .more .row p { margin: 0; font-size: .87rem; color: var(--dim); flex: 1 1 24rem; }
+  .more .row .links { font-size: .83rem; }
 
-							<section>
-								<header>
-									<h3>Text</h3>
-								</header>
-								<div class="content">
-									<p>This is <b>bold</b> and this is <strong>strong</strong>. This is <i>italic</i> and this is <em>emphasized</em>.
-									This is <sup>superscript</sup> text and this is <sub>subscript</sub> text.
-									This is <u>underlined</u> and this is code: <code>for (;;) { ... }</code>. Finally, <a href="#">this is a link</a>.</p>
-									<hr />
-									<h2>Heading Level 2</h2>
-									<h3>Heading Level 3</h3>
-									<h4>Heading Level 4</h4>
-									<h5>Heading Level 5</h5>
-									<hr />
-									<h5>Blockquote</h5>
-									<blockquote>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan faucibus. Vestibulum ante ipsum primis in faucibus lorem ipsum dolor sit amet nullam adipiscing eu felis.</blockquote>
-									<h5>Preformatted</h5>
-									<pre><code>i = 0;
+  .job { display: grid; grid-template-columns: 6.8rem 1fr; gap: 0 1.2rem; margin-bottom: 1.3rem; }
+  .job .when { color: var(--dim); font-size: .82rem; padding-top: .2rem; }
+  .job .what b { font-weight: 600; }
+  .job .what p { margin: .15rem 0 0; font-size: .9rem; color: var(--dim); }
+  @media (max-width: 540px) { .job { grid-template-columns: 1fr; } .job .when { padding: 0; } }
 
-while (!deck.isInOrder()) {
-  print 'Iteration ' + i;
-  deck.shuffle();
-  i++;
-}
+  footer {
+    border-top: 1px solid var(--line); margin-top: 4rem; padding-top: 1.4rem;
+    font-size: .8rem; color: var(--dim);
+  }
+</style>
+</head>
+<body>
+<div id="rr" aria-hidden="true">
+  <div class="whisper w1">…riverrun, past Eve and Adam’s, from swerve of shore to bend of bay, brings us by a commodius vicus of recirculation back to Howth Castle and Environs…</div>
+  <div class="whisper w2">Stately, plump Buck Mulligan came from the stairhead, bearing a bowl of lather on which a mirror and a razor lay crossed…</div>
+  <div class="whisper w3">Longtemps, je me suis couché de bonne heure. Parfois, à peine ma bougie éteinte, mes yeux se fermaient si vite que je n’avais pas le temps de me dire: «Je m’endors.»</div>
+  <div class="whisper w4">End here. Us then. Finn, again! Take. Bussoftlhee, mememormee! Till thousendsthee. Lps. The keys to. Given! A way a lone a last a loved a long the</div>
+</div>
+<main>
+  <header>
+    <nav>
+      <a href="https://github.com/bphall">github</a>
+      <a href="https://www.linkedin.com/in/braytonhall/">linkedin</a>
+      <a href="https://medium.com/@braytonhall">writing</a>
+      <a href="assets/Brayton_Hall_Resume.pdf">resume</a>
+      <a href="mailto:braytonhall@gmail.com">email</a>
+      <button id="theme" title="light / dark">◐</button>
+    </nav>
+  </header>
 
-print 'Sorted in ' + i + ' iterations.';</code></pre>
-								</div>
-							</section>
+  <div class="hero">
+    <h1 class="serif">Brayton Hall</h1>
+    <p class="tag"><b>Data Scientist</b> · <b>Language Models</b> · <b>Philosophy and Literature</b></p>
+  </div>
 
-							<section>
-								<header>
-									<h3>Lists</h3>
-								</header>
-								<div class="content">
+  <figure class="cliffs wide">
+    <div class="cliffwrap">
+      <img id="cliffimg" src="images/cliffs.jpeg" alt="The Cliffs of Moher, County Clare, Ireland">
+      <canvas id="lens"></canvas>
+    </div>
+    <figcaption>Cliffs of Moher, County Clare. Move your cursor over the
+      photo: each patch you touch queries the rest, and what answers is
+      similarity.</figcaption>
+  </figure>
 
-									<h4>Unordered</h4>
-									<ul>
-										<li>Dolor pulvinar etiam.</li>
-										<li>Sagittis adipiscing.</li>
-										<li>Felis enim feugiat.</li>
-									</ul>
+  <div class="wide">
+    <div id="parabox">
+      <p id="para" class="serif"></p>
+      <noscript><p>Stitched from <i>Ulysses</i>: Ineluctable modality of the
+        visible. The snotgreen sea, the scrotumtightening sea; seaspawn and
+        seawrack. Looking down he saw gulls flapping strongly, wheeling
+        between the gaunt quaywalls. A porterbottle stood up, stogged to its
+        waist, in the cakey sand dough. The isle of saints: a cloud began to
+        cover the sun slowly, wholly, shadowing the bay in deeper green.</p></noscript>
+    </div>
+    <p class="demo-note">Stitched from <i>Ulysses</i>. Hover a word: its
+      neighbors answer, by cosine similarity between word vectors learned
+      from Joyce’s own prose (PPMI and SVD over co-occurrence, the classic
+      recipe). Words also summon the parts of the photo they name, and
+      patches of the photo summon words: five anchors (sea, sky, stone,
+      grass, foam) bridge the two spaces. Dotted words are coinages: they
+      appear once in the language, so no statistics can hold them.</p>
+  </div>
 
-									<h4>Alternate</h4>
-									<ul class="alt">
-										<li>Dolor pulvinar etiam.</li>
-										<li>Sagittis adipiscing.</li>
-										<li>Felis enim feugiat.</li>
-									</ul>
+  <div class="math">
+    <div>Both panes are the same one-line idea:</div>
+    <div class="eq">Attention(Q, K, V) = softmax(QK<sup>T</sup> / √d<sub>k</sub>) V</div>
+    <div>The thing under your cursor is the query, everything else is a key,
+      the normalization plays softmax, and the lighting is the value
+      weighting. Make Q, K, V learned instead of hand-built, scale to
+      thousands of dimensions, stack it deep, and you have a transformer.
+      For the real thing built from scratch, watch
+      <a href="https://karpathy.ai/zero-to-hero.html">Andrej Karpathy’s
+      Zero to Hero</a>: the best classroom on the internet.</div>
+  </div>
 
-									<h4>Ordered</h4>
-									<ol>
-										<li>Dolor pulvinar etiam.</li>
-										<li>Etiam vel felis viverra.</li>
-										<li>Felis enim feugiat.</li>
-										<li>Dolor pulvinar etiam.</li>
-										<li>Etiam vel felis lorem.</li>
-										<li>Felis enim et feugiat.</li>
-									</ol>
-									<h4>Icons</h4>
-									<ul class="icons">
-										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-										<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
-									</ul>
+  <div class="intro">
+    <img src="images/me_2026.jpg" alt="Brayton Hall">
+    <p>I build with large language models: summarization, classification,
+      and extraction over huge volumes of sensitive text, and the harnesses
+      that turn a raw model into a system you can trust. Lately that means
+      agents, evals, and workflows. I follow the research closely, from
+      post-training to interpretability, and the question I care about most
+      is what comes next.</p>
+    <p>The through line, from a philosophy department to production: what it
+      takes for symbols to mean something.</p>
+    <p>Off the clock: long runs (the occasional marathon), New York by
+      ferry, movies at the Metrograph, the piano, writing, and slow, happy
+      progress through Joyce and Proust.</p>
+  </div>
 
-									<h4>Actions</h4>
-									<ul class="actions">
-										<li><a href="#" class="button primary">Default</a></li>
-										<li><a href="#" class="button">Default</a></li>
-									</ul>
-									<ul class="actions stacked">
-										<li><a href="#" class="button primary">Default</a></li>
-										<li><a href="#" class="button">Default</a></li>
-									</ul>
-								</div>
-							</section>
+  <section id="work">
+    <h2 class="serif">Work &amp; Education</h2>
+    <div class="job">
+      <div class="when">2026 —</div>
+      <div class="what"><b>Something new</b>
+        <p>Soon.</p></div>
+    </div>
+    <div class="job">
+      <div class="when">2024–26</div>
+      <div class="what"><b>Capital One</b> · data scientist
+        <p>Lead developer of the company’s second production generative-AI
+        use case: summarizing 1M+ highly sensitive documents for executive
+        committees (≈$20M/yr). Model development, compliance, and monitoring
+        for the fraud model covering every Capital One card (≈$400M/yr in
+        prevented loss).</p></div>
+    </div>
+    <div class="job">
+      <div class="when">2022–24</div>
+      <div class="what"><b>Bank of America</b> · data scientist
+        <p>Built and monitored the bank’s primary abstractive-summarization
+        pipeline for calls between agents and customers, trained on 600K
+        agent notes and 150M transcribed conversations (≈$10M/yr), with
+        custom summary-quality metrics.</p></div>
+    </div>
+    <div class="job">
+      <div class="when">2020–21</div>
+      <div class="what"><b>PrimeNeuro</b> · data scientist
+        <p>ML on infant-brain fMRI (100K+ features) for early-intervention
+        prediction: interpretable models, Shapley values, feature
+        extraction.</p></div>
+    </div>
+    <div class="job">
+      <div class="when">2020</div>
+      <div class="what"><b>Flatiron School</b> · data science program</div>
+    </div>
+    <div class="job">
+      <div class="when">2015–19</div>
+      <div class="what"><b>Virginia Tech</b> · MA in philosophy; graduate instructor
+        <p>Metalogic, number theory, philosophy of science and language.
+        Taught logic and statistical inference.</p></div>
+    </div>
+    <div class="job">
+      <div class="when">2009–13</div>
+      <div class="what"><b>UNC Chapel Hill</b> · BS in psychology</div>
+    </div>
+  </section>
 
-							<section>
-								<header>
-									<h3>Table</h3>
-								</header>
-								<div class="content">
-									<h4>Default</h4>
-									<div class="table-wrapper">
-										<table>
-											<thead>
-												<tr>
-													<th>Name</th>
-													<th>Description</th>
-													<th>Price</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>Item One</td>
-													<td>Ante turpis integer aliquet porttitor.</td>
-													<td>29.99</td>
-												</tr>
-												<tr>
-													<td>Item Two</td>
-													<td>Vis ac commodo adipiscing arcu aliquet.</td>
-													<td>19.99</td>
-												</tr>
-												<tr>
-													<td>Item Three</td>
-													<td> Morbi faucibus arcu accumsan lorem.</td>
-													<td>29.99</td>
-												</tr>
-												<tr>
-													<td>Item Four</td>
-													<td>Vitae integer tempus condimentum.</td>
-													<td>19.99</td>
-												</tr>
-												<tr>
-													<td>Item Five</td>
-													<td>Ante turpis integer aliquet porttitor.</td>
-													<td>29.99</td>
-												</tr>
-											</tbody>
-											<tfoot>
-												<tr>
-													<td colspan="2"></td>
-													<td>100.00</td>
-												</tr>
-											</tfoot>
-										</table>
-									</div>
+  <section id="projects">
+    <h2 class="serif">Projects</h2>
+    <div class="features">
+      <div class="card">
+        <a class="thumb" href="https://github.com/bphall/semantic_search"><img src="images/gallery/fulls/semsearch.png" alt="Semantic search interface"></a>
+        <div class="body">
+          <h3><a href="https://github.com/bphall/semantic_search">Semantic Search</a></h3>
+          <p>Search classic novels by connotation and misremembered quotes
+            rather than exact fragments. Doc2Vec embeddings over Project
+            Gutenberg.</p>
+          <div class="links"><a href="https://github.com/bphall/semantic_search">code</a></div>
+        </div>
+      </div>
+      <div class="card">
+        <a class="thumb" href="https://medium.com/swlh/using-nlp-to-visualize-ulysses-part-two-8ead745f320c"><img src="images/gallery/fulls/ulysses_tfidf_pca.png" alt="Ulysses chapters in TF-IDF space"></a>
+        <div class="body">
+          <h3><a href="https://medium.com/swlh/using-nlp-to-visualize-ulysses-part-two-8ead745f320c">Mapping <i>Ulysses</i></a></h3>
+          <p>Vectorizing each chapter of Joyce and plotting the novel’s
+            drift through its own semantic space. Data science as literary
+            criticism.</p>
+          <div class="links"><a href="https://github.com/bphall/ulysses_map">code</a>
+            <a href="https://medium.com/swlh/using-nlp-to-visualize-ulysses-part-two-8ead745f320c">essay</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="more">
+      <div class="row">
+        <h3><a href="https://github.com/bphall/abstractive_summ">Summarizing <i>War and Peace</i></a></h3>
+        <p>Few-shot fine-tuning of pre-trained transformers for
+          long-document summarization.</p>
+        <span class="links"><a href="https://github.com/bphall/abstractive_summ">code</a></span>
+      </div>
+      <div class="row">
+        <h3><a href="https://github.com/bphall/tweet_nlp">Twitter Topic Modeling</a></h3>
+        <p>LDA over 100K pandemic-era tweets: finding the distinct
+          communities and their sentiment.</p>
+        <span class="links"><a href="https://github.com/bphall/tweet_nlp">code</a></span>
+      </div>
+    </div>
+  </section>
 
-									<h4>Alternate</h4>
-									<div class="table-wrapper">
-										<table class="alt">
-											<thead>
-												<tr>
-													<th>Name</th>
-													<th>Description</th>
-													<th>Price</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>Item One</td>
-													<td>Ante turpis integer aliquet porttitor.</td>
-													<td>29.99</td>
-												</tr>
-												<tr>
-													<td>Item Two</td>
-													<td>Vis ac commodo adipiscing arcu aliquet.</td>
-													<td>19.99</td>
-												</tr>
-												<tr>
-													<td>Item Three</td>
-													<td> Morbi faucibus arcu accumsan lorem.</td>
-													<td>29.99</td>
-												</tr>
-												<tr>
-													<td>Item Four</td>
-													<td>Vitae integer tempus condimentum.</td>
-													<td>19.99</td>
-												</tr>
-												<tr>
-													<td>Item Five</td>
-													<td>Ante turpis integer aliquet porttitor.</td>
-													<td>29.99</td>
-												</tr>
-											</tbody>
-											<tfoot>
-												<tr>
-													<td colspan="2"></td>
-													<td>100.00</td>
-												</tr>
-											</tfoot>
-										</table>
-									</div>
-								</div>
-							</section>
+  <footer>
+    <p>Hand-built: one HTML file, no framework, no tracker. The word vectors
+      were trained on Joyce’s prose; the attention is computed on the pixels
+      and words in front of you.</p>
+  </footer>
+</main>
 
-							<section>
-								<header>
-									<h3>Buttons</h3>
-								</header>
-								<div class="content">
-									<ul class="actions">
-										<li><a href="#" class="button primary">Primary</a></li>
-										<li><a href="#" class="button">Default</a></li>
-									</ul>
-									<ul class="actions">
-										<li><a href="#" class="button large">Large</a></li>
-										<li><a href="#" class="button">Default</a></li>
-										<li><a href="#" class="button small">Small</a></li>
-									</ul>
-									<ul class="actions">
-										<li><a href="#" class="button primary icon solid fa-download">Icon</a></li>
-										<li><a href="#" class="button icon solid fa-download">Icon</a></li>
-									</ul>
-									<ul class="actions">
-										<li><span class="button primary disabled">Disabled</span></li>
-										<li><span class="button disabled">Disabled</span></li>
-									</ul>
-								</div>
-							</section>
+<script>
+/* word vectors trained on Ulysses + Dubliners + Portrait (PPMI + SVD) */
+const JV = {"a":[-0.0609,-0.0539,0.0533,-0.0552,-0.0116,0.0026,0.0412,0.0518,0.0304,0.0347,-0.0078,-0.0821,0.079,-0.0326,0.0499,-0.009,0.1198,-0.0827,0.0083,0.0079,0.0492,0.0252,0.0034,-0.0575,-0.0167,-0.0463,-0.0749,0.1744,0.0151,0.0638,0.0307,0.1392,-0.0729,-0.1425,0.0139,0.1293,0.0847,-0.0386,-0.0561,-0.0389,-0.4087,0.2876,0.3024,0.152,-0.275,-0.2822,0.3035,-0.4538],"air":[0.0808,-0.0481,0.1171,-0.0347,-0.0455,-0.0832,0.0052,0.1156,0.1279,-0.0516,-0.2086,-0.1582,0.1734,0.1496,0.202,-0.0832,-0.0462,-0.1528,-0.0992,0.1961,-0.0402,0.1834,-0.2008,0.0191,0.0484,0.0165,0.1585,-0.1208,0.0626,0.0477,0.0716,0.0257,-0.126,-0.03,0.092,-0.0084,0.0724,-0.1139,0.2784,0.1754,0.0078,0.0704,-0.0418,0.2177,-0.2471,-0.4253,0.0971,-0.3237],"and":[-0.0433,0.0453,-0.0178,-0.0311,0.0784,0.1382,0.0635,0.0425,0.1174,-0.034,-0.0092,-0.122,0.052,-0.034,-0.093,-0.0031,0.0791,-0.074,0.0249,-0.0915,-0.0177,0.1004,0.0057,-0.0585,-0.0638,-0.0494,0.0819,0.1368,-0.109,0.1096,0.0252,0.1606,0.111,-0.1785,0.0761,0.1582,-0.184,-0.0083,-0.0513,-0.1027,0.1851,0.0784,0.0536,0.1356,-0.1384,-0.5714,0.1561,-0.5006],"bay":[-0.0454,0.034,0.0868,-0.0034,0.2743,0.2146,-0.1433,0.044,-0.0816,-0.0857,0.1846,0.2538,-0.0149,-0.0326,0.0414,0.0106,0.0204,0.0303,0.0247,-0.0781,0.123,-0.0617,0.0533,0.0299,0.0858,0.1062,0.0445,-0.1375,0.2567,-0.0986,0.1333,-0.1417,0.0409,-0.0442,-0.0826,-0.1096,0.1116,0.171,0.1977,0.1175,-0.0696,-0.2716,0.1085,-0.2245,-0.186,-0.2801,-0.0833,-0.4102],"began":[0.0938,0.0164,0.1877,0.0163,0.0753,0.0548,-0.0406,-0.1255,0.0076,-0.1548,-0.1483,-0.1918,0.1505,-0.0964,-0.0516,0.0997,0.1268,-0.0931,-0.0969,0.1454,-0.1197,0.1573,0.0734,-0.0101,-0.0862,0.0326,0.0552,0.0507,-0.1475,0.1058,-0.2101,0.1256,-0.173,-0.1962,0.0715,-0.0756,-0.0629,-0.1159,-0.1755,0.1153,0.0107,0.024,-0.2587,0.1856,-0.0183,-0.366,0.3105,-0.3489],"between":[0.2442,0.1359,-0.0535,0.0068,0.1638,0.119,0.0221,-0.1473,-0.0487,-0.1436,0.0348,0.1844,-0.119,0.1083,-0.0137,-0.0344,-0.0196,0.0331,0.1288,0.0562,0.0003,-0.0253,0.014,-0.2026,-0.2093,-0.1681,-0.0645,0.2086,-0.1737,0.0096,-0.1042,0.0091,0.1693,-0.0486,-0.1111,-0.0489,-0.0829,0.0817,-0.3006,-0.0783,-0.0122,0.0429,-0.0384,0.1015,-0.3216,-0.3648,0.1985,-0.3174],"champing":[0.0648,0.1077,0.2109,-0.2375,0.1972,0.1033,-0.086,0.071,0.1899,-0.0538,-0.0102,-0.2654,0.1704,-0.0021,0.0784,0.136,0.1484,-0.1507,0.1033,0.206,0.0223,-0.1944,-0.042,-0.0944,-0.0474,-0.1825,-0.09,-0.0653,0.0091,0.0746,-0.1898,-0.1387,-0.1142,0.2499,-0.1531,0.0216,0.0588,-0.1956,-0.0013,0.2106,0.3379,0.07,-0.0701,-0.0789,0.0749,-0.1748,-0.0993,-0.2022],"cliff":[-0.1931,-0.0222,-0.1254,0.0376,-0.2129,-0.0897,-0.2569,-0.0965,0.1129,0.1075,0.0115,0.1319,-0.1059,0.0026,-0.0751,0.0561,0.0856,-0.1621,-0.001,0.0973,0.139,-0.1093,-0.0288,0.0634,0.0362,-0.0712,-0.2911,-0.0404,0.1253,-0.2688,0.0687,-0.1532,-0.1877,-0.0935,-0.1299,0.1445,-0.0551,0.1503,0.1384,0.3489,-0.1685,-0.0646,-0.0401,-0.0003,0.0378,-0.2185,-0.2283,-0.2877],"cloud":[-0.0164,0.0674,0.1701,-0.0255,-0.089,0.0777,0.0352,-0.0835,-0.1427,0.0209,-0.0139,-0.0023,0.135,-0.0718,0.1805,-0.0271,0.0546,0.277,0.0297,0.1413,0.032,-0.0764,-0.0288,0.1417,0.1064,0.1507,0.0713,-0.0159,0.1368,-0.0106,-0.1826,-0.0766,-0.238,0.0193,0.0044,0.2849,0.2477,0.1796,0.2224,0.209,-0.1789,-0.0292,-0.0109,0.1706,-0.2738,-0.2431,-0.1584,-0.3063],"clouds":[-0.1861,-0.02,-0.1082,-0.1112,-0.02,0.1388,-0.083,0.1314,0.0818,0.137,-0.0487,0.0827,-0.1879,0.0793,0.0373,0.0029,-0.0144,-0.0373,-0.122,0.0552,-0.1462,-0.2812,-0.0057,0.1913,0.0738,-0.1009,0.1386,-0.1237,0.0037,0.0637,0.0007,-0.1082,-0.0212,-0.0191,-0.1374,0.0833,0.0999,0.0179,0.3361,0.1014,0.1864,-0.311,0.0246,0.0939,-0.1546,-0.3169,-0.1106,-0.399],"cover":[0.023,0.1206,0.1806,0.0814,0.1894,0.0647,-0.149,-0.2995,-0.0718,-0.0365,-0.1575,-0.0304,0.0528,-0.2414,-0.0195,0.1248,0.0659,-0.0451,0.1113,-0.0005,-0.3474,0.0383,0.0217,0.1916,0.162,0.1671,-0.0304,-0.122,-0.1541,0.1148,0.0031,-0.1124,0.1753,-0.0183,0.0826,-0.0673,0.0158,0.2143,0.0892,0.1121,-0.1019,-0.0325,-0.171,0.1413,-0.0386,-0.2079,-0.0267,-0.4143],"dark":[-0.0973,-0.122,0.1124,-0.1611,0.1475,-0.0546,0.0373,-0.0408,0.0912,0.0195,-0.0588,-0.0587,-0.0335,0.1155,0.0885,-0.1809,0.22,-0.0067,-0.0212,0.0055,0.001,-0.1112,-0.0347,0.0702,0.0642,0.0765,0.1361,-0.016,0.0439,0.0317,0.0941,0.0313,0.0131,-0.0992,0.0591,0.0079,0.2255,-0.0208,0.3252,0.0505,-0.0021,-0.003,-0.0291,0.2342,-0.3067,-0.536,0.0826,-0.3356],"deeper":[-0.0012,-0.0324,0.0268,0.122,-0.1941,0.3081,-0.0771,-0.3277,0.0649,0.0555,0.1607,0.1265,-0.0988,0.0361,0.099,0.1263,-0.0332,0.2504,0.1364,-0.0149,-0.0307,-0.0091,0.0923,-0.0518,0.1746,-0.0028,0.3633,-0.0451,0.1086,0.0464,-0.0713,0.0819,0.0292,-0.0462,-0.1162,-0.0186,-0.0919,0.061,0.3188,0.1031,-0.152,-0.1322,-0.046,0.1511,-0.0391,-0.191,-0.1769,-0.3005],"dough":[0.1069,0.172,-0.0491,0.0127,0.0108,0.0418,0.1403,-0.1113,0.0748,0.0269,-0.1789,0.1067,-0.0913,-0.0226,-0.0778,0.051,0.1172,0.2012,0.0103,-0.056,0.0012,-0.1063,-0.0034,0.1839,-0.1092,-0.0498,-0.0745,0.0927,0.0515,0.1597,-0.1894,0.1916,-0.0595,0.0041,-0.0701,-0.1072,0.0246,-0.0552,0.3266,0.3048,-0.3396,0.1365,0.2081,-0.0697,-0.1272,-0.1393,-0.3367,-0.2631],"down":[-0.024,-0.021,0.0207,-0.1941,0.0933,-0.0055,0.0526,0.0747,0.0902,-0.0218,0.0033,-0.0668,-0.0445,0.0439,-0.1468,-0.0392,0.0097,-0.0779,0.022,-0.1708,-0.0181,0.1377,0.0772,-0.2235,-0.0796,-0.0843,0.0191,0.1103,-0.0558,0.1178,0.0092,0.143,0.1297,-0.1429,0.1661,-0.0881,0.0511,0.08,-0.0684,0.1166,-0.0437,-0.3009,-0.0934,0.006,0.0056,-0.5845,0.2584,-0.3459],"flapping":[-0.0255,0.1066,0.1215,0.0689,-0.0209,-0.2268,0.3294,-0.3282,0.1906,-0.0414,-0.1038,0.0206,-0.112,0.0384,-0.1693,-0.0247,-0.0515,0.0123,0.1114,-0.0792,-0.0466,-0.071,-0.1402,-0.0829,-0.1469,-0.1031,-0.2402,0.025,0.1642,0.2197,-0.0994,0.0044,0.1959,0.1384,-0.1567,0.015,0.0479,0.2195,-0.0058,0.2125,0.0712,-0.0567,0.1659,0.0748,0.0867,-0.1921,-0.1324,-0.3094],"foam":[0.0728,-0.0274,-0.0254,-0.0233,0.0206,-0.0766,-0.0875,0.0436,0.0534,-0.1271,-0.1191,-0.0809,-0.075,0.0295,0.1941,-0.1309,-0.0311,-0.093,0.2913,0.1097,0.083,0.2233,0.0025,-0.0511,-0.1174,-0.0231,-0.123,0.0949,-0.1543,0.4588,0.0489,0.1652,-0.0858,0.2352,-0.0394,0.2323,0.2397,0.0168,-0.0135,-0.0106,0.1066,0.0791,0.0194,-0.0193,-0.1461,0.0185,-0.3716,-0.2305],"froth":[0.0537,-0.0956,0.0603,-0.1437,-0.0358,0.0673,0.1543,-0.209,-0.1488,0.0316,0.1731,0.1907,0.0272,-0.0708,0.002,0.0891,-0.0804,0.2126,0.1637,-0.0657,-0.1212,0.0347,-0.3203,-0.0431,-0.0173,0.2175,-0.0716,-0.1677,0.1056,-0.0625,-0.3663,-0.0846,0.13,-0.1093,-0.0934,0.0473,-0.0964,0.0215,-0.0446,0.1469,-0.2697,-0.0674,-0.0402,0.0385,0.0436,-0.0668,-0.309,-0.3025],"gaunt":[-0.1285,-0.0525,0.0561,0.232,0.1949,-0.2726,0.085,-0.1565,0.107,0.0052,-0.0919,0.1643,-0.0297,0.197,0.0677,-0.0211,-0.0532,0.2191,0.1113,-0.0197,-0.2452,-0.0925,-0.1823,-0.0568,0.0456,-0.095,0.1433,0.0507,0.1288,-0.0384,-0.0848,-0.0854,0.1897,0.0358,0.0606,-0.2581,0.1722,-0.0442,0.1607,0.0935,-0.0081,-0.2927,-0.0663,-0.0934,-0.1347,-0.21,-0.2606,-0.2231],"grass":[0.076,-0.0676,0.0704,0.0137,-0.2489,-0.0935,0.083,0.1315,0.0356,0.1813,-0.0374,0.0521,-0.1406,-0.1562,-0.1314,-0.0145,-0.0284,-0.2018,0.0621,-0.0487,0.065,-0.0301,-0.0483,-0.0997,0.1666,0.1194,0.0274,-0.2073,0.1489,-0.2391,0.0235,-0.0179,0.1109,-0.1438,0.0384,-0.0251,0.0439,-0.1793,0.0561,-0.1007,-0.0801,-0.2388,0.2054,-0.0916,-0.0125,-0.3192,-0.1438,-0.4894],"green":[-0.157,0.0821,-0.0859,-0.0418,-0.0625,0.1128,0.1103,0.2237,0.0713,0.2347,0.1146,0.0252,0.1025,-0.0616,0.0211,-0.1667,0.1686,-0.1271,0.0895,-0.0682,-0.2548,-0.1566,-0.1644,0.1279,0.222,0.0338,0.1787,0.1,-0.0941,0.0889,0.1267,-0.065,0.1463,-0.0668,-0.0058,0.0704,0.0719,0.082,0.1845,-0.1407,0.0244,0.0811,0.2345,-0.0184,-0.1985,-0.4253,0.0807,-0.2425],"grey":[-0.1091,-0.1654,-0.119,0.0555,0.0813,0.0562,-0.0411,-0.0561,0.1444,0.2178,-0.2022,0.0328,0.1264,-0.0735,0.0649,-0.1372,0.1634,-0.0635,0.001,0.1221,-0.1294,-0.1699,-0.1377,0.1201,0.154,0.057,0.1319,0.0339,-0.053,0.0175,0.1807,-0.0554,0.1457,-0.047,-0.009,0.1523,0.124,-0.0134,0.2794,0.0326,-0.0933,0.1477,0.2031,0.1723,-0.0992,-0.4783,0.0563,-0.2838],"gulls":[0.0629,0.1881,0.1489,-0.0118,0.1205,0.0718,0.1002,-0.0787,0.0509,0.0178,-0.153,0.025,0.0416,-0.1353,-0.0826,-0.0328,0.1249,-0.0549,0.0606,0.241,0.1021,0.0336,-0.1354,-0.1196,-0.069,-0.1867,-0.0208,0.0582,0.203,-0.2858,0.0702,-0.1863,-0.2059,0.2579,-0.1665,0.1779,0.0917,-0.0062,-0.0281,0.2479,0.2101,-0.3335,0.156,-0.0395,-0.1108,0.0094,-0.0156,-0.2902],"he":[0.0264,0.0594,-0.0758,0.0357,-0.0537,-0.1151,0.0148,0.0193,0.0367,-0.0899,0.021,0.0239,-0.0459,-0.0315,-0.0345,-0.0343,0.135,-0.0746,0.1154,-0.1451,-0.0132,0.1563,-0.2049,-0.1028,-0.0593,-0.1781,-0.0065,0.0754,-0.08,-0.0513,-0.1461,0.0889,0.0744,-0.2188,0.0595,0.0035,-0.0228,-0.214,0.0285,-0.0287,-0.1629,-0.0087,-0.3999,0.2287,0.111,-0.0134,0.395,-0.4788],"in":[0.068,0.0163,-0.0481,-0.1166,0.1177,0.0983,0.1159,-0.0451,0.0126,-0.045,-0.0175,-0.0033,0.1288,0.0523,-0.0954,-0.063,0.0109,-0.0218,0.086,0.0304,0.0272,0.0704,0.026,-0.0567,-0.0676,-0.1327,-0.0214,0.1343,-0.0973,0.0049,0.1324,0.2004,0.1181,0.0183,-0.0458,-0.369,-0.0234,0.004,0.0002,-0.0408,-0.1009,0.0397,-0.0214,0.1699,-0.4777,-0.3335,0.1783,-0.4604],"ineluctable":[-0.1018,-0.0515,-0.0289,0.1376,-0.1028,-0.0165,-0.0291,-0.0093,0.0284,-0.0383,0.0659,0.0447,-0.089,-0.0651,-0.074,-0.1039,0.0614,-0.2322,0.0543,-0.1483,-0.1598,0.0929,0.0259,-0.1371,-0.119,-0.2891,-0.0908,-0.2128,-0.0636,-0.2915,0.1508,-0.273,-0.0268,0.0148,0.184,0.0858,-0.1181,0.1179,0.2971,0.3552,-0.125,-0.2036,-0.0813,0.0183,-0.0348,0.0032,-0.1396,-0.2744],"isle":[-0.0299,0.0603,-0.0514,0.0786,0.0258,0.2894,0.033,-0.0454,0.1765,0.1186,-0.1416,-0.0729,-0.1119,-0.0226,0.0378,-0.1025,0.0188,0.0232,0.0586,0.1012,-0.0583,0.0879,-0.0026,0.1861,0.0326,0.0999,-0.4517,0.3108,-0.0694,0.0798,-0.1617,-0.1069,-0.1276,-0.1988,0.0784,0.1494,-0.043,-0.12,0.0942,0.212,0.0267,-0.1528,0.0547,-0.1049,-0.0557,0.1565,-0.1667,-0.3673],"its":[0.0432,-0.1176,0.0337,-0.1251,-0.0877,0.18,0.0508,-0.3441,-0.1153,-0.119,0.0451,0.2087,0.1493,-0.2464,0.0759,0.193,0.0473,0.1487,0.1448,-0.0263,0.0935,0.1267,0.1044,-0.0821,0.1876,-0.0724,0.1235,-0.0117,-0.0315,-0.0406,-0.113,-0.005,0.0915,-0.0654,0.0061,0.0053,0.0248,0.0677,-0.0554,0.1421,-0.0677,0.1542,-0.0662,0.3125,-0.3404,-0.2897,0.1364,-0.2403],"land":[-0.0824,0.0944,-0.0532,0.0264,0.0221,-0.0356,-0.2021,0.1518,0.0555,-0.0023,-0.1304,0.0551,0.1524,-0.0183,0.1769,0.0983,0.0771,0.0068,0.1859,0.0778,-0.124,-0.0295,-0.0237,0.0192,0.0374,0.0486,0.1241,0.1571,0.2098,-0.0434,0.1046,0.0039,-0.1041,-0.0709,0.0637,-0.0551,0.0124,0.0298,0.2118,0.2573,0.1763,-0.0689,0.0084,0.0496,-0.4539,-0.2119,0.0492,-0.486],"light":[-0.0468,-0.1364,0.1721,-0.1446,0.1209,0.0541,0.0415,0.0366,0.0988,0.0796,0.0252,0.0287,0.0357,0.0166,0.1077,-0.063,0.0872,-0.0216,0.0354,0.1271,-0.1246,-0.0565,-0.1173,0.1064,0.1393,0.1893,0.3051,-0.0505,0.0567,-0.0036,0.0422,-0.118,-0.0699,-0.024,0.0907,0.1704,0.1089,0.0801,0.2492,0.1883,-0.1121,0.0765,0.0025,0.2802,-0.3005,-0.432,0.0674,-0.3121],"looking":[-0.0104,-0.168,-0.2137,-0.0525,0.1245,-0.001,-0.0426,0.0698,0.0697,-0.0218,0.0089,0.0329,-0.0734,-0.0414,0.052,0.0048,0.1361,-0.1221,-0.1599,-0.2258,0.2016,-0.1253,0.1849,0.0093,0.0718,-0.1959,-0.0222,-0.0837,0.0967,0.1337,0.0747,-0.0767,0.1509,-0.0129,-0.004,0.062,0.0562,-0.0621,0.1219,-0.1111,-0.1018,-0.1662,-0.0693,-0.0975,0.1579,-0.3794,0.3191,-0.4586],"modality":[-0.1398,-0.055,0.0233,-0.0279,-0.1885,-0.1833,-0.0483,-0.0283,0.1096,0.0479,0.1962,0.0312,-0.1221,-0.023,-0.0582,-0.0822,0.0161,-0.3424,0.0302,-0.1805,-0.1726,-0.0637,0.0189,-0.0342,-0.1725,-0.2342,-0.1565,-0.2679,0.0102,-0.1181,-0.0185,-0.1749,0.1108,0.0266,0.2118,0.0127,-0.2095,-0.0314,0.1998,0.3464,-0.0974,-0.0907,-0.0303,-0.0406,-0.1466,0.0107,-0.2122,-0.2502],"of":[0.0083,-0.0346,0.0148,-0.0776,0.1095,0.1361,0.0198,0.0126,-0.0269,0.0079,0.065,-0.0174,0.1173,0.0748,-0.1021,0.056,-0.0029,0.0111,0.0567,0.0281,0.0095,0.0815,0.0463,-0.0469,-0.088,-0.1112,-0.0856,-0.0151,-0.0117,-0.0065,-0.0098,0.0542,0.0653,-0.0854,0.0679,-0.0559,-0.149,0.0361,-0.1366,0.172,-0.0344,0.2057,-0.0238,0.2633,-0.6849,-0.2209,0.1313,-0.3709],"rock":[-0.0503,0.1403,0.1482,0.0528,0.1679,0.0055,0.0724,-0.2112,0.0891,-0.3105,0.0901,-0.1178,0.1415,-0.0157,-0.1699,0.2722,0.1781,-0.1815,0.0057,0.0372,0.0523,-0.025,-0.0378,-0.0972,-0.0304,0.1027,-0.1239,-0.0349,0.0402,0.0193,0.1151,-0.0362,0.1302,0.0547,0.0346,0.1843,0.1422,0.0617,0.1376,0.0634,-0.101,-0.2946,0.2235,-0.0268,-0.2068,-0.1969,-0.0458,-0.4088],"saints":[-0.1511,-0.0147,-0.1357,0.0832,-0.011,0.1883,0.3574,0.1739,0.0183,0.1018,0.0038,0.0538,-0.0698,-0.0201,-0.196,0.1324,-0.0638,0.0671,-0.1484,0.1177,-0.003,-0.0128,-0.0371,0.0736,0.0118,0.1204,0.0336,-0.0092,-0.0122,0.1365,-0.0731,-0.0383,-0.0498,0.0535,0.1732,0.1563,-0.2553,-0.0966,0.2142,0.0063,0.4773,0.0593,0.0823,-0.1676,-0.2027,0.0202,-0.0881,-0.3078],"sand":[-0.1761,0.1151,0.0588,0.0395,-0.1851,0.0241,-0.0032,-0.0843,0.0914,0.0546,-0.1854,0.1849,0.1783,-0.0229,0.0702,0.0399,-0.058,-0.0613,0.0613,0.0264,-0.1003,0.1213,-0.1229,0.117,0.0058,-0.0983,0.2875,0.0113,0.0999,0.0054,-0.1886,0.0399,0.2038,-0.0121,-0.1688,0.0743,0.0916,-0.0308,0.2742,0.1055,-0.1049,-0.1502,0.1906,0.131,-0.138,-0.4023,-0.0618,-0.3771],"saw":[0.1387,-0.1307,-0.1883,-0.0759,0.1691,-0.1947,0.0777,0.0329,0.006,-0.1812,-0.0362,-0.0242,0.0433,0.0964,-0.0029,0.0196,0.3097,0.0526,0.2104,-0.0897,0.1285,0.0336,-0.279,0.0976,-0.1946,0.0001,0.081,-0.063,0.141,0.0185,-0.023,0.0527,-0.0051,-0.0525,0.1076,-0.0954,-0.0326,0.0191,0.1535,-0.0092,-0.0042,-0.0124,-0.1518,0.1542,0.0532,-0.3002,0.3058,-0.4389],"sea":[-0.2564,0.0806,0.0165,-0.0559,0.0193,0.2283,0.0523,0.0358,0.0464,0.0992,-0.1257,0.0592,0.1937,-0.2477,0.0787,0.0763,0.1861,0.0484,0.0753,0.0292,0.0844,0.0852,-0.0974,0.0745,0.092,0.1266,0.2302,-0.0107,0.1469,-0.0677,-0.09,-0.0689,0.0783,-0.0053,0.0179,0.053,0.1213,0.0914,0.3042,0.1667,0.077,-0.1432,0.1404,0.147,-0.2792,-0.3329,0.0655,-0.3502],"seawrack":[0.1143,0.1427,0.0451,-0.008,0.0103,0.0287,-0.0538,0.0438,-0.0051,0.0245,0.1732,0.0176,0.0227,0.2119,0.1241,0.0398,0.1452,-0.0558,0.1353,0.0929,0.0021,0.2436,-0.1205,-0.1202,0.01,0.1117,-0.0878,0.1692,0.0402,0.1283,-0.3884,-0.1414,0.1983,0.09,-0.0728,-0.0697,-0.1784,0.0416,0.1003,0.1927,0.3019,-0.1997,0.0779,-0.0371,-0.116,-0.1008,-0.3421,-0.2657],"shadowing":[0.0149,0.0245,0.0877,0.1161,-0.0102,0.0555,-0.0893,-0.1995,0.0938,0.2154,0.0416,0.0837,-0.066,-0.2381,0.109,-0.103,0.2414,0.1483,-0.0812,0.0267,-0.1662,-0.0695,-0.1217,0.0558,0.1601,-0.0545,0.2727,-0.0623,-0.026,-0.0518,-0.0294,0.0819,-0.0099,0.014,0.007,-0.2381,0.1599,0.0336,0.3446,0.1845,-0.116,-0.238,-0.0564,-0.0393,-0.2124,-0.3176,-0.1785,-0.1861],"shore":[0.0023,0.1596,0.1034,0.1343,0.1371,-0.0928,-0.1382,0.1274,-0.0043,-0.0001,0.0715,0.1032,-0.0739,0.1261,0.2174,0.1038,-0.1888,-0.0161,0.1936,-0.0965,-0.0851,0.0444,0.0331,-0.0028,-0.0678,0.1862,0.101,0.1471,0.3441,-0.0746,-0.0506,-0.0627,0.11,0.017,-0.0187,-0.0674,0.0588,0.0779,-0.0014,0.1318,0.1073,-0.4041,-0.1248,-0.0179,-0.068,-0.2501,-0.1676,-0.404],"sky":[-0.0402,0.0203,-0.071,-0.0464,0.0212,0.1382,0.1571,0.0633,0.2232,0.1091,-0.0955,-0.0119,-0.0494,0.0063,0.1762,-0.2279,0.089,0.0028,-0.0205,0.121,0.059,-0.0717,-0.1069,0.2199,0.1455,0.146,0.3013,-0.0706,0.098,0.0067,0.0474,-0.1373,0.0166,-0.0078,-0.1002,0.1467,0.1023,-0.0205,0.3563,0.1392,-0.037,-0.0447,0.0351,0.2048,-0.1614,-0.3645,-0.0466,-0.3592],"slowly":[0.079,0.0082,0.1044,0.0897,-0.0537,0.1022,-0.1769,-0.1629,-0.0015,0.0146,0.024,0.044,-0.0352,-0.0261,-0.0119,-0.0833,0.0427,0.1256,-0.1585,0.1212,-0.0473,-0.0359,0.0803,-0.1267,-0.149,-0.106,0.2211,-0.0682,-0.0146,0.0554,-0.095,-0.0008,-0.0521,-0.1436,-0.014,0.03,0.1005,0.0469,0.1032,0.1908,-0.0356,-0.1461,-0.2662,0.1688,0.0177,-0.6181,0.1365,-0.3199],"snotgreen":[0.0436,0.1854,-0.0234,-0.0006,0.1344,0.2439,-0.228,0.0153,0.2733,-0.1932,-0.0295,0.0949,0.1935,-0.1827,0.1592,0.1275,0.2114,-0.0549,0.0034,-0.1735,-0.203,-0.1525,-0.0744,0.1072,0.1118,0.1199,0.0554,0.1356,0.383,0.0145,0.123,-0.0398,0.0869,-0.008,0.0187,-0.0835,-0.0489,0.0659,0.1792,0.2174,0.0665,-0.0041,0.1751,0.0426,-0.1282,0.1542,0.0209,-0.2217],"spray":[-0.2584,-0.1796,0.1395,0.1089,0.0923,-0.0637,-0.1247,0.212,0.0364,0.1011,-0.1295,0.1088,0.0215,-0.2951,-0.1113,-0.0128,0.0876,-0.0468,0.0495,0.0459,-0.0011,-0.0889,0.1705,0.179,0.0858,0.0406,0.0478,0.0346,-0.2158,0.3417,0.0986,-0.2041,-0.0243,0.1971,0.0828,-0.1226,-0.117,0.0856,0.2486,-0.0774,-0.1591,0.0994,0.1667,0.0681,0.1177,-0.0984,-0.1701,-0.2746],"stone":[-0.2812,0.0728,-0.041,-0.1091,0.1099,0.036,-0.0458,0.0696,0.3185,0.0439,0.0723,-0.1451,-0.1577,0.1106,-0.1662,-0.0221,0.132,0.1665,0.0484,-0.1045,-0.0442,0.1325,-0.0844,0.0949,0.0059,0.1385,0.114,-0.0569,0.184,0.0491,0.1664,-0.1072,-0.0363,0.0757,-0.0921,0.1277,-0.0036,-0.0505,-0.1998,0.1514,-0.1624,-0.0804,0.2095,-0.076,-0.2009,-0.3401,0.0392,-0.3802],"stood":[0.1684,0.0123,-0.0092,-0.173,0.2439,-0.0308,0.062,-0.0444,-0.0312,-0.0425,0.1857,-0.0808,-0.0626,-0.1091,-0.0983,0.1448,0.2163,-0.1402,-0.1268,-0.157,-0.044,-0.0221,0.0001,-0.0499,-0.2,-0.0172,0.024,0.1733,-0.0367,0.1321,-0.0439,0.0438,0.0828,0.0129,0.0368,-0.1123,0.122,-0.109,-0.0878,-0.0825,-0.1295,-0.1744,-0.2911,0.003,-0.029,-0.4649,0.1787,-0.3692],"strongly":[0.0452,0.0834,-0.0368,0.0579,0.1214,0.2332,0.142,0.0208,0.1663,-0.1722,0.0885,0.0458,-0.308,0.3095,0.0256,-0.0949,-0.0635,0.0369,0.0852,0.031,0.1277,0.0936,0.0568,0.1455,0.1097,0.0517,0.3359,-0.25,0.0197,0.0274,-0.0886,-0.0851,0.1293,-0.1026,-0.0965,-0.1419,0.1298,-0.0506,-0.1346,0.0687,0.0695,0.0395,-0.113,0.1038,0.2749,-0.0104,0.0655,-0.3884],"sun":[0.0089,0.0294,0.0385,-0.1189,0.0651,-0.0203,0.0292,0.0386,-0.0685,0.1189,-0.1768,-0.0386,0.1429,-0.1563,0.1456,-0.1154,0.2062,0.0308,0.0352,0.0152,-0.1044,-0.0823,-0.0478,0.0347,0.1629,0.1104,0.3097,-0.0356,0.1008,-0.136,0.0203,0.0198,0.0352,0.0594,0.0193,-0.0107,0.1709,0.1623,0.2336,0.2673,-0.1352,-0.0839,0.0432,0.1091,-0.3263,-0.3423,0.0777,-0.3982],"surf":[-0.1748,-0.1097,-0.1042,0.0019,-0.0524,0.0224,-0.1598,-0.0296,-0.0916,0.044,-0.2786,0.0087,0.0642,-0.0562,-0.0642,0.0194,0.0973,0.0573,-0.1255,-0.0039,0.0293,-0.0721,-0.1433,-0.2173,0.2375,0.0957,-0.0206,0.0828,0.4378,0.2163,-0.2573,-0.1463,0.0075,-0.0254,0.0014,0.0451,-0.0706,0.0287,0.1845,0.2248,-0.2323,-0.1266,0.1981,-0.0821,-0.0625,-0.1315,-0.2096,-0.204],"the":[-0.0412,-0.0291,0.018,0.1096,0.0228,0.029,0.024,-0.0534,-0.063,0.0297,0.013,0.0401,0.0586,0.0282,0.0789,-0.0037,0.074,-0.0302,-0.0563,0.0296,-0.044,-0.0036,0.1024,-0.0749,-0.0216,0.0484,0.0272,-0.0155,0.169,-0.0305,0.042,0.0107,0.1214,-0.0788,0.1743,-0.165,0.0826,-0.0838,0.1231,0.1125,-0.1313,-0.3916,-0.2162,-0.1238,-0.3801,-0.4277,-0.0363,-0.4669],"tide":[0.0238,0.0066,0.063,-0.0868,0.1097,0.0383,-0.119,-0.0344,-0.1779,-0.1492,-0.2108,0.156,0.0129,-0.0758,0.1197,-0.0396,0.0902,0.0896,-0.1927,0.1186,0.094,0.0985,-0.0317,0.1817,-0.1104,0.014,0.1612,-0.0623,0.1524,-0.0645,-0.2145,-0.0624,-0.0377,-0.0456,-0.094,0.0168,0.0137,0.0233,0.3354,0.1891,-0.0315,-0.2713,0.0128,0.124,-0.1187,-0.3159,-0.0926,-0.4481],"to":[0.0141,-0.0359,0.0222,-0.0146,0.0687,-0.0195,0.0092,-0.0553,0.0076,0.0031,-0.0477,-0.0354,0.0029,0.0381,-0.0893,0.07,0.1294,-0.0456,0.0107,0.0151,-0.0235,0.1276,0.0913,-0.0019,0.0286,0.0024,-0.0263,0.2055,-0.2302,0.094,-0.1481,0.0884,-0.0397,-0.2618,0.2352,-0.2358,-0.0414,0.2508,-0.1937,0.174,-0.0018,-0.1351,-0.0791,0.2711,-0.0021,0.0969,0.4457,-0.4153],"up":[-0.0173,-0.051,-0.0861,-0.1893,0.0275,0.005,0.0782,-0.0102,0.0599,-0.08,-0.052,-0.0551,-0.0578,0.0408,-0.0604,0.1541,0.1629,-0.1986,-0.0516,-0.1266,0.0946,0.1867,0.1293,-0.1452,-0.0494,-0.2223,-0.142,0.1175,-0.1313,0.1059,0.0394,0.1412,0.1279,-0.1964,0.1529,-0.0854,0.0255,0.1603,-0.1292,0.0728,-0.1014,-0.1843,0.0942,0.021,0.009,-0.4423,0.2984,-0.3528],"visible":[-0.0428,-0.0921,-0.0019,-0.0748,-0.0968,0.033,0.0238,0.0155,-0.0276,0.0099,-0.0404,0.1869,-0.1122,0.0265,0.1011,-0.3042,0.0622,0.0227,0.0189,0.078,0.117,-0.0754,0.2041,-0.0096,-0.0295,-0.1373,0.104,-0.1752,0.0903,0.0167,-0.1503,-0.4508,0.1055,0.1553,0.2378,-0.0845,0.0396,-0.0275,0.0923,0.0279,-0.2619,0.1671,-0.1663,0.2044,-0.1222,-0.007,-0.1063,-0.3862],"waist":[0.0708,0.0322,0.1742,0.1171,-0.0887,0.0687,-0.022,-0.147,-0.2029,0.0044,-0.0771,0.2248,-0.0328,-0.0696,0.1448,0.0112,0.1172,-0.0201,0.0083,-0.2004,0.0086,-0.0772,0.3253,0.0123,-0.118,-0.0278,0.0382,0.177,-0.1249,0.0286,0.1318,-0.0776,0.0821,0.2462,0.038,0.1026,-0.1579,0.2457,0.0208,-0.027,-0.1611,0.1064,-0.1146,0.0546,0.3167,-0.2907,-0.1528,-0.3311],"water":[-0.1014,0.1558,0.3591,-0.2499,0.0324,-0.0774,-0.0914,0.0885,0.1401,0.0602,-0.1044,-0.1835,0.0376,0.004,0.125,0.0665,-0.07,-0.0698,0.0151,-0.0286,-0.0547,0.1424,-0.1248,-0.1882,0.2214,-0.0894,0.0958,-0.0762,0.014,-0.0559,0.0419,0.0951,-0.0396,-0.0415,0.1083,0.2142,-0.0051,0.0336,0.028,0.2211,-0.0835,-0.0988,0.2272,0.1341,-0.196,-0.3471,0.1338,-0.3398],"wave":[-0.014,-0.0552,0.2462,0.0315,-0.1707,0.0999,-0.0515,0.0976,-0.1605,-0.0223,0.0525,-0.0063,-0.0152,0.0354,0.1214,0.0755,-0.0421,0.2456,0.1135,0.0602,-0.0593,0.0839,-0.0525,0.1316,0.0709,0.0258,0.0329,-0.1237,0.0041,0.1727,-0.0194,-0.0012,-0.2494,0.0563,0.0688,0.2608,0.27,0.0772,0.1118,0.0579,-0.1118,0.2617,-0.0109,0.2502,-0.1062,-0.2667,-0.2416,-0.3925],"waves":[0.0322,-0.0312,0.0314,-0.3185,-0.1272,-0.0104,-0.2136,0.0445,-0.1592,-0.0702,-0.16,0.1454,0.0098,-0.0578,0.184,-0.0554,0.1487,0.0969,-0.2162,-0.0116,-0.0785,-0.0167,-0.1417,0.0042,-0.0369,0.1263,0.0855,-0.1332,0.159,-0.0168,-0.0511,-0.1287,-0.1067,0.0356,-0.02,0.06,0.1343,0.0356,0.2801,0.1629,0.2588,-0.0909,0.1078,0.2391,-0.192,-0.2898,-0.0153,-0.3409],"wheeling":[0.0191,-0.1532,0.1315,-0.0034,0.0577,-0.1484,-0.0213,0.0235,0.1135,0.0492,-0.0928,-0.0137,-0.1504,0.0476,0.2174,-0.121,0.0542,0.1391,-0.0945,-0.0669,-0.0103,0.1513,-0.1373,-0.0205,0.0434,0.0049,0.1896,0.0946,0.1282,-0.0897,0.1828,0.1882,-0.1605,0.18,0.0639,0.2454,0.1103,0.0393,-0.0771,0.0174,0.0756,-0.4187,-0.1856,-0.0339,-0.1661,-0.2951,-0.2298,-0.2776],"white":[-0.0517,-0.0468,-0.0855,-0.0289,0.115,0.0633,0.0534,0.0968,0.1096,0.195,0.0303,-0.0138,0.0708,-0.1667,-0.0229,-0.1618,0.2182,-0.146,0.1151,-0.0685,-0.1682,-0.1729,-0.0924,0.0934,0.1187,-0.0207,0.0857,0.2131,-0.1772,0.0593,0.0131,-0.04,0.1831,-0.0448,-0.0655,0.1405,0.023,0.1728,0.1287,-0.1606,0.0124,0.2432,0.2885,0.1024,-0.1668,-0.4558,0.0866,-0.2284],"wholly":[-0.0367,-0.0648,-0.1117,0.1111,-0.0181,0.27,-0.1502,-0.3621,0.1136,-0.0467,0.1894,0.0577,0.1443,-0.0985,0.017,-0.1431,0.1596,0.1429,-0.0456,0.1222,0.0772,-0.1161,0.0421,-0.0897,0.2478,-0.0936,0.1369,-0.1404,0.0497,-0.1099,0.0091,-0.0897,-0.1183,-0.2812,-0.0473,0.0352,0.1513,0.1749,0.0818,0.0866,-0.0937,0.0397,-0.1203,0.3424,0.056,0.0792,0.0305,-0.3115]};
+</script>
+<script>
+/* theme */
+const themeBtn = document.getElementById('theme');
+const setDark = on => {
+  document.documentElement.classList.toggle('dark', on);
+  localStorage.setItem('bh.dark', on ? '1' : '0');
+};
+const saved = localStorage.getItem('bh.dark');
+const q = new URLSearchParams(location.search);
+if (!q.has('light') && (saved === '1' || (saved === null && matchMedia('(prefers-color-scheme: dark)').matches)
+    || q.has('dark'))) setDark(true);
+themeBtn.onclick = () => setDark(!document.documentElement.classList.contains('dark'));
 
-							<section>
-								<header>
-									<h3>Form</h3>
-								</header>
-								<div class="content">
-									<form method="post" action="#">
-										<div class="fields">
-											<div class="field half">
-												<label for="demo-name">Name</label>
-												<input type="text" name="demo-name" id="demo-name" value="" placeholder="Jane Doe" />
-											</div>
-											<div class="field half">
-												<label for="demo-email">Email</label>
-												<input type="email" name="demo-email" id="demo-email" value="" placeholder="jane@untitled.tld" />
-											</div>
-											<div class="field">
-												<label for="demo-category">Category</label>
-												<select name="demo-category" id="demo-category">
-													<option value="">-</option>
-													<option value="1">Manufacturing</option>
-													<option value="1">Shipping</option>
-													<option value="1">Administration</option>
-													<option value="1">Human Resources</option>
-												</select>
-											</div>
-											<div class="field half">
-												<input type="radio" id="demo-priority-low" name="demo-priority" checked>
-												<label for="demo-priority-low">Low</label>
-											</div>
-											<div class="field half">
-												<input type="radio" id="demo-priority-high" name="demo-priority">
-												<label for="demo-priority-high">High</label>
-											</div>
-											<div class="field half">
-												<input type="checkbox" id="demo-copy" name="demo-copy">
-												<label for="demo-copy">Email me a copy</label>
-											</div>
-											<div class="field half">
-												<input type="checkbox" id="demo-human" name="demo-human" checked>
-												<label for="demo-human">Not a robot</label>
-											</div>
-											<div class="field">
-												<label for="demo-message">Message</label>
-												<textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
-											</div>
-										</div>
-										<ul class="actions">
-											<li><input type="submit" value="Send Message" class="primary" /></li>
-											<li><input type="reset" value="Reset" /></li>
-										</ul>
-									</form>
-								</div>
-							</section>
+/* whispers */
+const rr = document.getElementById('rr');
+const rr2 = rr.cloneNode(true);
+rr2.id = 'rr2';
+rr.after(rr2);
+addEventListener('mousemove', e => {
+  rr2.style.setProperty('--mx', e.pageX + 'px');
+  rr2.style.setProperty('--my', e.pageY + 'px');
+}, { passive: true });
 
-						</div>
-					</section>
- -->
+/* ——— the attention playground: one mechanism, two panes ———
+   Image pane: the photo is cut into patches; a patch's feature is its
+   pixels downsampled to 3x3 RGB. Text pane: each word's feature is a
+   48-dim vector learned from Joyce's prose. Hover either side and it
+   queries both: cosine similarity, normalized over the field (softmax's
+   job), light for what answers. Five anchors bridge the spaces: a word
+   reaches the image through its similarity to the anchors' names; a patch
+   reaches the words through its similarity to the anchors' patches. */
+(() => {
+  const img = document.getElementById('cliffimg');
+  const cv = document.getElementById('lens');
+  const ctx = cv.getContext('2d');
+  const P = 26;
+  let cols = 0, rows = 0, feats = null, norms = null;
 
-				
+  const ANCHORS = [
+    { name: 'sea',   px: .80, py: .70 },
+    { name: 'sky',   px: .55, py: .10 },
+    { name: 'stone', px: .09, py: .62 },
+    { name: 'grass', px: .16, py: .28 },
+    { name: 'foam',  px: .43, py: .90 },
+  ];
 
-				<!-- Section -->
-					<section id="last">
-						<header>
-							<h2>Get in touch</h2>
-						</header>
-						<div class="content">
-							<p><strong>Don't hesitate to</strong> reach out if you have any questions or would like to chat.</p>
-							<form action="mailto:braytonhall@gmail.com" method="post" enctype="multipart/form-data">
-								<!-- <div class="fields">
-									<div class="field half">
-										<input type="text" name="name" id="name" placeholder="Name" />
-									</div>
-									<div class="field half">
-										<input type="email" name="email" id="email" placeholder="Email" />
-									</div>
-									<div class="field">
-										<textarea name="message" id="message" placeholder="Message" rows="7"></textarea>
-									</div>
-								</div> -->
-								<ul class="actions">
-									<li>
-										<input type="submit" value="Send Message" class="button primary large" />
-									</li>
-								</ul>
-							</form>
-						</div>
-						<footer>
-							<ul class="items">
-								<li>
-									<h3>Email</h3>
-									<p>braytonhall@gmail.com</p>
-								</li>
-								<!-- <li>
-									<h3>Phone</h3>
-									<a href="#">(000) 000-0000</a>
-								</li> -->
-								<li>
-									<h3>Address</h3>
-									<span>Charlotte, NC</span>
-								</li>
-								<!-- <li>
-									<h3>Elsewhere</h3>
-									
-								</li> -->
-							</ul>
-							<ul class="icons" id="icon_colors">
-								<!-- <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li> -->
-								<!-- <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li> -->
-								<!-- <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li> -->
-								<li><a href="https://www.linkedin.com/in/braytonhall/" id="linkedin" target="_blank" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-								<li><a href="https://github.com/bphall" id="github" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-								<li><a href="https://medium.com/@braytonhall" id="medium" target="_blank" class="icon brands fa-medium"><span class="label">Medium</span></a></li>
-							</ul>
-						</footer>
-					</section>
+  function build() {
+    const w = img.clientWidth, h = img.clientHeight;
+    if (!w || !h) return;
+    cv.width = w; cv.height = h;
+    cols = Math.ceil(w / P); rows = Math.ceil(h / P);
+    const off = document.createElement('canvas');
+    off.width = w; off.height = h;
+    const octx = off.getContext('2d', { willReadFrequently: true });
+    octx.drawImage(img, 0, 0, w, h);
+    feats = new Float32Array(cols * rows * 27);
+    norms = new Float32Array(cols * rows);
+    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+      const x = c * P, y = r * P;
+      const pw = Math.min(P, w - x), ph = Math.min(P, h - y);
+      const d = octx.getImageData(x, y, pw, ph).data;
+      const f = feats.subarray((r * cols + c) * 27, (r * cols + c) * 27 + 27);
+      const counts = new Float32Array(9);
+      for (let i = 0; i < d.length; i += 4) {
+        const px = (i / 4) % pw, py = Math.floor(i / 4 / pw);
+        const cell = Math.min(2, Math.floor(px * 3 / pw)) + 3 * Math.min(2, Math.floor(py * 3 / ph));
+        f[cell * 3] += d[i]; f[cell * 3 + 1] += d[i + 1]; f[cell * 3 + 2] += d[i + 2];
+        counts[cell]++;
+      }
+      let s = 0;
+      for (let k = 0; k < 9; k++) {
+        f[k * 3] /= counts[k] || 1; f[k * 3 + 1] /= counts[k] || 1; f[k * 3 + 2] /= counts[k] || 1;
+      }
+      for (let k = 0; k < 27; k++) s += f[k] * f[k];
+      norms[r * cols + c] = Math.sqrt(s) || 1;
+    }
+    for (const a of ANCHORS) {
+      const c = Math.min(cols - 1, Math.floor(a.px * cols));
+      const r = Math.min(rows - 1, Math.floor(a.py * rows));
+      a.i = r * cols + c;
+    }
+    if (q.has('lens')) attendPatch(cv.width * .62, cv.height * .78);
+    if (q.has('word')) hoverWord(q.get('word'));
+  }
 
+  function patchSims(qf, qn) {
+    const n = cols * rows;
+    const sims = new Float32Array(n);
+    for (let i = 0; i < n; i++) {
+      const f = feats.subarray(i * 27, i * 27 + 27);
+      let dot = 0;
+      for (let k = 0; k < 27; k++) dot += qf[k] * f[k];
+      sims[i] = dot / (qn * norms[i]);
+    }
+    return sims;
+  }
 
-			</div>
+  function paintPatches(sims, queryIndex) {
+    const n = cols * rows;
+    const sm = new Float32Array(n);
+    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+      let s = 0, k = 0;
+      for (let dr = -1; dr <= 1; dr++) for (let dc = -1; dc <= 1; dc++) {
+        const rr_ = r + dr, cc = c + dc;
+        if (rr_ >= 0 && rr_ < rows && cc >= 0 && cc < cols) { s += sims[rr_ * cols + cc]; k++; }
+      }
+      sm[r * cols + c] = s / k;
+    }
+    const sorted = Float32Array.from(sm).sort();
+    const lo = sorted[Math.floor(n * .5)], hi = sorted[Math.floor(n * .8)];
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+      const a = Math.max(0, Math.min(1, (sm[r * cols + c] - lo) / ((hi - lo) || 1e-6)));
+      if (a < 1) {
+        ctx.fillStyle = 'rgba(12, 20, 28, ' + (.55 * (1 - a)).toFixed(3) + ')';
+        ctx.fillRect(c * P, r * P, P, P);
+      }
+    }
+    if (queryIndex != null) {
+      const qc = queryIndex % cols, qr = Math.floor(queryIndex / cols);
+      ctx.strokeStyle = 'rgba(255, 255, 255, .8)';
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(qc * P + 1, qr * P + 1, P - 2, P - 2);
+    }
+  }
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+  /* ——— text pane ——— */
+  const PARA = "Ineluctable modality of the visible. The snotgreen sea, the " +
+    "scrotumtightening sea; seaspawn and seawrack, the whitemaned seahorses " +
+    "champing, brightwindbridled. Looking down he saw gulls flapping " +
+    "strongly, wheeling between the gaunt quaywalls. A porterbottle stood " +
+    "up, stogged to its waist, in the cakey sand dough. The isle of saints: " +
+    "a cloud began to cover the sun slowly, wholly, shadowing the bay in " +
+    "deeper green.";
+  const para = document.getElementById('para');
+  const spans = [];
+  const STOP = new Set(['the', 'of', 'a', 'and', 'in', 'to', 'its', 'he', 'up',
+    'down', 'between', 'began', 'saw', 'stood', 'looking']);
+  for (const piece of PARA.split(/(\s+)/)) {
+    if (/^\s+$/.test(piece)) { para.appendChild(document.createTextNode(' ')); continue; }
+    const word = piece.replace(/^[^a-zA-Zà-ÿ’']+|[^a-zA-Zà-ÿ’']+$/g, '').toLowerCase();
+    const sp = document.createElement('span');
+    sp.textContent = piece;
+    sp.className = 'w';
+    const v = STOP.has(word) ? null : (JV[word] || JV[word.replace(/s$/, '')]);
+    if (v) { sp.dataset.w = word; spans.push(sp); }
+    else if (word.length > 3 && !STOP.has(word)) sp.classList.add('coin');
+    para.appendChild(sp);
+  }
+  const srcNote = document.createElement('span');
+  srcNote.className = 'src';
+  srcNote.textContent = 'assembled from Ulysses (1922)';
+  para.appendChild(srcNote);
 
-	</body>
+  const vecOf = w => JV[w] || JV[w.replace(/s$/, '')];
+  const cos = (a, b) => {
+    let d = 0, na = 0, nb = 0;
+    for (let k = 0; k < a.length; k++) { d += a[k] * b[k]; na += a[k] * a[k]; nb += b[k] * b[k]; }
+    return d / (Math.sqrt(na * nb) || 1e-9);
+  };
+
+  function paintWords(qv, queryEl) {
+    const sims = spans.map(sp => cos(qv, vecOf(sp.dataset.w)));
+    const sorted = [...sims].sort((a, b) => a - b);
+    const lo = sorted[Math.floor(sims.length * .35)], hi = sorted[Math.floor(sims.length * .85)];
+    spans.forEach((sp, i) => {
+      const a = Math.max(0, Math.min(1, (sims[i] - lo) / ((hi - lo) || 1e-6)));
+      sp.style.opacity = (0.35 + 0.65 * a).toFixed(2);
+      sp.classList.toggle('hot', a > .85 && sp !== queryEl);
+      sp.classList.toggle('q', sp === queryEl);
+    });
+    para.querySelectorAll('.w:not([data-w])').forEach(sp => sp.style.opacity = .35);
+  }
+  function clearWords() {
+    para.querySelectorAll('.w').forEach(sp => {
+      sp.style.opacity = ''; sp.classList.remove('hot', 'q');
+    });
+  }
+
+  /* ——— the bridge ——— */
+  function softmax(xs, tau) {
+    const m = Math.max(...xs);
+    const es = xs.map(x => Math.exp((x - m) / tau));
+    const z = es.reduce((a, b) => a + b, 0);
+    return es.map(e => e / z);
+  }
+  function wordToPatchQuery(qv) {
+    const w = softmax(ANCHORS.map(a => cos(qv, vecOf(a.name))), .12);
+    const qf = new Float32Array(27);
+    let qn = 0;
+    ANCHORS.forEach((a, i) => {
+      const f = feats.subarray(a.i * 27, a.i * 27 + 27);
+      for (let k = 0; k < 27; k++) qf[k] += w[i] * f[k];
+    });
+    for (let k = 0; k < 27; k++) qn += qf[k] * qf[k];
+    return [qf, Math.sqrt(qn) || 1];
+  }
+  function patchToWordQuery(pi) {
+    const pf = feats.subarray(pi * 27, pi * 27 + 27);
+    const sims = ANCHORS.map(a => {
+      const f = feats.subarray(a.i * 27, a.i * 27 + 27);
+      let d = 0, nb = 0;
+      for (let k = 0; k < 27; k++) { d += pf[k] * f[k]; nb += f[k] * f[k]; }
+      return d / ((norms[pi] * Math.sqrt(nb)) || 1e-9);
+    });
+    const w = softmax(sims, .06);
+    const qv = new Float32Array(48);
+    ANCHORS.forEach((a, i) => {
+      const v = vecOf(a.name);
+      for (let k = 0; k < 48; k++) qv[k] += w[i] * v[k];
+    });
+    return qv;
+  }
+
+  function attendPatch(mx, my) {
+    if (!feats) return;
+    const qc = Math.min(cols - 1, Math.floor(mx / P)), qr = Math.min(rows - 1, Math.floor(my / P));
+    const qi = qr * cols + qc;
+    const qf = feats.subarray(qi * 27, qi * 27 + 27);
+    paintPatches(patchSims(qf, norms[qi]), qi);
+    paintWords(patchToWordQuery(qi), null);
+  }
+  function hoverWord(w) {
+    const qv = vecOf(w);
+    if (!qv || !feats) return;
+    const el = spans.find(sp => sp.dataset.w === w) || null;
+    paintWords(qv, el);
+    const [qf, qn] = wordToPatchQuery(qv);
+    paintPatches(patchSims(qf, qn), null);
+  }
+  function clearAll() {
+    if (feats) ctx.clearRect(0, 0, cv.width, cv.height);
+    clearWords();
+  }
+
+  const wrap = cv.parentElement;
+  wrap.addEventListener('pointermove', e => {
+    if (e.pointerType && e.pointerType !== 'mouse') return;
+    const b = cv.getBoundingClientRect();
+    attendPatch(e.clientX - b.left, e.clientY - b.top);
+  });
+  wrap.addEventListener('pointerleave', clearAll);
+  para.addEventListener('pointerover', e => {
+    const w = e.target.dataset && e.target.dataset.w;
+    if (w) hoverWord(w);
+  });
+  para.addEventListener('pointerleave', clearAll);
+  if (img.complete) build(); else img.onload = build;
+  addEventListener('resize', () => { build(); });
+})();
+</script>
+</body>
 </html>
