@@ -92,7 +92,6 @@
   .cliffs { margin: 2.6rem 0 1.4rem; }
   .cliffwrap { position: relative; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); }
   .cliffwrap img { width: 100%; display: block; }
-  #lens { position: absolute; inset: 0; width: 100%; height: 100%; }
   figcaption, .demo-note { font-size: .78rem; color: var(--dim); margin-top: .55rem; text-align: center; }
 
   .intro { overflow: hidden; margin: 3.4rem 0 3.2rem; }
@@ -169,24 +168,24 @@
 
   <figure class="cliffs wide">
     <div class="cliffwrap">
-      <img id="cliffimg" src="images/cliffs.jpeg" alt="The Cliffs of Moher, County Clare, Ireland">
-      <canvas id="lens"></canvas>
+      <img src="images/cliffs.jpeg" alt="The Cliffs of Moher, County Clare, Ireland">
     </div>
-    <figcaption>Cliffs of Moher, County Clare. Move your cursor over the
-      photo: each patch you touch queries the rest, and what answers is
-      similarity. That mechanism, scaled up, is attention.</figcaption>
+    <figcaption>Cliffs of Moher, County Clare.</figcaption>
   </figure>
 
   <div class="intro">
     <img src="images/me_2026.jpg" alt="Brayton Hall">
-    <p>I build with large language models: summarization, classification,
-      and extraction over huge volumes of sensitive text, and the harnesses
-      that turn a raw model into a system you can trust. Lately that means
-      agents, evals, and workflows. I follow the research closely, from
-      post-training to interpretability, and the question I care about most
-      is what comes next.</p>
-    <p>The through line, from a philosophy department to production: what it
-      takes for symbols to mean something.</p>
+    <p>I make language models do real work: reading the million documents
+      nobody has time for, watching every card at a bank for fraud, writing
+      the summaries executives actually read. The model was never the hard
+      part. The job is everything around it: evals that catch a model lying,
+      agents that stay on task, the unglamorous plumbing between a clever
+      demo and a system that answers for real money.</p>
+    <p>I got here through a philosophy department: metalogic, number theory,
+      and the question of how a pile of symbols ever manages to mean
+      anything. For years that was an unemployable obsession. Then the
+      obsession learned to predict the next token, and the old questions
+      grew loss curves.</p>
     <p>Off the clock: long runs (the occasional marathon), New York by
       ferry, movies at the Metrograph, the piano, writing, and slow, happy
       progress through Joyce and Proust.</p>
@@ -310,111 +309,6 @@ addEventListener('mousemove', e => {
   rr2.style.setProperty('--my', e.pageY + 'px');
 }, { passive: true });
 
-/* ——— the attention lens ———
-   The photo is cut into patches; a patch's feature is its own pixels
-   downsampled to 3x3 RGB. Hover a patch and it queries every other patch
-   by cosine similarity; scores are normalized over the image (softmax's
-   job) and smoothed, and what answers stays lit. All in-page, computed
-   on the pixels in front of you. */
-(() => {
-  const img = document.getElementById('cliffimg');
-  const cv = document.getElementById('lens');
-  const ctx = cv.getContext('2d');
-  const P = 26;
-  let cols = 0, rows = 0, feats = null, norms = null;
-
-  function build() {
-    const w = img.clientWidth, h = img.clientHeight;
-    if (!w || !h) return;
-    cv.width = w; cv.height = h;
-    cols = Math.ceil(w / P); rows = Math.ceil(h / P);
-    const off = document.createElement('canvas');
-    off.width = w; off.height = h;
-    const octx = off.getContext('2d', { willReadFrequently: true });
-    octx.drawImage(img, 0, 0, w, h);
-    feats = new Float32Array(cols * rows * 27);
-    norms = new Float32Array(cols * rows);
-    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
-      const x = c * P, y = r * P;
-      const pw = Math.min(P, w - x), ph = Math.min(P, h - y);
-      const d = octx.getImageData(x, y, pw, ph).data;
-      const f = feats.subarray((r * cols + c) * 27, (r * cols + c) * 27 + 27);
-      const counts = new Float32Array(9);
-      for (let i = 0; i < d.length; i += 4) {
-        const px = (i / 4) % pw, py = Math.floor(i / 4 / pw);
-        const cell = Math.min(2, Math.floor(px * 3 / pw)) + 3 * Math.min(2, Math.floor(py * 3 / ph));
-        f[cell * 3] += d[i]; f[cell * 3 + 1] += d[i + 1]; f[cell * 3 + 2] += d[i + 2];
-        counts[cell]++;
-      }
-      let s = 0;
-      for (let k = 0; k < 9; k++) {
-        f[k * 3] /= counts[k] || 1; f[k * 3 + 1] /= counts[k] || 1; f[k * 3 + 2] /= counts[k] || 1;
-      }
-      for (let k = 0; k < 27; k++) s += f[k] * f[k];
-      norms[r * cols + c] = Math.sqrt(s) || 1;
-    }
-    if (q.has('lens')) attendPatch(cv.width * .62, cv.height * .78);
-  }
-
-  function patchSims(qf, qn) {
-    const n = cols * rows;
-    const sims = new Float32Array(n);
-    for (let i = 0; i < n; i++) {
-      const f = feats.subarray(i * 27, i * 27 + 27);
-      let dot = 0;
-      for (let k = 0; k < 27; k++) dot += qf[k] * f[k];
-      sims[i] = dot / (qn * norms[i]);
-    }
-    return sims;
-  }
-
-  function paintPatches(sims, queryIndex) {
-    const n = cols * rows;
-    const sm = new Float32Array(n);
-    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
-      let s = 0, k = 0;
-      for (let dr = -1; dr <= 1; dr++) for (let dc = -1; dc <= 1; dc++) {
-        const rr_ = r + dr, cc = c + dc;
-        if (rr_ >= 0 && rr_ < rows && cc >= 0 && cc < cols) { s += sims[rr_ * cols + cc]; k++; }
-      }
-      sm[r * cols + c] = s / k;
-    }
-    const sorted = Float32Array.from(sm).sort();
-    const lo = sorted[Math.floor(n * .5)], hi = sorted[Math.floor(n * .8)];
-    ctx.clearRect(0, 0, cv.width, cv.height);
-    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
-      const a = Math.max(0, Math.min(1, (sm[r * cols + c] - lo) / ((hi - lo) || 1e-6)));
-      if (a < 1) {
-        ctx.fillStyle = 'rgba(12, 20, 28, ' + (.55 * (1 - a)).toFixed(3) + ')';
-        ctx.fillRect(c * P, r * P, P, P);
-      }
-    }
-    if (queryIndex != null) {
-      const qc = queryIndex % cols, qr = Math.floor(queryIndex / cols);
-      ctx.strokeStyle = 'rgba(255, 255, 255, .8)';
-      ctx.lineWidth = 1.5;
-      ctx.strokeRect(qc * P + 1, qr * P + 1, P - 2, P - 2);
-    }
-  }
-
-  function attendPatch(mx, my) {
-    if (!feats) return;
-    const qc = Math.min(cols - 1, Math.floor(mx / P)), qr = Math.min(rows - 1, Math.floor(my / P));
-    const qi = qr * cols + qc;
-    const qf = feats.subarray(qi * 27, qi * 27 + 27);
-    paintPatches(patchSims(qf, norms[qi]), qi);
-  }
-
-  const wrap = cv.parentElement;
-  wrap.addEventListener('pointermove', e => {
-    if (e.pointerType && e.pointerType !== 'mouse') return;
-    const b = cv.getBoundingClientRect();
-    attendPatch(e.clientX - b.left, e.clientY - b.top);
-  });
-  wrap.addEventListener('pointerleave', () => { if (feats) ctx.clearRect(0, 0, cv.width, cv.height); });
-  if (img.complete) build(); else img.onload = build;
-  addEventListener('resize', () => { build(); });
-})();
 </script>
 </body>
 </html>
