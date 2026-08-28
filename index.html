@@ -35,7 +35,7 @@
   }
   * { box-sizing: border-box; }
   body {
-    margin: 0; position: relative; overflow-x: hidden;
+    margin: 0;
     background: var(--bg);
     color: var(--ink);
     font: 16.5px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -45,28 +45,6 @@
   main { max-width: 46rem; margin: 0 auto; padding: 0 1.25rem 5rem; position: relative; z-index: 1; }
   a { color: var(--accent); text-decoration: none; }
   a:hover { text-decoration: underline; }
-
-  /* ——— the whispers: passages hidden down the whole page ——— */
-  #rr, #rr2 {
-    position: absolute; inset: 0; overflow: hidden;
-    font-family: "Snell Roundhand", "Apple Chancery", "Segoe Script", cursive;
-    font-size: 2rem; line-height: 2.2;
-    color: var(--ink); pointer-events: none; user-select: none;
-    z-index: 0;
-  }
-  #rr  { opacity: .03; filter: blur(2.5px); }
-  #rr2 {
-    opacity: .14;
-    -webkit-mask-image: radial-gradient(circle 11rem at var(--mx, -200px) var(--my, -200px), black 0%, transparent 72%);
-            mask-image: radial-gradient(circle 11rem at var(--mx, -200px) var(--my, -200px), black 0%, transparent 72%);
-  }
-  html.dark #rr { opacity: .035; }
-  html.dark #rr2 { opacity: .18; }
-  .whisper { position: absolute; left: 0; right: 0; padding: 0 7vw; }
-  .w1 { top: 6.5rem; }
-  .w2 { top: 34%; padding-left: 14vw; }
-  .w3 { top: 60%; padding-right: 12vw; }
-  .w4 { top: 88%; text-align: right; }
 
   header {
     display: flex; flex-wrap: wrap; gap: .4rem 1rem;
@@ -167,12 +145,6 @@
 </style>
 </head>
 <body>
-<div id="rr" aria-hidden="true">
-  <div class="whisper w1">…riverrun, past Eve and Adam’s, from swerve of shore to bend of bay, brings us by a commodius vicus of recirculation back to Howth Castle and Environs…</div>
-  <div class="whisper w2">Stately, plump Buck Mulligan came from the stairhead, bearing a bowl of lather on which a mirror and a razor lay crossed…</div>
-  <div class="whisper w3">Longtemps, je me suis couché de bonne heure. Parfois, à peine ma bougie éteinte, mes yeux se fermaient si vite que je n’avais pas le temps de me dire: «Je m’endors.»</div>
-  <div class="whisper w4">End here. Us then. Finn, again! Take. Bussoftlhee, mememormee! Till thousendsthee. Lps. The keys to. Given! A way a lone a last a loved a long the</div>
-</div>
 <main>
   <header>
     <nav>
@@ -338,16 +310,6 @@ const q = new URLSearchParams(location.search);
 if (!q.has('light') && (saved === '1' || (saved === null && matchMedia('(prefers-color-scheme: dark)').matches)
     || q.has('dark'))) setDark(true);
 themeBtn.onclick = () => setDark(!document.documentElement.classList.contains('dark'));
-
-/* whispers */
-const rr = document.getElementById('rr');
-const rr2 = rr.cloneNode(true);
-rr2.id = 'rr2';
-rr.after(rr2);
-addEventListener('mousemove', e => {
-  rr2.style.setProperty('--mx', e.pageX + 'px');
-  rr2.style.setProperty('--my', e.pageY + 'px');
-}, { passive: true });
 
 /* ——— the attention lens ———————————————————————————————————————————————
    The photograph is cut into 9px patches. A patch is described by fourteen
