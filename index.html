@@ -68,7 +68,17 @@
     transform: translateX(-50%); width: min(94vw, 66rem);
   }
   .cliffs { margin: 2.6rem 0 1.4rem; }
-  .cliffwrap { position: relative; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); cursor: crosshair; }
+  .cliffwrap {
+    position: relative; border-radius: 12px; overflow: hidden;
+    box-shadow: var(--shadow); cursor: crosshair;
+    /* A drag that starts on the photograph explores it instead of scrolling
+       the page. The browser decides this at the moment the gesture begins, so
+       it has to be declared here; calling preventDefault later is too late and
+       would cost a passive listener. pinch-zoom is kept so the picture can
+       still be zoomed, which matters for anyone who needs to. */
+    touch-action: none;
+    touch-action: pinch-zoom;
+  }
   .cliffwrap img { width: 100%; display: block; }
   #lens { position: absolute; inset: 0; width: 100%; height: 100%; }
   figcaption, .demo-note { font-size: .78rem; color: var(--dim); margin-top: .55rem; text-align: center; }
@@ -519,6 +529,8 @@ themeBtn.onclick = () => setDark(!document.documentElement.classList.contains('d
 
   wrap.addEventListener('pointerdown', e => {
     down = true; idle = false; clearTimeout(resume); at(e);
+    /* keep receiving the finger even if it wanders off the picture */
+    try { wrap.setPointerCapture(e.pointerId); } catch (err) {}
   }, { passive: true });
 
   wrap.addEventListener('pointermove', e => {
@@ -528,6 +540,7 @@ themeBtn.onclick = () => setDark(!document.documentElement.classList.contains('d
 
   const release = e => {
     down = false;
+    try { wrap.releasePointerCapture(e.pointerId); } catch (err) {}
     if (isMouse(e)) return;
     clearTimeout(resume);
     resume = setTimeout(() => { idle = true; hover = null; }, 4000);
