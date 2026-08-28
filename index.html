@@ -35,7 +35,7 @@
   }
   * { box-sizing: border-box; }
   body {
-    margin: 0;
+    margin: 0; overflow-x: hidden;
     background: var(--bg);
     color: var(--ink);
     font: 16.5px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -73,6 +73,12 @@
   #lens { position: absolute; inset: 0; width: 100%; height: 100%; }
   figcaption, .demo-note { font-size: .78rem; color: var(--dim); margin-top: .55rem; text-align: center; }
   figcaption { max-width: 34rem; margin-left: auto; margin-right: auto; }
+  .ontouch { display: none; }
+  @media (hover: none) {
+    .onhover { display: none; }
+    .ontouch { display: inline; }
+    .cliffwrap { cursor: default; }
+  }
 
   /* The intro is set narrower and quieter than the rest of the page on purpose:
      a column you fall into, then a hairline, then the past in a lower voice. */
@@ -167,10 +173,11 @@
       <img id="cliffimg" src="images/cliffs.jpeg" alt="The Cliffs of Moher, County Clare, Ireland">
       <canvas id="lens"></canvas>
     </div>
-    <figcaption>Cliffs of Moher, County Clare. Move your cursor over the
-      photograph: the patch you touch becomes a query, and the lines run to the
-      patches that answer it most strongly. Scaled up, and learned rather than
-      hand written, that is attention.</figcaption>
+    <figcaption>Cliffs of Moher, County Clare.
+      <span class="onhover">Move your cursor over the photograph:</span><span
+      class="ontouch">Touch the photograph:</span> the patch you touch becomes a
+      query, and the lines run to the patches that answer it most strongly.
+      Scaled up, and learned rather than hand written, that is attention.</figcaption>
   </figure>
 
   <div class="intro">
@@ -497,14 +504,40 @@ themeBtn.onclick = () => setDark(!document.documentElement.classList.contains('d
     attend(w * (.5 + .42 * Math.sin(k)), h * (.5 + .36 * Math.sin(k * 1.618 + 1)));
   }
 
+  /* A mouse hovers; a finger presses. Track a mouse whenever it is over the
+     photograph, and track a touch only while it is held down, so the page can
+     still be scrolled past the image. Nothing calls preventDefault: stealing
+     the scroll to win an ornament would be a bad trade. After a touch lifts,
+     the last answer is left on screen for a moment, then the drift resumes. */
   const wrap = cv.parentElement;
-  wrap.addEventListener('pointermove', e => {
-    if (e.pointerType && e.pointerType !== 'mouse') return;
-    idle = false;
+  let down = false, resume = 0;
+  const at = e => {
     const b = cv.getBoundingClientRect();
     schedule(e.clientX - b.left, e.clientY - b.top);
+  };
+  const isMouse = e => !e.pointerType || e.pointerType === 'mouse';
+
+  wrap.addEventListener('pointerdown', e => {
+    down = true; idle = false; clearTimeout(resume); at(e);
+  }, { passive: true });
+
+  wrap.addEventListener('pointermove', e => {
+    if (!isMouse(e) && !down) return;
+    idle = false; clearTimeout(resume); at(e);
+  }, { passive: true });
+
+  const release = e => {
+    down = false;
+    if (isMouse(e)) return;
+    clearTimeout(resume);
+    resume = setTimeout(() => { idle = true; hover = null; }, 4000);
+  };
+  wrap.addEventListener('pointerup', release, { passive: true });
+  wrap.addEventListener('pointercancel', release, { passive: true });
+  wrap.addEventListener('pointerleave', e => {
+    down = false;
+    if (isMouse(e)) { idle = true; hover = null; }
   });
-  wrap.addEventListener('pointerleave', () => { idle = true; hover = null; });
 
   if (img.complete) build(); else img.onload = build;
   let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(build, 150); });
