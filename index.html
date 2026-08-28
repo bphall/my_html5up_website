@@ -90,17 +90,41 @@
     transform: translateX(-50%); width: min(94vw, 66rem);
   }
   .cliffs { margin: 2.6rem 0 1.4rem; }
-  .cliffwrap { position: relative; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); }
+  .cliffwrap { position: relative; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); cursor: crosshair; }
   .cliffwrap img { width: 100%; display: block; }
+  #lens { position: absolute; inset: 0; width: 100%; height: 100%; }
   figcaption, .demo-note { font-size: .78rem; color: var(--dim); margin-top: .55rem; text-align: center; }
+  figcaption { max-width: 34rem; margin-left: auto; margin-right: auto; }
 
-  .intro { overflow: hidden; margin: 3.4rem 0 3.2rem; }
+  /* The intro is set narrower and quieter than the rest of the page on purpose:
+     a column you fall into, then a hairline, then the past in a lower voice. */
+  .intro {
+    --body: 13px; --lede: 1.46; --ink-2: 35%; --pgap: 2.6rem; --pw: 12.5rem;
+    overflow: hidden; margin: 3.4rem 0 3.2rem;
+    max-width: 26rem; font-size: var(--body);
+  }
   .intro img {
-    float: right; width: 10.5rem; margin: .3rem 0 .8rem 1.4rem;
+    float: right; width: var(--pw); margin: .3rem 0 .8rem 1.4rem;
     border-radius: 10px; box-shadow: var(--shadow);
   }
-  .intro p { margin: 0 0 1rem; }
-  @media (max-width: 540px) { .intro img { width: 8rem; margin-left: 1rem; } }
+  .intro p { margin: 0 0 var(--pgap); }
+  .intro .lede {
+    font-size: calc(var(--body) * var(--lede)); line-height: 1.45;
+    font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  }
+  .intro .hair { border: 0; border-top: 1px solid var(--line); margin: 1.9rem 0 1.3rem; }
+  .intro .before {
+    color: color-mix(in srgb, var(--ink) var(--ink-2), var(--bg));
+  }
+  .intro .before p { font-size: calc(var(--body) * .955); }
+  .intro .label {
+    font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--dim); font-weight: 600; margin: 0 0 .55rem;
+  }
+  @media (max-width: 540px) {
+    .intro { --pgap: 1.5rem; --pw: 8rem; }
+    .intro img { margin-left: 1rem; }
+  }
 
   h2 { font-size: 1.5rem; font-weight: 550; margin: 0 0 1.3rem; }
   section { margin: 3.6rem 0; }
@@ -168,34 +192,45 @@
 
   <figure class="cliffs wide">
     <div class="cliffwrap">
-      <img src="images/cliffs.jpeg" alt="The Cliffs of Moher, County Clare, Ireland">
+      <img id="cliffimg" src="images/cliffs.jpeg" alt="The Cliffs of Moher, County Clare, Ireland">
+      <canvas id="lens"></canvas>
     </div>
-    <figcaption>Cliffs of Moher, County Clare.</figcaption>
+    <figcaption>Cliffs of Moher, County Clare. Move your cursor over the
+      photograph: the patch you touch becomes a query, and the lines run to the
+      patches that answer it most strongly. Scaled up, and learned rather than
+      hand written, that is attention.</figcaption>
   </figure>
 
   <div class="intro">
     <img src="images/me_2026.jpg" alt="Brayton Hall">
-    <p>For the past several years I have worked on language models at large
-      banks, mostly on the problem of usefully leveraging those models 
-      in a safe and scalable way. Models from Anthropic and OpenAI are 
-      becoming superhuman, but I still believe there's an art at play 
-      that goes beyond prompt engineering.</p>
-      <p>The deep math, the mechanisms of transformers and reinforcement 
-      learning, and the recursive loop between human behavior and AI acceleration 
-      are a critical new region of interest somwhere between math and philosophy 
-      and computer science, which is where I've lived for years. I left Capital One 
-      and moved back to NYC in August 2026: check back soon for some exciting updates...</p>
-    <p>Before any of this I studied philosophy, metalogic and number theory
-      at UNC Chapel Hill, before teaching logic and statistics at Virginia Tech. 
-      My research was on the history of mathematical logic, philosophy and the 
-      philosophy of language, particularly in the early 20th century, with a 
-      focus on the philosophy of Ludwig Wittgenstein. The subject of my thesis 
-      was on the scientific explanation of events in history, and ranged over 
-      canonical twentieth century texts including Wittgenstein's Philosophical 
-      Investigations, Thomas Kuhn's Structure of Scientific Revolutions.</p>
-    <p>Off the clock: long runs (the occasional marathon), New York by
-      ferry, movies at the Metrograph, the piano, writing, and slow, happy
-      progress through Joyce and Proust.</p>
+    <p class="lede">For the past several years I have worked on language models
+      at large banks, mostly on the problem of usefully leveraging those models
+      in a safe and scalable way. Models from Anthropic and OpenAI are becoming
+      superhuman, but I still believe there's an art at play that goes beyond
+      prompt engineering.</p>
+    <p>The deep math, the mechanisms of transformers and reinforcement learning,
+      and the recursive loop between human behavior and AI acceleration are a
+      critical new region of interest somewhere between math and philosophy and
+      computer science, which is where I've lived for years. I left Capital One
+      and moved back to NYC in August 2026: check back soon for some exciting
+      updates...</p>
+
+    <hr class="hair">
+
+    <div class="before">
+      <p class="label">Before this</p>
+      <p>I studied philosophy and psychology at UNC Chapel Hill, then philosophy
+        as a graduate student at Virginia Tech, where I also taught logic and
+        statistics. My research was on the history of mathematical logic and the
+        philosophy of language in the early twentieth century, with a focus on
+        Ludwig Wittgenstein. My thesis was on the scientific explanation of
+        events in history, and ranged over canonical twentieth century texts
+        including Wittgenstein's Philosophical Investigations and Thomas Kuhn's
+        The Structure of Scientific Revolutions.</p>
+      <p>Off the clock: long runs (the occasional marathon), New York by ferry,
+        movies at the Metrograph, the piano, writing, and slow, happy progress
+        through Joyce and Proust.</p>
+    </div>
   </div>
 
   <section id="work">
@@ -241,7 +276,7 @@
     </div>
     <div class="job">
       <div class="when">2009–13</div>
-      <div class="what"><b>UNC Chapel Hill</b> · BS in psychology</div>
+      <div class="what"><b>UNC Chapel Hill</b> · BS in philosophy and psychology</div>
     </div>
   </section>
 
@@ -313,6 +348,207 @@ addEventListener('mousemove', e => {
   rr2.style.setProperty('--mx', e.pageX + 'px');
   rr2.style.setProperty('--my', e.pageY + 'px');
 }, { passive: true });
+
+/* ——— the attention lens ———————————————————————————————————————————————
+   The photograph is cut into 9px patches. A patch is described by fourteen
+   numbers: its brightness in four quadrants, two colour opponents, its local
+   contrast, its edge strength, how that edge energy splits across four
+   orientations, and its horizontal and vertical gradient. Every dimension is
+   then standardised across the whole image, which is the step that matters:
+   cosine similarity ignores vector length, so on raw colour a pale grey sky
+   and near black wet rock score a perfect match. Standardising turns cosine
+   into correlation and gives brightness and texture their say back.
+
+   Hover a patch and it queries every other patch. Lines run to the fifty that
+   answer most strongly. Nothing is precomputed and nothing is fetched; it is
+   all arithmetic on the pixels in front of you.
+
+   Settings chosen 2026-08-28. Weights: colour 1, texture 6, edge 1.15,
+   brightness 0.85. Patch 9px, fifty lines, veil 0.72, query outline 0.8.  */
+(() => {
+  const img = document.getElementById('cliffimg');
+  const cv = document.getElementById('lens');
+  if (!img || !cv) return;
+  const ctx = cv.getContext('2d');
+
+  const P = 9, TOPK = 50, VEIL = .72, RING = .8;
+  const W_LUM = .85, W_COL = 1, W_TEX = 6, W_EDGE = 1.15;
+  const DIMS = 14;
+
+  let cols = 0, rows = 0, feat = null, norms = null, dpr = 1;
+  let hover = null, pending = 0, idle = true, t0 = 0;
+
+  function build() {
+    const w = img.clientWidth | 0, h = img.clientHeight | 0;
+    if (!w || !h) return;
+    dpr = Math.min(2, devicePixelRatio || 1);
+    cv.width = w * dpr; cv.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const off = document.createElement('canvas');
+    off.width = w; off.height = h;
+    const octx = off.getContext('2d', { willReadFrequently: true });
+    octx.drawImage(img, 0, 0, w, h);
+    let d;
+    try { d = octx.getImageData(0, 0, w, h).data; }
+    catch (e) { return; }            /* a tainted canvas just means no lens */
+
+    const n = w * h;
+    const L = new Float32Array(n), O1 = new Float32Array(n), O2 = new Float32Array(n);
+    for (let i = 0, q = 0; i < n; i++, q += 4) {
+      const r = d[q] / 255, g = d[q + 1] / 255, b = d[q + 2] / 255;
+      L[i] = .299 * r + .587 * g + .114 * b;
+      O1[i] = r - g;
+      O2[i] = .5 * (r + g) - b;
+    }
+    const GX = new Float32Array(n), GY = new Float32Array(n);
+    for (let y = 1; y < h - 1; y++) for (let x = 1; x < w - 1; x++) {
+      const i = y * w + x;
+      GX[i] = L[i + 1] - L[i - 1];
+      GY[i] = L[i + w] - L[i - w];
+    }
+
+    cols = Math.max(2, Math.floor(w / P));
+    rows = Math.max(2, Math.floor(h / P));
+    const N = cols * rows;
+    feat = new Float32Array(N * DIMS);
+
+    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+      const base = (r * cols + c) * DIMS;
+      let sL = 0, sLL = 0, so1 = 0, so2 = 0, smag = 0, sgx = 0, sgy = 0, k = 0;
+      const quad = [0, 0, 0, 0], qn = [0, 0, 0, 0], ori = [0, 0, 0, 0];
+      for (let py = 0; py < P; py++) for (let px = 0; px < P; px++) {
+        const X = c * P + px, Y = r * P + py;
+        if (X >= w || Y >= h) continue;
+        const i = Y * w + X, l = L[i];
+        sL += l; sLL += l * l; so1 += O1[i]; so2 += O2[i];
+        const gx = GX[i], gy = GY[i], mag = Math.sqrt(gx * gx + gy * gy);
+        smag += mag; sgx += Math.abs(gx); sgy += Math.abs(gy);
+        let a = Math.atan2(gy, gx); if (a < 0) a += Math.PI;
+        ori[Math.min(3, (a / (Math.PI / 4)) | 0)] += mag;
+        const qi = (px * 2 / P | 0 ? 1 : 0) + (py * 2 / P | 0 ? 2 : 0);
+        quad[qi] += l; qn[qi]++;
+        k++;
+      }
+      const inv = 1 / (k || 1), mean = sL * inv;
+      for (let j = 0; j < 4; j++) feat[base + j] = quad[j] / (qn[j] || 1);
+      feat[base + 4] = so1 * inv;
+      feat[base + 5] = so2 * inv;
+      feat[base + 6] = Math.sqrt(Math.max(0, sLL * inv - mean * mean));
+      feat[base + 7] = smag * inv;
+      for (let j = 0; j < 4; j++) feat[base + 8 + j] = ori[j] * inv;
+      feat[base + 12] = sgx * inv;
+      feat[base + 13] = sgy * inv;
+    }
+
+    /* standardise every dimension across all patches, then weight the groups */
+    const wts = [W_LUM, W_LUM, W_LUM, W_LUM, W_COL, W_COL, W_TEX, W_TEX,
+                 W_EDGE, W_EDGE, W_EDGE, W_EDGE, W_EDGE, W_EDGE];
+    for (let k = 0; k < DIMS; k++) {
+      let m = 0; for (let i = 0; i < N; i++) m += feat[i * DIMS + k];
+      m /= N;
+      let v = 0; for (let i = 0; i < N; i++) { const t = feat[i * DIMS + k] - m; v += t * t; }
+      const sd = Math.sqrt(v / N) || 1e-6;
+      for (let i = 0; i < N; i++) feat[i * DIMS + k] = (feat[i * DIMS + k] - m) / sd * wts[k];
+    }
+
+    norms = new Float32Array(N);
+    for (let i = 0; i < N; i++) {
+      let a = 0;
+      for (let k = 0; k < DIMS; k++) { const v = feat[i * DIMS + k]; a += v * v; }
+      norms[i] = Math.sqrt(a) || 1e-6;
+    }
+  }
+
+  /* the fifty best answers, without sorting six thousand patches every frame */
+  function topK(qi) {
+    const N = cols * rows, qb = qi * DIMS, qn = norms[qi];
+    const bi = new Int32Array(TOPK), bs = new Float32Array(TOPK);
+    let filled = 0, worst = -Infinity, worstAt = 0;
+    for (let i = 0; i < N; i++) {
+      if (i === qi) continue;
+      let dot = 0; const b = i * DIMS;
+      for (let k = 0; k < DIMS; k++) dot += feat[qb + k] * feat[b + k];
+      const sc = dot / (qn * norms[i]);
+      if (filled < TOPK) {
+        bi[filled] = i; bs[filled] = sc; filled++;
+        if (filled === TOPK) {
+          worst = Infinity;
+          for (let j = 0; j < TOPK; j++) if (bs[j] < worst) { worst = bs[j]; worstAt = j; }
+        }
+      } else if (sc > worst) {
+        bi[worstAt] = i; bs[worstAt] = sc;
+        worst = Infinity;
+        for (let j = 0; j < TOPK; j++) if (bs[j] < worst) { worst = bs[j]; worstAt = j; }
+      }
+    }
+    const order = Array.from({ length: filled }, (_, j) => j).sort((a, b) => bs[b] - bs[a]);
+    return order.map(j => bi[j]);
+  }
+
+  function attend(mx, my) {
+    if (!feat) return;
+    const qc = Math.max(0, Math.min(cols - 1, (mx / P) | 0));
+    const qr = Math.max(0, Math.min(rows - 1, (my / P) | 0));
+    const qi = qr * cols + qc;
+    const best = topK(qi);
+    const w = cv.width / dpr, h = cv.height / dpr;
+
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = 'rgba(10,17,24,' + (VEIL * .42).toFixed(3) + ')';
+    ctx.fillRect(0, 0, w, h);
+
+    const qx = (qc + .5) * P, qy = (qr + .5) * P;
+    best.forEach((i, rank) => {
+      const x = (i % cols + .5) * P, y = ((i / cols | 0) + .5) * P;
+      const t = 1 - rank / TOPK;
+      ctx.strokeStyle = 'rgba(160,206,236,' + (.16 + .62 * t * VEIL).toFixed(3) + ')';
+      ctx.lineWidth = .5 + 2.2 * t;
+      ctx.beginPath();
+      ctx.moveTo(qx, qy);
+      ctx.quadraticCurveTo((qx + x) / 2, (qy + y) / 2 - Math.abs(x - qx) * .12, x, y);
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(200,228,246,' + (.3 + .5 * t).toFixed(3) + ')';
+      ctx.beginPath(); ctx.arc(x, y, 1.4 + 2.4 * t, 0, 7); ctx.fill();
+    });
+
+    ctx.strokeStyle = 'rgba(255,255,255,' + RING + ')';
+    ctx.lineWidth = 1.6;
+    ctx.strokeRect(qc * P + 1, qr * P + 1, P - 2, P - 2);
+  }
+
+  /* one repaint per animation frame, never one per mouse event */
+  function schedule(x, y) {
+    hover = { x, y };
+    if (pending) return;
+    pending = requestAnimationFrame(() => { pending = 0; if (hover) attend(hover.x, hover.y); });
+  }
+
+  /* until someone hovers, the query drifts on its own, so the mechanism is
+     visible to a visitor who never moves the mouse. Two sine waves at an
+     irrational ratio, so the path never repeats. */
+  function drift(t) {
+    requestAnimationFrame(drift);
+    if (!idle || !feat || t - t0 < 90) return;
+    t0 = t;
+    const w = cv.clientWidth, h = cv.clientHeight, k = t / 4200;
+    attend(w * (.5 + .42 * Math.sin(k)), h * (.5 + .36 * Math.sin(k * 1.618 + 1)));
+  }
+
+  const wrap = cv.parentElement;
+  wrap.addEventListener('pointermove', e => {
+    if (e.pointerType && e.pointerType !== 'mouse') return;
+    idle = false;
+    const b = cv.getBoundingClientRect();
+    schedule(e.clientX - b.left, e.clientY - b.top);
+  });
+  wrap.addEventListener('pointerleave', () => { idle = true; hover = null; });
+
+  if (img.complete) build(); else img.onload = build;
+  let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(build, 150); });
+  requestAnimationFrame(drift);
+  if (q.has('lens')) img.addEventListener('load', () => attend(cv.clientWidth * .06, cv.clientHeight * .6));
+})();
 
 </script>
 </body>
