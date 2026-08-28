@@ -99,12 +99,12 @@
   /* The intro is set narrower and quieter than the rest of the page on purpose:
      a column you fall into, then a hairline, then the past in a lower voice. */
   .intro {
-    --body: 13px; --lede: 1.46; --ink-2: 35%; --pgap: 2.6rem; --pw: 12.5rem;
+    --body: 14px; --lede: 1.42; --ink-2: 35%; --pgap: 2.6rem; --pw: 12.5rem;
     overflow: hidden; margin: 3.4rem 0 3.2rem;
-    max-width: 26rem; font-size: var(--body);
+    font-size: var(--body);
   }
-  .intro img {
-    float: right; width: var(--pw); margin: .3rem 0 .8rem 1.4rem;
+  .intro .before img {
+    float: right; width: var(--pw); margin: .2rem 0 .8rem 1.4rem;
     border-radius: 10px; box-shadow: var(--shadow);
   }
   .intro p { margin: 0 0 var(--pgap); }
@@ -123,7 +123,7 @@
   }
   @media (max-width: 540px) {
     .intro { --pgap: 1.5rem; --pw: 8rem; }
-    .intro img { margin-left: 1rem; }
+    .intro .before img { margin-left: 1rem; }
   }
 
   h2 { font-size: 1.5rem; font-weight: 550; margin: 0 0 1.3rem; }
@@ -202,7 +202,6 @@
   </figure>
 
   <div class="intro">
-    <img src="images/me_2026.jpg" alt="Brayton Hall">
     <p class="lede">For the past several years I have worked on language models
       at large banks, mostly on the problem of usefully leveraging those models
       in a safe and scalable way. Models from Anthropic and OpenAI are becoming
@@ -219,14 +218,16 @@
 
     <div class="before">
       <p class="label">Before this</p>
-      <p>I studied philosophy and psychology at UNC Chapel Hill, then philosophy
-        as a graduate student at Virginia Tech, where I also taught logic and
-        statistics. My research was on the history of mathematical logic and the
-        philosophy of language in the early twentieth century, with a focus on
-        Ludwig Wittgenstein. My thesis was on the scientific explanation of
-        events in history, and ranged over canonical twentieth century texts
-        including Wittgenstein's Philosophical Investigations and Thomas Kuhn's
-        The Structure of Scientific Revolutions.</p>
+      <img src="images/me_2026.jpg" alt="Brayton Hall">
+      <p>Before any of this I studied philosophy and psychology at UNC Chapel
+        Hill, then philosophy as a graduate student at Virginia Tech, where I
+        also taught logic and statistics. My research was on the history of
+        mathematical logic and the philosophy of language in the early twentieth
+        century, with a focus on Ludwig Wittgenstein. My thesis was on the
+        scientific explanation of historical events, and ranged over canonical
+        twentieth century texts including Wittgenstein's Philosophical
+        Investigations and Thomas Kuhn's The Structure of Scientific
+        Revolutions.</p>
       <p>Off the clock: long runs (the occasional marathon), New York by ferry,
         movies at the Metrograph, the piano, writing, and slow, happy progress
         through Joyce and Proust.</p>
