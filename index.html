@@ -14,6 +14,9 @@
 <style>
   /* Hand-written. No framework, no build step, no tracker. */
   :root {
+    /* The date appears in the header, the bio and the footer, and is written
+       here ONCE. Change this string and all three follow. */
+    --updated: "28 August 2026";
     --bg: #f5f6f7;
     --card: #ffffff;
     --ink: #1c2732;
@@ -158,11 +161,24 @@
     border-top: 1px solid var(--line); margin-top: 4rem; padding-top: 1.4rem;
     font-size: .8rem; color: var(--dim);
   }
+  footer p { max-width: 40rem; margin: 0; }
+
+  .updated::after { content: var(--updated); }
+  header .stamp { color: var(--dim); margin-right: auto; font-size: .8rem; }
+  .touched {
+    font-size: .78rem; color: var(--dim); margin: 2.2rem 0 0;
+    font-style: italic;
+  }
+  .aside {
+    font-size: .82rem; color: var(--dim); margin: -.6rem 0 1.5rem;
+    max-width: 34rem;
+  }
 </style>
 </head>
 <body>
 <main>
   <header>
+    <span class="stamp">updated <span class="updated"></span></span>
     <nav>
       <a href="https://github.com/bphall">github</a>
       <a href="https://www.linkedin.com/in/braytonhall/">linkedin</a>
@@ -220,6 +236,7 @@
         ferry, movies at the Metrograph, the piano, writing, and slow, happy
         progress through Joyce and Proust.</p>
     </div>
+    <p class="touched">Last touched by hand on <span class="updated"></span>.</p>
   </div>
 
   <section id="work">
@@ -271,6 +288,8 @@
 
   <section id="projects">
     <h2 class="serif">Projects</h2>
+    <p class="aside">Obviously old fashioned now in the transformer age, but I
+      was proud of them in 2020.</p>
     <div class="features">
       <div class="card">
         <a class="thumb" href="https://github.com/bphall/semantic_search"><img src="images/gallery/fulls/semsearch.png" alt="Semantic search interface"></a>
@@ -311,7 +330,12 @@
   </section>
 
   <footer>
-    <p>Hand-built: one HTML file, no framework, no tracker.</p>
+    <p>One HTML file, written by hand, last updated <span class="updated"></span>.
+      No framework, no build step, no tracker, and no landlord: it is served
+      straight out of <a href="https://github.com/bphall/my_html5up_website">a
+      GitHub repository I own</a> and nowhere else. Everything you just saw is in
+      View Source, the attention lens included. Fork it, change the words, point
+      a domain at it, and you have one too.</p>
   </footer>
 </main>
 
@@ -350,7 +374,7 @@ themeBtn.onclick = () => setDark(!document.documentElement.classList.contains('d
   if (!img || !cv) return;
   const ctx = cv.getContext('2d');
 
-  const P = 9, TOPK = 50, VEIL = .72, RING = .8;
+  const P = 9, TOPK = 50, VEIL = .72, RING = .8, LINE_OP = .72;
   const W_LUM = .85, W_COL = 1, W_TEX = 6, W_EDGE = 1.15;
   const DIMS = 14;
 
@@ -481,13 +505,13 @@ themeBtn.onclick = () => setDark(!document.documentElement.classList.contains('d
     best.forEach((i, rank) => {
       const x = (i % cols + .5) * P, y = ((i / cols | 0) + .5) * P;
       const t = 1 - rank / TOPK;
-      ctx.strokeStyle = 'rgba(160,206,236,' + (.16 + .62 * t * VEIL).toFixed(3) + ')';
+      ctx.strokeStyle = 'rgba(160,206,236,' + ((.16 + .62 * t) * LINE_OP).toFixed(3) + ')';
       ctx.lineWidth = .5 + 2.2 * t;
       ctx.beginPath();
       ctx.moveTo(qx, qy);
       ctx.quadraticCurveTo((qx + x) / 2, (qy + y) / 2 - Math.abs(x - qx) * .12, x, y);
       ctx.stroke();
-      ctx.fillStyle = 'rgba(200,228,246,' + (.3 + .5 * t).toFixed(3) + ')';
+      ctx.fillStyle = 'rgba(200,228,246,' + ((.3 + .5 * t) * LINE_OP).toFixed(3) + ')';
       ctx.beginPath(); ctx.arc(x, y, 1.4 + 2.4 * t, 0, 7); ctx.fill();
     });
 
