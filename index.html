@@ -25,6 +25,8 @@
     --accent: #2e6a8e;
     --accent-soft: #b6cad8;
     --shadow: 0 1px 2px rgba(30,42,54,.05), 0 10px 28px rgba(30,42,54,.06);
+    /* antique gold, for the one word the caption is actually about */
+    --gold: hsl(41 46% 36%);
   }
   html.dark {
     --bg: #151d26;
@@ -35,6 +37,7 @@
     --accent: #8db3d2;
     --accent-soft: #40607c;
     --shadow: 0 1px 2px rgba(0,0,0,.25), 0 10px 28px rgba(0,0,0,.25);
+    --gold: hsl(41 46% 66%);
   }
   * { box-sizing: border-box; }
   body {
@@ -86,6 +89,7 @@
   #lens { position: absolute; inset: 0; width: 100%; height: 100%; }
   figcaption, .demo-note { font-size: .78rem; color: var(--dim); margin-top: .55rem; text-align: center; }
   figcaption { max-width: 34rem; margin-left: auto; margin-right: auto; }
+  figcaption .att { color: var(--gold); }
   .ontouch { display: none; }
   @media (hover: none) {
     .onhover { display: none; }
@@ -203,7 +207,7 @@
       <span class="onhover">Move your cursor over the photograph:</span><span
       class="ontouch">Touch the photograph:</span> the patch you touch becomes a
       query, and the lines run to the patches that answer it most strongly.
-      Scaled up, and learned rather than hand written, that is attention.</figcaption>
+      Scaled up, and learned rather than hand written, that is <span class="att">attention</span>.</figcaption>
   </figure>
 
   <div class="intro">
