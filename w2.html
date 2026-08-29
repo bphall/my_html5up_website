@@ -179,7 +179,7 @@
     pointer-events: none; user-select: none; -webkit-user-select: none;
     font-family: "Snell Roundhand", "Apple Chancery", "Segoe Script", cursive;
     color: var(--ink);
-    opacity: var(--wf-op, .022);
+    opacity: var(--wf-op, .20);
     /* every size below is derived from the viewport, never from a fixed px */
     font-size: var(--wf-size, clamp(72px, 8vw, 190px));
     line-height: 1.95;
@@ -647,7 +647,7 @@ themeBtn.onclick = () => setDark(!document.documentElement.classList.contains('d
   var timer = null, t0 = 0, running = false;
   var stat = { ticks: 0, writes: 0 };
 
-  try { reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+  reduced = false;  /* preview: animate even with Reduce Motion on */
 
   /* ---------- measure ---------- */
 
@@ -914,8 +914,8 @@ themeBtn.onclick = () => setDark(!document.documentElement.classList.contains('d
   </div>
   <div style="display:flex;gap:.4rem">
     <button data-o=".012" style="flex:1;min-height:46px;border-radius:11px;border:1px solid #40607c;background:#1c2631;color:inherit;font:inherit">Ghost</button>
-    <button data-o=".022" style="flex:1;min-height:46px;border-radius:11px;border:1px solid #6f97bb;background:#25384a;color:inherit;font:inherit">Faint</button>
-    <button data-o=".18" style="flex:1;min-height:46px;border-radius:11px;border:1px solid #40607c;background:#1c2631;color:inherit;font:inherit">Loud</button>
+    <button data-o=".022" style="flex:1;min-height:46px;border-radius:11px;border:1px solid #40607c;background:#1c2631;color:inherit;font:inherit">Faint</button>
+    <button data-o=".20" style="flex:1;min-height:46px;border-radius:11px;border:1px solid #6f97bb;background:#25384a;color:inherit;font:inherit">Loud</button>
   </div>
 </div>
 <script>
