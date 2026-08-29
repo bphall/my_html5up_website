@@ -179,7 +179,7 @@
     pointer-events: none; user-select: none; -webkit-user-select: none;
     font-family: "Snell Roundhand", "Apple Chancery", "Segoe Script", cursive;
     color: var(--ink);
-    opacity: var(--wf-op, .20);
+    opacity: var(--wf-op, .030);
     /* every size below is derived from the viewport, never from a fixed px */
     font-size: var(--wf-size, clamp(72px, 8vw, 190px));
     line-height: 1.95;
@@ -626,7 +626,7 @@ themeBtn.onclick = () => setDark(!document.documentElement.classList.contains('d
     remeasure: 220     /* resize debounce */
   };
 
-  var PASSAGES = [
+  var PASSAGES = window.__wfPassages = [
     { start: 0,
       top: "7rem", left: "6vw", right: "9vw", align: "left",
       text: "riverrun, past Eve and Adam's, from swerve of shore to bend of bay, brings us by a commodius vicus of recirculation back to Howth Castle and Environs" },
@@ -903,6 +903,33 @@ themeBtn.onclick = () => setDark(!document.documentElement.classList.contains('d
   else window.addEventListener("load", boot);
 })();
 </script>
+
+<script>
+/* The hero and the photograph stay clean. Every passage is placed below the
+   bio and spread down the rest of the page, measured from the real layout
+   rather than guessed as a percentage. */
+(function () {
+  function place() {
+    var bio = document.querySelector('.intro');
+    var foot = document.querySelector('footer');
+    if (!bio || !window.__wfPassages) return;
+    var startY = bio.getBoundingClientRect().bottom + window.pageYOffset + 60;
+    var endY = (foot ? foot.getBoundingClientRect().top + window.pageYOffset : document.body.scrollHeight) - 120;
+    var P = window.__wfPassages, n = P.length;
+    var span = Math.max(240, endY - startY);
+    for (var i = 0; i < n; i++) P[i].top = Math.round(startY + span * i / n) + 'px';
+  }
+  function replace_() { place(); window.dispatchEvent(new Event('resize')); }
+  replace_();
+  /* the photograph and the fonts land after first layout and push the bio
+     down, so measure again once everything has actually arrived */
+  addEventListener('load', replace_);
+  setTimeout(replace_, 700);
+  setTimeout(replace_, 1800);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(replace_);
+  var t; addEventListener('resize', function () { clearTimeout(t); t = setTimeout(replace_, 150); });
+})();
+</script>
 <div id="dial" style="position:fixed;left:0;right:0;bottom:0;z-index:99;
   background:rgba(10,16,22,.95);border-top:1px solid #2b3a48;
   padding:.55rem .5rem calc(.55rem + env(safe-area-inset-bottom));
@@ -913,9 +940,9 @@ themeBtn.onclick = () => setDark(!document.documentElement.classList.contains('d
     <button data-s="clamp(120px,14vw,320px)" style="flex:1;min-height:46px;border-radius:11px;border:1px solid #40607c;background:#1c2631;color:inherit;font:inherit">Absurd</button>
   </div>
   <div style="display:flex;gap:.4rem">
-    <button data-o=".012" style="flex:1;min-height:46px;border-radius:11px;border:1px solid #40607c;background:#1c2631;color:inherit;font:inherit">Ghost</button>
-    <button data-o=".022" style="flex:1;min-height:46px;border-radius:11px;border:1px solid #40607c;background:#1c2631;color:inherit;font:inherit">Faint</button>
-    <button data-o=".20" style="flex:1;min-height:46px;border-radius:11px;border:1px solid #6f97bb;background:#25384a;color:inherit;font:inherit">Loud</button>
+    <button data-o=".008" style="flex:1;min-height:46px;border-radius:11px;border:1px solid #40607c;background:#1c2631;color:inherit;font:inherit">Ghost</button>
+    <button data-o=".018" style="flex:1;min-height:46px;border-radius:11px;border:1px solid #40607c;background:#1c2631;color:inherit;font:inherit">Faint</button>
+    <button data-o=".030" style="flex:1;min-height:46px;border-radius:11px;border:1px solid #6f97bb;background:#25384a;color:inherit;font:inherit">Subtle</button>
   </div>
 </div>
 <script>
