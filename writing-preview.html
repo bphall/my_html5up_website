@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>writing preview (unlisted)</title>
+<meta name="description" content="Brayton Hall, data scientist. Language models in production; philosophy and literature always.">
+<meta property="og:title" content="Brayton Hall">
+<meta property="og:description" content="Data Scientist · Language Models · Philosophy and Literature">
+<meta property="og:image" content="https://braytonhall.com/images/cliffs.jpeg">
+<meta property="og:url" content="https://braytonhall.com">
+<meta property="og:type" content="website">
+<link rel="icon" href="images/favicon.png">
+<style>
+  /* Hand-written. No framework, no build step, no tracker. */
+  :root {
+    /* The date appears in the header, the bio and the footer, and is written
+       here ONCE. Change this string and all three follow. */
+    --updated: "28 August 2026";
+    --bg: #f5f6f7;
+    --card: #ffffff;
+    --ink: #1c2732;
+    --dim: #5f6e7d;
+    --line: #e2e7ec;
+    --accent: #2e6a8e;
+    --accent-soft: #b6cad8;
+    --shadow: 0 1px 2px rgba(30,42,54,.05), 0 10px 28px rgba(30,42,54,.06);
+  }
+  html.dark {
+    --bg: #151d26;
+    --card: #1c2631;
+    --ink: #e3eaf1;
+    --dim: #92a3b3;
+    --line: #2b3a48;
+    --accent: #8db3d2;
+    --accent-soft: #40607c;
+    --shadow: 0 1px 2px rgba(0,0,0,.25), 0 10px 28px rgba(0,0,0,.25);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; overflow-x: hidden;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16.5px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    transition: background .25s, color .25s;
+  }
+  .serif { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
+  main { max-width: 46rem; margin: 0 auto; padding: 0 1.25rem 5rem; position: relative; z-index: 1; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  header {
+    display: flex; flex-wrap: wrap; gap: .4rem 1rem;
+    justify-content: flex-end; align-items: baseline;
+    padding: 1.2rem 0 0; font-size: .85rem;
+  }
+  header nav { display: flex; flex-wrap: wrap; gap: .3rem 1.2rem; }
+  header nav a { color: var(--dim); }
+  header nav a:hover { color: var(--accent); text-decoration: none; }
+  #theme { cursor: pointer; background: none; border: none; color: var(--dim); font-size: .95rem; padding: 0; }
+  #theme:hover { color: var(--accent); }
+
+  .hero { margin: 4.6rem 0 2.2rem; }
+  .hero h1 { font-size: 2.9rem; font-weight: 500; margin: 0 0 .55rem; letter-spacing: -.01em; }
+  .hero .tag { font-size: 1.04rem; color: var(--dim); margin: 0; }
+  .hero .tag b { color: var(--ink); font-weight: 500; }
+
+  /* the attention pair breaks out of the text column */
+  .wide {
+    position: relative; left: 50%;
+    transform: translateX(-50%); width: min(94vw, 66rem);
+  }
+  .cliffs { margin: 2.6rem 0 1.4rem; }
+  .cliffwrap {
+    position: relative; border-radius: 12px; overflow: hidden;
+    box-shadow: var(--shadow); cursor: crosshair;
+    /* A drag that starts on the photograph explores it instead of scrolling
+       the page. The browser decides this at the moment the gesture begins, so
+       it has to be declared here; calling preventDefault later is too late and
+       would cost a passive listener. pinch-zoom is kept so the picture can
+       still be zoomed, which matters for anyone who needs to. */
+    touch-action: none;
+    touch-action: pinch-zoom;
+  }
+  .cliffwrap img { width: 100%; display: block; }
+  #lens { position: absolute; inset: 0; width: 100%; height: 100%; }
+  figcaption, .demo-note { font-size: .78rem; color: var(--dim); margin-top: .55rem; text-align: center; }
+  figcaption { max-width: 34rem; margin-left: auto; margin-right: auto; }
+  .ontouch { display: none; }
+  @media (hover: none) {
+    .onhover { display: none; }
+    .ontouch { display: inline; }
+    .cliffwrap { cursor: default; }
+  }
+
+  /* The intro is set narrower and quieter than the rest of the page on purpose:
+     a column you fall into, then a hairline, then the past in a lower voice. */
+  .intro {
+    --body: 14px; --lede: 1.42; --ink-2: 35%; --pgap: 2.6rem; --pw: 12.5rem;
+    overflow: hidden; margin: 3.4rem 0 3.2rem;
+    font-size: var(--body);
+  }
+  .intro .before img {
+    float: right; width: var(--pw); margin: .2rem 0 .8rem 1.4rem;
+    border-radius: 10px; box-shadow: var(--shadow);
+  }
+  .intro p { margin: 0 0 var(--pgap); }
+  .intro .lede {
+    font-size: calc(var(--body) * var(--lede)); line-height: 1.45;
+    font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  }
+  .intro .hair { border: 0; border-top: 1px solid var(--line); margin: 1.9rem 0 1.3rem; }
+  .intro .before {
+    color: color-mix(in srgb, var(--ink) var(--ink-2), var(--bg));
+  }
+  .intro .before p { font-size: calc(var(--body) * .955); }
+  .intro .label {
+    font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--dim); font-weight: 600; margin: 0 0 .55rem;
+  }
+  @media (max-width: 540px) {
+    .intro { --pgap: 1.5rem; --pw: 8rem; }
+    .intro .before img { margin-left: 1rem; }
+  }
+
+  h2 { font-size: 1.5rem; font-weight: 550; margin: 0 0 1.3rem; }
+  section { margin: 3.6rem 0; }
+
+  .features { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.6rem; }
+  @media (max-width: 620px) { .features { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    overflow: hidden; display: flex; flex-direction: column;
+    box-shadow: var(--shadow); transition: transform .18s;
+  }
+  .card:hover { transform: translateY(-2px); }
+  .card .thumb { aspect-ratio: 16/10; overflow: hidden; border-bottom: 1px solid var(--line); background: #fff; }
+  .card .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+  .card .body { padding: 1rem 1.1rem 1.1rem; display: flex; flex-direction: column; gap: .45rem; flex: 1; }
+  .card h3 { margin: 0; font-size: 1.05rem; font-weight: 600; }
+  .card h3 a { color: var(--ink); }
+  .card h3 a:hover { color: var(--accent); text-decoration: none; }
+  .card p { margin: 0; font-size: .89rem; color: var(--dim); flex: 1; }
+  .card .links { font-size: .83rem; display: flex; gap: 1rem; }
+
+  .more { border-top: 1px solid var(--line); }
+  .more .row { display: flex; flex-wrap: wrap; align-items: baseline; gap: .3rem .8rem; padding: .85rem 0; border-bottom: 1px solid var(--line); }
+  .more .row h3 { margin: 0; font-size: .98rem; font-weight: 600; }
+  .more .row h3 a { color: var(--ink); }
+  .more .row h3 a:hover { color: var(--accent); text-decoration: none; }
+  .more .row p { margin: 0; font-size: .87rem; color: var(--dim); flex: 1 1 24rem; }
+  .more .row .links { font-size: .83rem; }
+
+  .job { display: grid; grid-template-columns: 6.8rem 1fr; gap: 0 1.2rem; margin-bottom: 1.3rem; }
+  .job .when { color: var(--dim); font-size: .82rem; padding-top: .2rem; }
+  .job .what b { font-weight: 600; }
+  .job .what p { margin: .15rem 0 0; font-size: .9rem; color: var(--dim); }
+  @media (max-width: 540px) { .job { grid-template-columns: 1fr; } .job .when { padding: 0; } }
+
+  footer {
+    border-top: 1px solid var(--line); margin-top: 4rem; padding-top: 1.4rem;
+    font-size: .8rem; color: var(--dim);
+  }
+  footer p { max-width: 40rem; margin: 0; }
+
+  .updated::after { content: var(--updated); }
+  header .stamp { color: var(--dim); margin-right: auto; font-size: .8rem; }
+  .touched {
+    font-size: .78rem; color: var(--dim); margin: 2.2rem 0 0;
+    font-style: italic;
+  }
+  .aside {
+    font-size: .82rem; color: var(--dim); margin: -.6rem 0 1.5rem;
+    max-width: 34rem;
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <span class="stamp">updated <span class="updated"></span></span>
+    <nav>
+      <a href="https://github.com/bphall">github</a>
+      <a href="https://www.linkedin.com/in/braytonhall/">linkedin</a>
+      <a href="https://medium.com/@braytonhall">writing</a>
+      <a href="assets/Brayton_Hall_Resume.pdf">resume</a>
+      <a href="mailto:braytonhall@gmail.com">email</a>
+      <button id="theme" title="light / dark">◐</button>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <h1 class="serif">Brayton Hall</h1>
+    <p class="tag"><b>Data Scientist</b> · <b>Language Models</b> · <b>Philosophy and Literature</b></p>
+  </div>
+
+  <figure class="cliffs wide">
+    <div class="cliffwrap">
+      <img id="cliffimg" src="images/cliffs.jpeg" alt="The Cliffs of Moher, County Clare, Ireland">
+      <canvas id="lens"></canvas>
+    </div>
+    <figcaption>Cliffs of Moher, County Clare.
+      <span class="onhover">Move your cursor over the photograph:</span><span
+      class="ontouch">Touch the photograph:</span> the patch you touch becomes a
+      query, and the lines run to the patches that answer it most strongly.
+      Scaled up, and learned rather than hand written, that is attention.</figcaption>
+  </figure>
+
+  <div class="intro">
+    <p class="lede">For the past several years I have worked on language models
+      at large banks, mostly on the problem of usefully leveraging those models
+      in a safe and scalable way. Models from Anthropic and OpenAI are becoming
+      superhuman, but I still believe there's an art at play that goes beyond
+      prompt engineering.</p>
+    <p>The deep math, the mechanisms of transformers and reinforcement
+      learning, and the recursive loop between human behavior and AI
+      acceleration are a critical new region of interest somewhere between math
+      and philosophy and computer science, which is where I've lived for years.
+      I left Capital One and moved back to NYC in August 2026: check back soon
+      for some exciting updates...</p>
+
+    <hr class="hair">
+
+    <div class="before">
+      <p class="label">Before this</p>
+      <img src="images/me_2026.jpg" alt="Brayton Hall">
+      <p>I studied philosophy, metalogic and number theory at UNC Chapel Hill,
+        before teaching logic and statistics at Virginia Tech. My research was on the history of mathematical logic and the
+        philosophy of language, particularly in the early 20th century, with a
+        focus on the philosophy of Ludwig Wittgenstein. The subject of my thesis
+        was on the scientific explanation of events in history, and ranged over
+        canonical twentieth century texts including Wittgenstein's
+        <i>Philosophical Investigations</i> and Thomas Kuhn's <i>The Structure
+        of Scientific Revolutions</i>.</p>
+      <p>Off the clock: long runs (the occasional marathon), New York by
+        ferry, movies at the Metrograph, the piano, writing, and slow, happy
+        progress through Joyce and Proust.</p>
+    </div>
+    <p class="touched">Last touched by hand on <span class="updated"></span>.</p>
+  </div>
+
+  <section id="work">
+    <h2 class="serif">Work &amp; Education</h2>
+    <div class="job">
+      <div class="when">2026 —</div>
+      <div class="what"><b>Something new</b>
+        <p>Soon.</p></div>
+    </div>
+    <div class="job">
+      <div class="when">2024 —</div>
+      <div class="what"><b>Capital One</b> · data scientist
+        <p>Lead developer of the company’s second production generative-AI
+        use case: summarizing 1M+ highly sensitive documents for executive
+        committees (≈$20M/yr). Model development, compliance, and monitoring
+        for the fraud model covering every Capital One card (≈$400M/yr in
+        prevented loss).</p></div>
+    </div>
+    <div class="job">
+      <div class="when">2022–24</div>
+      <div class="what"><b>Bank of America</b> · data scientist
+        <p>Built and monitored the bank’s primary abstractive-summarization
+        pipeline for calls between agents and customers, trained on 600K
+        agent notes and 150M transcribed conversations (≈$10M/yr), with
+        custom summary-quality metrics.</p></div>
+    </div>
+    <div class="job">
+      <div class="when">2020–21</div>
+      <div class="what"><b>PrimeNeuro</b> · data scientist
+        <p>ML on infant-brain fMRI (100K+ features) for early-intervention
+        prediction: interpretable models, Shapley values, feature
+        extraction.</p></div>
+    </div>
+    <div class="job">
+      <div class="when">2020</div>
+      <div class="what"><b>Flatiron School</b> · data science program</div>
+    </div>
+    <div class="job">
+      <div class="when">2015–19</div>
+      <div class="what"><b>Virginia Tech</b> · MA in philosophy; graduate instructor
+        <p>Metalogic, number theory, philosophy of science and language.
+        Taught logic and statistical inference.</p></div>
+    </div>
+    <div class="job">
+      <div class="when">2009–13</div>
+      <div class="what"><b>UNC Chapel Hill</b> · BS in philosophy and psychology</div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2 class="serif">Projects</h2>
+    <p class="aside">Obviously old fashioned now in the transformer age, but I
+      was proud of them in 2020.</p>
+    <div class="features">
+      <div class="card">
+        <a class="thumb" href="https://github.com/bphall/semantic_search"><img src="images/gallery/fulls/semsearch.png" alt="Semantic search interface"></a>
+        <div class="body">
+          <h3><a href="https://github.com/bphall/semantic_search">Semantic Search</a></h3>
+          <p>Search classic novels by connotation and misremembered quotes
+            rather than exact fragments. Doc2Vec embeddings over Project
+            Gutenberg.</p>
+          <div class="links"><a href="https://github.com/bphall/semantic_search">code</a></div>
+        </div>
+      </div>
+      <div class="card">
+        <a class="thumb" href="https://medium.com/swlh/using-nlp-to-visualize-ulysses-part-two-8ead745f320c"><img src="images/gallery/fulls/ulysses_tfidf_pca.png" alt="Ulysses chapters in TF-IDF space"></a>
+        <div class="body">
+          <h3><a href="https://medium.com/swlh/using-nlp-to-visualize-ulysses-part-two-8ead745f320c">Mapping <i>Ulysses</i></a></h3>
+          <p>Vectorizing each chapter of Joyce and plotting the novel’s
+            drift through its own semantic space. Data science as literary
+            criticism.</p>
+          <div class="links"><a href="https://github.com/bphall/ulysses_map">code</a>
+            <a href="https://medium.com/swlh/using-nlp-to-visualize-ulysses-part-two-8ead745f320c">essay</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="more">
+      <div class="row">
+        <h3><a href="https://github.com/bphall/abstractive_summ">Summarizing <i>War and Peace</i></a></h3>
+        <p>Few-shot fine-tuning of pre-trained transformers for
+          long-document summarization.</p>
+        <span class="links"><a href="https://github.com/bphall/abstractive_summ">code</a></span>
+      </div>
+      <div class="row">
+        <h3><a href="https://github.com/bphall/tweet_nlp">Twitter Topic Modeling</a></h3>
+        <p>LDA over 100K pandemic-era tweets: finding the distinct
+          communities and their sentiment.</p>
+        <span class="links"><a href="https://github.com/bphall/tweet_nlp">code</a></span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>One HTML file. No framework, no build step, no tracker, no cookie banner,
+      no newsletter. Twenty six kilobytes, and it still found room for an
+      attention mechanism. Served out of <a href="https://github.com/bphall/my_html5up_website">a
+      GitHub repository I own</a>, because I would rather not rent. It is all in
+      View Source. Take it. Updated <span class="updated"></span>.</p>
+  </footer>
+</main>
+
+<script>
+/* theme */
+const themeBtn = document.getElementById('theme');
+const setDark = on => {
+  document.documentElement.classList.toggle('dark', on);
+  localStorage.setItem('bh.dark', on ? '1' : '0');
+};
+const saved = localStorage.getItem('bh.dark');
+const q = new URLSearchParams(location.search);
+if (!q.has('light') && (saved === '1' || (saved === null && matchMedia('(prefers-color-scheme: dark)').matches)
+    || q.has('dark'))) setDark(true);
+themeBtn.onclick = () => setDark(!document.documentElement.classList.contains('dark'));
+
+/* ——— the attention lens ———————————————————————————————————————————————
+   The photograph is cut into 9px patches. A patch is described by fourteen
+   numbers: its brightness in four quadrants, two colour opponents, its local
+   contrast, its edge strength, how that edge energy splits across four
+   orientations, and its horizontal and vertical gradient. Every dimension is
+   then standardised across the whole image, which is the step that matters:
+   cosine similarity ignores vector length, so on raw colour a pale grey sky
+   and near black wet rock score a perfect match. Standardising turns cosine
+   into correlation and gives brightness and texture their say back.
+
+   Hover a patch and it queries every other patch. Lines run to the fifty that
+   answer most strongly. Nothing is precomputed and nothing is fetched; it is
+   all arithmetic on the pixels in front of you.
+
+   Settings chosen 2026-08-28. Weights: colour 1, texture 6, edge 1.15,
+   brightness 0.85. Patch 9px, fifty lines, veil 0.72, query outline 0.8.  */
+(() => {
+  const img = document.getElementById('cliffimg');
+  const cv = document.getElementById('lens');
+  if (!img || !cv) return;
+  const ctx = cv.getContext('2d');
+
+  const P = 9, TOPK = 50, VEIL = .72, RING = .8, LINE_OP = .40;
+  const W_LUM = .85, W_COL = 1, W_TEX = 6, W_EDGE = 1.15;
+  const DIMS = 14;
+
+  let cols = 0, rows = 0, feat = null, norms = null, dpr = 1;
+  let hover = null, pending = 0, idle = true, t0 = 0;
+
+  function build() {
+    const w = img.clientWidth | 0, h = img.clientHeight | 0;
+    if (!w || !h) return;
+    dpr = Math.min(2, devicePixelRatio || 1);
+    cv.width = w * dpr; cv.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const off = document.createElement('canvas');
+    off.width = w; off.height = h;
+    const octx = off.getContext('2d', { willReadFrequently: true });
+    octx.drawImage(img, 0, 0, w, h);
+    let d;
+    try { d = octx.getImageData(0, 0, w, h).data; }
+    catch (e) { return; }            /* a tainted canvas just means no lens */
+
+    const n = w * h;
+    const L = new Float32Array(n), O1 = new Float32Array(n), O2 = new Float32Array(n);
+    for (let i = 0, q = 0; i < n; i++, q += 4) {
+      const r = d[q] / 255, g = d[q + 1] / 255, b = d[q + 2] / 255;
+      L[i] = .299 * r + .587 * g + .114 * b;
+      O1[i] = r - g;
+      O2[i] = .5 * (r + g) - b;
+    }
+    const GX = new Float32Array(n), GY = new Float32Array(n);
+    for (let y = 1; y < h - 1; y++) for (let x = 1; x < w - 1; x++) {
+      const i = y * w + x;
+      GX[i] = L[i + 1] - L[i - 1];
+      GY[i] = L[i + w] - L[i - w];
+    }
+
+    cols = Math.max(2, Math.floor(w / P));
+    rows = Math.max(2, Math.floor(h / P));
+    const N = cols * rows;
+    feat = new Float32Array(N * DIMS);
+
+    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+      const base = (r * cols + c) * DIMS;
+      let sL = 0, sLL = 0, so1 = 0, so2 = 0, smag = 0, sgx = 0, sgy = 0, k = 0;
+      const quad = [0, 0, 0, 0], qn = [0, 0, 0, 0], ori = [0, 0, 0, 0];
+      for (let py = 0; py < P; py++) for (let px = 0; px < P; px++) {
+        const X = c * P + px, Y = r * P + py;
+        if (X >= w || Y >= h) continue;
+        const i = Y * w + X, l = L[i];
+        sL += l; sLL += l * l; so1 += O1[i]; so2 += O2[i];
+        const gx = GX[i], gy = GY[i], mag = Math.sqrt(gx * gx + gy * gy);
+        smag += mag; sgx += Math.abs(gx); sgy += Math.abs(gy);
+        let a = Math.atan2(gy, gx); if (a < 0) a += Math.PI;
+        ori[Math.min(3, (a / (Math.PI / 4)) | 0)] += mag;
+        const qi = (px * 2 / P | 0 ? 1 : 0) + (py * 2 / P | 0 ? 2 : 0);
+        quad[qi] += l; qn[qi]++;
+        k++;
+      }
+      const inv = 1 / (k || 1), mean = sL * inv;
+      for (let j = 0; j < 4; j++) feat[base + j] = quad[j] / (qn[j] || 1);
+      feat[base + 4] = so1 * inv;
+      feat[base + 5] = so2 * inv;
+      feat[base + 6] = Math.sqrt(Math.max(0, sLL * inv - mean * mean));
+      feat[base + 7] = smag * inv;
+      for (let j = 0; j < 4; j++) feat[base + 8 + j] = ori[j] * inv;
+      feat[base + 12] = sgx * inv;
+      feat[base + 13] = sgy * inv;
+    }
+
+    /* standardise every dimension across all patches, then weight the groups */
+    const wts = [W_LUM, W_LUM, W_LUM, W_LUM, W_COL, W_COL, W_TEX, W_TEX,
+                 W_EDGE, W_EDGE, W_EDGE, W_EDGE, W_EDGE, W_EDGE];
+    for (let k = 0; k < DIMS; k++) {
+      let m = 0; for (let i = 0; i < N; i++) m += feat[i * DIMS + k];
+      m /= N;
+      let v = 0; for (let i = 0; i < N; i++) { const t = feat[i * DIMS + k] - m; v += t * t; }
+      const sd = Math.sqrt(v / N) || 1e-6;
+      for (let i = 0; i < N; i++) feat[i * DIMS + k] = (feat[i * DIMS + k] - m) / sd * wts[k];
+    }
+
+    norms = new Float32Array(N);
+    for (let i = 0; i < N; i++) {
+      let a = 0;
+      for (let k = 0; k < DIMS; k++) { const v = feat[i * DIMS + k]; a += v * v; }
+      norms[i] = Math.sqrt(a) || 1e-6;
+    }
+  }
+
+  /* the fifty best answers, without sorting six thousand patches every frame */
+  function topK(qi) {
+    const N = cols * rows, qb = qi * DIMS, qn = norms[qi];
+    const bi = new Int32Array(TOPK), bs = new Float32Array(TOPK);
+    let filled = 0, worst = -Infinity, worstAt = 0;
+    for (let i = 0; i < N; i++) {
+      if (i === qi) continue;
+      let dot = 0; const b = i * DIMS;
+      for (let k = 0; k < DIMS; k++) dot += feat[qb + k] * feat[b + k];
+      const sc = dot / (qn * norms[i]);
+      if (filled < TOPK) {
+        bi[filled] = i; bs[filled] = sc; filled++;
+        if (filled === TOPK) {
+          worst = Infinity;
+          for (let j = 0; j < TOPK; j++) if (bs[j] < worst) { worst = bs[j]; worstAt = j; }
+        }
+      } else if (sc > worst) {
+        bi[worstAt] = i; bs[worstAt] = sc;
+        worst = Infinity;
+        for (let j = 0; j < TOPK; j++) if (bs[j] < worst) { worst = bs[j]; worstAt = j; }
+      }
+    }
+    const order = Array.from({ length: filled }, (_, j) => j).sort((a, b) => bs[b] - bs[a]);
+    return order.map(j => bi[j]);
+  }
+
+  function attend(mx, my) {
+    if (!feat) return;
+    const qc = Math.max(0, Math.min(cols - 1, (mx / P) | 0));
+    const qr = Math.max(0, Math.min(rows - 1, (my / P) | 0));
+    const qi = qr * cols + qc;
+    const best = topK(qi);
+    const w = cv.width / dpr, h = cv.height / dpr;
+
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = 'rgba(10,17,24,' + (VEIL * .42).toFixed(3) + ')';
+    ctx.fillRect(0, 0, w, h);
+
+    const qx = (qc + .5) * P, qy = (qr + .5) * P;
+    best.forEach((i, rank) => {
+      const x = (i % cols + .5) * P, y = ((i / cols | 0) + .5) * P;
+      const t = 1 - rank / TOPK;
+      ctx.strokeStyle = 'rgba(160,206,236,' + ((.16 + .62 * t) * LINE_OP).toFixed(3) + ')';
+      ctx.lineWidth = .5 + 2.2 * t;
+      ctx.beginPath();
+      ctx.moveTo(qx, qy);
+      ctx.quadraticCurveTo((qx + x) / 2, (qy + y) / 2 - Math.abs(x - qx) * .12, x, y);
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(200,228,246,' + ((.3 + .5 * t) * LINE_OP).toFixed(3) + ')';
+      ctx.beginPath(); ctx.arc(x, y, .7 + 1.2 * t, 0, 7); ctx.fill();
+    });
+
+    ctx.strokeStyle = 'rgba(255,255,255,' + RING + ')';
+    ctx.lineWidth = 1.6;
+    ctx.strokeRect(qc * P + 1, qr * P + 1, P - 2, P - 2);
+  }
+
+  /* one repaint per animation frame, never one per mouse event */
+  function schedule(x, y) {
+    hover = { x, y };
+    if (pending) return;
+    pending = requestAnimationFrame(() => { pending = 0; if (hover) attend(hover.x, hover.y); });
+  }
+
+  /* until someone hovers, the query drifts on its own, so the mechanism is
+     visible to a visitor who never moves the mouse. Two sine waves at an
+     irrational ratio, so the path never repeats. */
+  function drift(t) {
+    requestAnimationFrame(drift);
+    if (!idle || !feat || t - t0 < 90) return;
+    t0 = t;
+    const w = cv.clientWidth, h = cv.clientHeight, k = t / 4200;
+    attend(w * (.5 + .42 * Math.sin(k)), h * (.5 + .36 * Math.sin(k * 1.618 + 1)));
+  }
+
+  /* A mouse hovers; a finger presses. Track a mouse whenever it is over the
+     photograph, and track a touch only while it is held down, so the page can
+     still be scrolled past the image. Nothing calls preventDefault: stealing
+     the scroll to win an ornament would be a bad trade. After a touch lifts,
+     the last answer is left on screen for a moment, then the drift resumes. */
+  const wrap = cv.parentElement;
+  let down = false, resume = 0;
+  const at = e => {
+    const b = cv.getBoundingClientRect();
+    schedule(e.clientX - b.left, e.clientY - b.top);
+  };
+  const isMouse = e => !e.pointerType || e.pointerType === 'mouse';
+
+  wrap.addEventListener('pointerdown', e => {
+    down = true; idle = false; clearTimeout(resume); at(e);
+    /* keep receiving the finger even if it wanders off the picture */
+    try { wrap.setPointerCapture(e.pointerId); } catch (err) {}
+  }, { passive: true });
+
+  wrap.addEventListener('pointermove', e => {
+    if (!isMouse(e) && !down) return;
+    idle = false; clearTimeout(resume); at(e);
+  }, { passive: true });
+
+  const release = e => {
+    down = false;
+    try { wrap.releasePointerCapture(e.pointerId); } catch (err) {}
+    if (isMouse(e)) return;
+    clearTimeout(resume);
+    resume = setTimeout(() => { idle = true; hover = null; }, 4000);
+  };
+  wrap.addEventListener('pointerup', release, { passive: true });
+  wrap.addEventListener('pointercancel', release, { passive: true });
+  wrap.addEventListener('pointerleave', e => {
+    down = false;
+    if (isMouse(e)) { idle = true; hover = null; }
+  });
+
+  if (img.complete) build(); else img.onload = build;
+  let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(build, 150); });
+  requestAnimationFrame(drift);
+  if (q.has('lens')) img.addEventListener('load', () => attend(cv.clientWidth * .06, cv.clientHeight * .6));
+})();
+
+</script>
+
+<style>
+#gw-svg { position: fixed; inset: 0; width: 100%; height: 100%;
+  z-index: 0; pointer-events: none; mix-blend-mode: plus-lighter; }
+#gw-bar { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
+  z-index: 99999; display: flex; align-items: center; gap: 10px;
+  background: rgba(11,14,25,.9); border: 1px solid #2b3a48; border-radius: 999px;
+  padding: 8px 15px; color: #8fa0b0;
+  font: 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .09em; }
+#gw-bar button { width: 36px; height: 36px; border-radius: 50%; cursor: pointer;
+  background: #1b2433; color: #dfe6ee; border: 1px solid #3a4b60;
+  font: 600 15px/1 ui-monospace, Menlo, monospace; }
+#gw-bar button.on { background: #3a2f14; border-color: #d9b45f; color: #f4e3ad; }
+</style>
+<svg id="gw-svg" aria-hidden="true">
+  <defs><radialGradient id="gw-glow">
+    <stop offset="0%"   stop-color="hsl(46 100% 92%)" stop-opacity=".95"/>
+    <stop offset="35%"  stop-color="hsl(44 92% 70%)"  stop-opacity=".38"/>
+    <stop offset="100%" stop-color="hsl(42 90% 62%)"  stop-opacity="0"/>
+  </radialGradient></defs>
+  <g id="gw-lines"></g>
+  <circle id="gw-tip" r="13" fill="url(#gw-glow)" opacity="0"/>
+</svg>
+<div id="gw-bar"><span>FAINTER &rarr;</span><span style="opacity:.5">build 17:29</span>
+  <button data-l="0">1</button><button data-l="1">2</button><button data-l="2">3</button></div>
+<script>/* ═══════════════════════════════════════════════════════════════════════
+   A MONOLINE CURSIVE ALPHABET, 2026-08-29
+
+   Why this exists: a font glyph is a FILLED SHAPE, so its thickness is the
+   letterform itself and no CSS can make it hairline. These letters are
+   single lines instead - one continuous stroke you can set to 0.6px and
+   draw progressively with stroke-dashoffset.
+
+   Coordinate system, y DOWN as in SVG:
+     baseline   y =   0        every glyph starts at (0,0) and ends at (adv,0)
+     x-height   y = -10
+     ascender   y = -19
+     descender  y =  +7
+   Because every glyph enters and exits on the baseline, glyphs concatenate
+   into ONE path with no joining logic.
+   ═══════════════════════════════════════════════════════════════════════ */
+window.CURSIVE = (function () {
+  var G = {};
+  function g(ch, adv, d) { G[ch] = { a: adv, d: d }; }
+
+  /* ── bowls ───────────────────────────────────────────────────────── */
+  g('a', 11, 'c 1,-4 2,-10 5.5,-10 c 2.5,0 3,2.5 2.5,5.5 c -.4,2.6 -1.6,4.5 -3.4,4.5 c -1.8,0 -2.6,-2 -2.1,-4.4 c .5,-2.4 2,-3.6 4,-3.6 c 2.2,0 2.5,2.6 2.5,5 c 0,4 .5,7 2,7');
+  g('c', 9,  'c 1,-4 2.4,-10 6,-10 c 2,0 2.6,1.6 2.4,3 c -.2,-2 -1.4,-2.2 -2.6,-1.2 c -2,1.6 -3.4,4.6 -3.4,6.6 c 0,1.8 1,2.6 2.6,2.6 c 1.4,0 2.4,-.6 3,-1');
+  g('e', 9, 'c 1.7,-1.9 3.5,-3.9 4.8,-3.9 c 1.2,0 1.4,1.3 .3,2.4 c -1.3,1.3 -3.4,1.5 -5.1,1.5 c -.1,2.7 1.2,3.9 2.9,3.9 c 1.6,0 2.9,-.8 3.8,-1.9');
+  g('o', 10, 'c 1,-4 2.4,-10 5.8,-10 c 2.2,0 2.8,2 2.4,4.4 c -.6,3.6 -2.6,5.6 -4.6,5.6 c -1.6,0 -2.4,-1.4 -2,-3.2 c .6,3 2.6,3.2 4.4,3.2 c 1.8,0 3,-1 4,-2');
+  g('s', 8, 'c 1.9,-4.8 3.5,-9.9 5.1,-9.9 c 1.2,0 1.3,1.7 .1,2.9 c -1.3,1.3 -3.4,2.1 -4.2,3.8 c -.6,1.4 .2,2.8 1.9,2.8 c 1.4,0 2.5,-.7 3.1,-1.5');
+
+  /* ── arches and valleys ──────────────────────────────────────────── */
+  g('i', 7, 'c 1.4,-4 2.6,-9.4 3.6,-9.4 c 1,0 .6,2.4 .2,4.6 c -.4,2.4 -.8,4.8 .6,4.8 c 1,0 1.8,-.8 2.4,-1.6 m -4.2,-14.6 c .5,0 .9,.4 .9,.9 c 0,.5 -.4,.9 -.9,.9 c -.5,0 -.9,-.4 -.9,-.9 c 0,-.5 .4,-.9 .9,-.9');
+  g('u', 11, 'c 1.4,-4.2 2.7,-9.7 3.8,-9.7 c 1,0 .4,3.2 -.5,6 c -.6,2 -.2,3.7 1.3,3.7 c 1.6,0 3,-3 3.7,-5.6 c .6,-2.2 1.1,-4.1 1.8,-4.1 c .9,0 .5,3.1 0,5.7 c -.4,2.2 -.2,4 1.2,4');
+  g('n', 11, 'c 1.4,-4.2 2.7,-9.6 3.7,-9.6 c 1,0 .7,2.2 .2,4 c 1.2,-2.9 2.6,-4.6 4.1,-4.6 c 1.5,0 1.7,2.1 1.2,4.5 c -.5,2.6 -.5,5.7 1.7,5.7');
+  g('m', 15, 'c 1.4,-4 2.6,-9.4 3.6,-9.4 c 1,0 .8,2 .4,4 c 1,-2.6 2.2,-4.6 3.8,-4.6 c 1.6,0 1.6,2 1.2,4 c 1,-2.6 2.2,-4 3.8,-4 c 1.6,0 1.8,2 1.4,4.4 c -.4,2.6 -.6,5.6 1.8,5.6');
+  g('r', 9, 'c 1.6,-4.4 2.8,-9.4 3.8,-9.4 c .9,0 .7,1.7 .3,3.1 c 1.1,-1.9 2.3,-3 3.4,-3 c .9,0 1.1,.9 .3,1.7 c -.7,.7 -1.7,.9 -1.7,.9 c .7,.7 .2,4.3 .3,6.7');
+  g('v', 10, 'c 1.6,-4.4 3,-9.6 4.1,-9.6 c 1,0 .5,3.1 -.5,5.8 c -.8,2.2 -.9,3.8 .4,3.8 c 1.5,0 3,-2.6 4,-5 c .5,-1.2 1,-1.6 1.4,-1.2 c .4,.4 .1,1.4 -.4,2.6');
+  g('w', 14, 'c 1.6,-4.4 3,-9.6 4.1,-9.6 c 1,0 .6,2.8 -.1,5.4 c -.6,2.4 -.4,3.8 .8,3.8 c 1.4,0 2.8,-3.2 3.6,-5.8 c .5,-1.7 1,-2.6 1.5,-2.6 c .8,0 .6,2.6 .1,5.2 c -.4,2.2 -.2,3.6 1.1,3.6 c 1.2,0 2.2,-1.2 2.9,-2.4');
+  g('x', 10, 'c 1.4,-3.6 3,-9.4 4.4,-9.4 c 1,0 .4,2.2 -1.4,4.6 c -1.8,2.4 -3,3.6 -3,3.6 c 2.6,-1.2 6,-2.2 7.6,-2.2 c 1.4,0 1.6,1 .6,2.2 c -1,1.2 -2.4,1.2 -2.4,1.2');
+
+  /* ── ascenders ───────────────────────────────────────────────────── */
+  g('l', 8,  'c 1.6,-4.6 3,-19 5.2,-19 c 1.2,0 1,2.6 -.6,6.4 c -1.6,3.8 -3,7.2 -3,9.8 c 0,1.8 1,2.8 2.6,2.8 c 1.2,0 2.2,-.6 2.8,-1.2');
+  g('b', 10, 'c 1.6,-4.6 3,-19 5.2,-19 c 1.2,0 1,2.6 -.6,6.4 c -1.4,3.4 -2.6,6.4 -2.8,8.8 c 1.2,-2 2.6,-3 4,-3 c 1.6,0 2,1.6 1.4,3.4 c -.8,2.4 -2.4,3.4 -2.4,3.4 c 2,0 3.4,-1 4.2,-2');
+  g('h', 11, 'c 1.6,-4.6 3,-19 5.2,-19 c 1.2,0 1,2.6 -.6,6.4 c -1.4,3.4 -2.6,6.6 -2.8,9 c 1.2,-2.6 2.6,-4.6 4.2,-4.6 c 1.6,0 1.8,2 1.4,4.4 c -.4,2.6 -.6,5.6 1.6,5.6');
+  g('k', 11, 'c 1.6,-4.6 3,-19 5.2,-19 c 1.2,0 1,2.6 -.6,6.4 c -1.4,3.4 -2.8,7 -3,9.6 c 2.2,-1.6 4.4,-3.4 5.6,-3.4 c 1,0 1,1 0,2 c -1,1 -2.4,1.4 -2.4,1.4 c 1.6,.4 2.2,3.4 4.2,3');
+  g('d', 11, 'c 1,-4 2,-10 5.5,-10 c 2.4,0 2.8,2.6 2.2,5.4 c -.6,2.8 -2,4.6 -3.6,4.6 c -1.6,0 -2.2,-1.6 -1.8,-3.4 c .8,-4.6 3.6,-15.6 6,-15.6 c 1.2,0 .8,2.6 -.8,6.6 c -1.6,4 -3,9 -3,12 c 0,1.6 .8,2.4 2.2,2.4');
+  g('t', 8, 'c 1.5,-4.6 3,-17 4.8,-17 c 1,0 .7,2.6 -.7,6.2 c -1.4,3.6 -2.7,7.4 -2.7,9.6 c 0,1.6 .9,2.4 2.2,2.4 c 1.2,0 2,-.6 2.6,-1.2 m -8.4,-11.4 l 6.8,-.6');
+  g('f', 9,  'c 1.6,-4.6 3,-19 5.4,-19 c 1.2,0 1,2.4 -.6,6 c -2.2,5 -4.4,11.6 -5.4,15.8 c -.8,3.4 -1.6,5.2 -2.8,5.2 c -1,0 -1.2,-1.2 -.4,-2.4 m -1,-11 l 7,0');
+  g('j', 7, 'c 1.4,-4 2.4,-9.4 3.4,-9.4 c 1,0 .4,2.8 -.4,5.8 c -1.2,4.4 -2,8.2 -3.2,10.2 c -.9,1.5 -2.2,1.4 -2.6,.2 c -.4,-1.2 .8,-2.2 2.6,-2.6 c 2,-.4 3.6,-2 4.4,-3.4 m -4.4,-14.6 c .5,0 .9,.4 .9,.9 c 0,.5 -.4,.9 -.9,.9 c -.5,0 -.9,-.4 -.9,-.9 c 0,-.5 .4,-.9 .9,-.9');
+
+  /* ── descenders ──────────────────────────────────────────────────── */
+  g('g', 11, 'c 1,-4 2,-10 5.5,-10 c 2.4,0 2.8,2.6 2.2,5.4 c -.6,2.8 -2,4.6 -3.6,4.6 c -1.6,0 -2.2,-1.6 -1.8,-3.4 c .6,2.8 2.4,3.4 4.2,3.4 c -.6,3.6 -1.4,7.8 -2.8,9.8 c -1,1.4 -2.4,1.4 -2.8,.2 c -.4,-1.2 .8,-2.2 2.6,-2.6 c 2,-.4 3.4,-1.8 4.2,-3.2');
+  g('p', 11, 'c 1.4,-4 2.6,-9.4 3.4,-9.4 c 1,0 .4,2.8 -.6,6.4 c -1,3.6 -2,7.6 -2.8,10 c 1.2,-3.6 2.2,-8 3.4,-11.4 c 1,-2.8 2.2,-5 3.8,-5 c 1.4,0 1.8,1.6 1.2,3.6 c -.8,2.8 -2.6,4.6 -4.4,4.6 c -1.2,0 -2,-.6 -2.4,-1.4 c .8,2.4 2.6,3 4.4,3 c 1.6,0 2.8,-.8 3.6,-1.8');
+  g('q', 11, 'c 1,-4 2,-10 5.5,-10 c 2.4,0 2.8,2.6 2.2,5.4 c -.6,2.8 -2,4.6 -3.6,4.6 c -1.6,0 -2.2,-1.6 -1.8,-3.4 c .6,2.8 2.4,3.4 4.2,3.4 c -1,4 -2.2,8.6 -2.6,11 c -.2,1.4 .6,2 1.8,2 c 1.2,0 2.2,-.8 2.8,-1.6');
+  g('y', 11, 'c 1.4,-4 2.6,-9.4 3.6,-9.4 c 1,0 .6,2.6 0,5.2 c -.6,2.6 -.6,4.2 .8,4.2 c 1.6,0 3,-3.6 3.8,-6.4 c .6,-2 1,-3 1.6,-3 c .8,0 .4,2.4 -.6,5.6 c -1.4,4.6 -2.6,9.6 -4,11.8 c -1,1.6 -2.4,1.6 -2.8,.4 c -.4,-1.2 .8,-2.2 2.6,-2.6 c 2,-.4 3.6,-2 4.4,-3.4');
+  g('z', 10, 'c 1.4,-3.4 2.8,-8.6 4.2,-8.6 c 1.2,0 1,1.6 -.6,3 c -1.6,1.4 -3.4,2.6 -3.4,2.6 c 2.6,-1 5.4,-1.6 6.8,-1.6 c -1.2,3.4 -3.4,8.6 -4.6,11.4 c -.8,2 -2,2.8 -2.8,1.8 c -.8,-1 .2,-2 2,-2.4 c 2,-.4 3.6,-1.8 4.4,-3');
+
+  /* ── capitals: only the ones the passages need ────────────────────── */
+  g('A', 13, 'l 5.4,-19 l 4.4,19 m -8.2,-6.6 l 6.6,0');
+  g('E', 11, 'm 10.6,-19 l -6,0 l -4.6,19 l 6,0 m -8.4,-10.2 l 6.4,0');
+  g('H', 14, 'l 4.6,-19 m 8.6,0 l -4.6,19 m -7.2,-10.4 l 8.4,0');
+  g('C', 12, 'm 11,-15.4 c -1.2,-2.2 -3.6,-3 -6,-1.8 c -3.4,1.7 -5.6,6.4 -5.4,10.6 c .2,3.8 2.6,6 6,6 c 2.2,0 4,-.9 5.2,-2.2');
+  g('L', 12, 'm 4.6,-19 l -4.6,19 l 8.8,0');
+  g('P', 12, 'l 4.6,-19 l 4,0 c 3,0 4,3 2.2,5.8 c -1.4,2.2 -3.8,3.4 -6.2,3.4 l -2.6,0');
+  g('J', 10, 'm 9.4,-19 l -3.4,14.2 c -.7,2.9 -2.4,4.8 -4.6,4.8 c -1.6,0 -2.6,-1 -2.8,-2.6');
+  g('F', 11, 'm 10.6,-19 l -6,0 l -4.6,19 m 2.2,-10.2 l 6.4,0');
+  g('S', 10, 'm 9.4,-16.4 c -1,-1.6 -3,-2.2 -4.8,-1.2 c -2.2,1.2 -2.8,3.8 -1.2,5.6 c 1.6,1.8 3.4,3 3.4,5.4 c 0,2.6 -2,4.6 -4.6,4.6 c -1.4,0 -2.4,-.5 -3.2,-1.4');
+  g('T', 11, 'm 10.8,-19 l -10.2,0 m 5.6,0 l -4.6,19');
+  g('U', 13, 'm 4.6,-19 l -3.2,13.4 c -.8,3.4 .8,5.6 3.8,5.6 c 3.4,0 6,-2.4 6.8,-6 l 3.2,-13');
+  g('B', 12, 'l 4.6,-19 l 4.4,0 c 2.2,0 2.6,2.6 1,4.6 c -1.2,1.6 -3,2.4 -4.6,2.4 l -2.6,0 m 5.4,0 c 2.6,0 3.2,3 1.4,5.4 c -1.4,1.8 -3.4,2.6 -5.4,2.6 l -4.2,0');
+  g('M', 16, 'l 4.6,-19 l 3.2,13 l 6.4,-13 l -4.6,19');
+  g('N', 14, 'l 4.6,-19 l 4.6,19 l 4.6,-19');
+  g('D', 13, 'l 4.6,-19 l 3.6,0 c 4.2,0 5.8,4 4.4,9.4 c -1.3,5.1 -4.7,9.6 -9.1,9.6 z');
+  g('G', 12, 'm 11,-15.4 c -1.2,-2.2 -3.6,-3 -6,-1.8 c -3.4,1.7 -5.6,6.4 -5.4,10.6 c .2,3.8 2.6,6 6,6 c 2.6,0 4.6,-1.4 5.4,-3.8 l .8,-3.4 l -4.4,0');
+  g('K', 13, 'l 4.6,-19 m 8.8,0 l -9.6,9.6 l 5.2,9.4');
+  g('W', 17, 'm .6,-19 l 2.6,19 l 5.4,-15 l 1.8,15 l 6.2,-19');
+  g('I', 8, 'l 4.6,-19 m -2,0 l 4.4,0 m -6.8,19 l 4.4,0');
+  g('O', 13, 'm 12.4,-11 c -.8,-4.4 -3.8,-6.6 -7,-5.4 c -3.6,1.4 -6.2,6 -5.8,10.4 c .4,4 3.2,6.2 6.6,5.4 c 3.8,-.9 6.8,-5.6 6.2,-10.4 z');
+  g('R', 12, 'l 4.6,-19 l 4,0 c 3,0 4,3 2.2,5.8 c -1.4,2.2 -3.8,3.4 -6.2,3.4 l -2.6,0 m 4,0 l 3.4,9.8');
+  g('V', 12, 'm .6,-19 l 3.4,19 l 8,-19');
+  g('Y', 12, 'm .6,-19 l 4.2,10.4 l 5.6,-10.4 m -5.6,10.4 l -2.2,9.8 c -.7,3 -2.2,4.6 -4.4,4.6');
+
+  /* ── punctuation ─────────────────────────────────────────────────── */
+  g(',',  4, 'm 1,-.6 c 1.2,.4 1.6,2 .4,3.6');
+  g('.',  4, 'm 1,-.4 c .6,0 1,.4 1,1 c 0,.6 -.4,1 -1,1 c -.6,0 -1,-.4 -1,-1 c 0,-.6 .4,-1 1,-1');
+  g('’', 4, 'm 1.4,-11 c 1,.6 1.2,2.2 .2,3.6');
+  g("'",  4, 'm 1.4,-11 c 1,.6 1.2,2.2 .2,3.6');
+  g(':',  4, 'm 1,-6.6 c .6,0 1,.4 1,1 c 0,.6 -.4,1 -1,1 c -.6,0 -1,-.4 -1,-1 c 0,-.6 .4,-1 1,-1 m 0,6 c .6,0 1,.4 1,1 c 0,.6 -.4,1 -1,1 c -.6,0 -1,-.4 -1,-1 c 0,-.6 .4,-1 1,-1');
+  g('!',  5, 'm 2,-16 c .6,3.6 .2,8 -.4,11.6 m -.2,3.6 c .6,0 1,.4 1,1 c 0,.6 -.4,1 -1,1 c -.6,0 -1,-.4 -1,-1 c 0,-.6 .4,-1 1,-1');
+  g('-',  7, 'm 1,-5 l 5,0');
+  g('«', 7, 'm 5,-8 l -3,3 l 3,3 m -1.6,-6 l -3,3 l 3,3');
+  g('»', 7, 'm 2,-8 l 3,3 l -3,3 m 1.6,-6 l 3,3 l -3,3');
+  g('…', 12, 'm 1,-.4 c .6,0 1,.4 1,1 c 0,.6 -.4,1 -1,1 c -.6,0 -1,-.4 -1,-1 c 0,-.6 .4,-1 1,-1 m 4,0 c .6,0 1,.4 1,1 c 0,.6 -.4,1 -1,1 c -.6,0 -1,-.4 -1,-1 c 0,-.6 .4,-1 1,-1 m 4,0 c .6,0 1,.4 1,1 c 0,.6 -.4,1 -1,1 c -.6,0 -1,-.4 -1,-1 c 0,-.6 .4,-1 1,-1');
+  g(' ',  6, '');
+
+  /* accents ride above a base letter and are drawn as their own stroke */
+  var ACCENT = {
+    'é': ['e', 'm -6,-13 l 3.4,-2.6'],   'è': ['e', 'm -6,-15.6 l 3.4,2.6'],
+    'ê': ['e', 'm -7,-13 l 1.8,-2.4 l 1.8,2.4'],
+    'à': ['a', 'm -8,-15.6 l 3.4,2.6'],  'ç': ['c', 'm -4,0 c 1.4,1.6 1,4 -.6,4.4']
+  };
+  return { G: G, ACCENT: ACCENT };
+})();
+</script>
+<script>/* ═══════════════════════════════════════════════════════════════════════
+   SELF-WRITING GOLD HAND, 2026-08-29
+
+   The mechanism, and why it is different from everything tried before:
+   a font glyph is a FILLED SHAPE, so its weight is the letterform and no
+   amount of CSS makes it hairline. These letters are single STROKED PATHS.
+   stroke-width is then an independent number - 0.7px is 0.7px - and
+   `vector-effect: non-scaling-stroke` keeps it 0.7 screen pixels however
+   the SVG is scaled.
+
+   Writing is stroke-dasharray/stroke-dashoffset: set the dash to the path's
+   full length and the offset to the same, and nothing is drawn. Walk the
+   offset down to zero and the line appears from its start, in order, at
+   whatever speed you like. That IS a pen moving.
+
+   The tip glow is getPointAtLength() at the boundary between drawn and
+   undrawn, which is exactly where the nib would be.
+   ═══════════════════════════════════════════════════════════════════════ */
+window.GOLDWRITING = function (opts) {
+  var G = CURSIVE.G, ACC = CURSIVE.ACCENT;
+  var P = Object.assign({
+    passages: [], em: 3.1, lineGap: 46, speed: 165, hold: 5200, fade: 2600,
+    stroke: 0.7, alpha: 0.30, hue: 44, tip: 1.0, x: 60, y: 150, wrap: 1180
+  }, opts || {});
+
+  var svg = document.getElementById('gw-svg');
+  var group = document.getElementById('gw-lines');
+  var tip = document.getElementById('gw-tip');
+
+  function glyphs(text, x0, y0) {
+    var x = x0, d = '';
+    for (var i = 0; i < text.length; i++) {
+      var ch = text[i], acc = null;
+      if (ACC[ch]) { acc = ACC[ch][1]; ch = ACC[ch][0]; }
+      var g = G[ch];
+      if (!g) { x += 6; continue; }
+      if (g.d) d += ' M ' + x.toFixed(1) + ',' + y0.toFixed(1) + ' ' + g.d;
+      x += g.a;
+      if (acc) d += ' M ' + x.toFixed(1) + ',' + y0.toFixed(1) + ' ' + acc;
+    }
+    return { d: d.trim(), w: x - x0 };
+  }
+  function width(text) {
+    var w = 0;
+    for (var i = 0; i < text.length; i++) {
+      var ch = text[i]; if (ACC[ch]) ch = ACC[ch][0];
+      w += (G[ch] ? G[ch].a : 6);
+    }
+    return w;
+  }
+  /* greedy wrap on whole words, in glyph units */
+  function wrap(text, max) {
+    var words = text.split(' '), lines = [], cur = '';
+    for (var i = 0; i < words.length; i++) {
+      var t = cur ? cur + ' ' + words[i] : words[i];
+      if (width(t) * P.em > max && cur) { lines.push(cur); cur = words[i]; }
+      else cur = t;
+    }
+    if (cur) lines.push(cur);
+    return lines;
+  }
+
+  var paths = [], total = 0;
+  function build(passage) {
+    group.innerHTML = ''; paths = []; total = 0;
+    var lines = wrap(passage, P.wrap);
+    for (var i = 0; i < lines.length; i++) {
+      var L = glyphs(lines[i], 0, 0);
+      var p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      p.setAttribute('d', L.d);
+      p.setAttribute('transform', 'translate(' + P.x + ',' + (P.y + i * P.lineGap) + ') scale(' + P.em + ')');
+      p.setAttribute('fill', 'none');
+      p.setAttribute('stroke', 'hsl(' + P.hue + ' 72% 66%)');
+      p.setAttribute('stroke-width', P.stroke);
+      p.setAttribute('stroke-linecap', 'round');
+      p.setAttribute('stroke-linejoin', 'round');
+      p.setAttribute('vector-effect', 'non-scaling-stroke');
+      p.setAttribute('opacity', P.alpha);
+      group.appendChild(p);
+      var len = p.getTotalLength();
+      p.style.strokeDasharray = len; p.style.strokeDashoffset = len;
+      paths.push({ el: p, len: len, start: total });
+      total += len;
+    }
+  }
+
+  /* draw up to `written` units of arc length across the whole passage */
+  function drawTo(written) {
+    var tipPt = null;
+    for (var i = 0; i < paths.length; i++) {
+      var p = paths[i], local = written - p.start;
+      if (local <= 0) { p.el.style.strokeDashoffset = p.len; }
+      else if (local >= p.len) { p.el.style.strokeDashoffset = 0; }
+      else {
+        p.el.style.strokeDashoffset = p.len - local;
+        var pt = p.el.getPointAtLength(local);
+        var m = p.el.getScreenCTM();
+        tipPt = { x: pt.x * P.em + P.x, y: pt.y * P.em + P.y + i * P.lineGap };
+      }
+    }
+    if (tipPt) {
+      tip.setAttribute('cx', tipPt.x); tip.setAttribute('cy', tipPt.y);
+      tip.setAttribute('opacity', P.tip);
+    } else tip.setAttribute('opacity', 0);
+  }
+
+  var idx = 0, phase = 'write', t0 = null, written = 0;
+  function reset(now) { build(P.passages[idx]); written = 0; phase = 'write'; t0 = now; }
+
+  function frame(now) {
+    if (t0 === null) reset(now);
+    var el = now - t0;
+    if (phase === 'write') {
+      written = (el / 1000) * P.speed;
+      drawTo(written);
+      group.setAttribute('opacity', 1);
+      if (written >= total) { phase = 'hold'; t0 = now; }
+    } else if (phase === 'hold') {
+      if (el > P.hold) { phase = 'fade'; t0 = now; }
+    } else {
+      var k = 1 - el / P.fade;
+      group.setAttribute('opacity', Math.max(0, k));
+      tip.setAttribute('opacity', 0);
+      if (el > P.fade) { idx = (idx + 1) % P.passages.length; reset(now); }
+    }
+    if (!window.__GW_FREEZE) requestAnimationFrame(frame);
+  }
+
+  /* a frozen progress fraction, so a still frame can be inspected */
+  if (window.__GW_FREEZE) {
+    build(P.passages[window.__GW_PASSAGE || 0]);
+    drawTo(total * window.__GW_FREEZE);
+  } else requestAnimationFrame(frame);
+};
+</script>
+<script>
+if (!new URLSearchParams(location.search).has('light')) document.documentElement.classList.add('dark');
+/* The two openings that were already on his own site, in the pre-08-28
+   whisper divs. First lines only. */
+var PASSAGES = [
+  "riverrun, past Eve and Adam's, from swerve of shore to bend of bay",
+  "Longtemps, je me suis couche de bonne heure."
+];
+var LEVELS = [ { alpha:.30, stroke:.75, tip:1.00 },
+               { alpha:.19, stroke:.65, tip:.62 },
+               { alpha:.11, stroke:.55, tip:.34 } ];
+function start(i) {
+  document.querySelectorAll('#gw-bar button').forEach(function (b) {
+    b.classList.toggle('on', +b.dataset.l === i); });
+  var narrow = innerWidth < 760;
+  GOLDWRITING(Object.assign({ passages: PASSAGES,
+    em: narrow ? 1.9 : 3.6, lineGap: narrow ? 34 : 62,
+    speed: narrow ? 85 : 150, hold: 5000, fade: 2600, hue: 44,
+    x: narrow ? 18 : 70, y: narrow ? 120 : 210,
+    wrap: innerWidth - (narrow ? 34 : 140) }, LEVELS[i]));
+}
+document.getElementById('gw-bar').addEventListener('click', function (e) {
+  var b = e.target.closest('button'); if (b) location.search = '?lvl=' + b.dataset.l; });
+var lv = +(new URLSearchParams(location.search).get('lvl') || 0);
+start(isNaN(lv) ? 0 : Math.max(0, Math.min(2, lv)));
+</script>
+
+</body>
+</html>
