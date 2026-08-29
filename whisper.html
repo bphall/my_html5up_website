@@ -11,13 +11,13 @@
     --bg: #f5f6f7; --card: #ffffff; --ink: #1c2732; --dim: #5f6e7d;
     --line: #e2e7ec; --accent: #2e6a8e; --accent-soft: #b6cad8;
     --shadow: 0 1px 2px rgba(30,42,54,.05), 0 10px 28px rgba(30,42,54,.06);
-    --wf-op: .030;
+    --wf-op: .30;
   }
   html.dark {
     --bg: #151d26; --card: #1c2631; --ink: #e3eaf1; --dim: #92a3b3;
     --line: #2b3a48; --accent: #8db3d2; --accent-soft: #40607c;
     --shadow: 0 1px 2px rgba(0,0,0,.25), 0 10px 28px rgba(0,0,0,.25);
-    --wf-op: .036;
+    --wf-op: .30;
   }
   * { box-sizing: border-box; }
   body {
@@ -253,7 +253,7 @@
   var timer = null, t0 = 0, running = false;
   var stat = { ticks: 0, writes: 0 };
 
-  try { reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+  reduced = false;  /* preview page: always animate, even with Reduce Motion on */
 
   /* ---------- measure ---------- */
 
@@ -509,5 +509,22 @@
   else window.addEventListener("load", boot);
 })();
 </script>
+
+<div id="dial" style="position:fixed;left:0;right:0;bottom:0;z-index:99;
+  background:rgba(10,16,22,.94);border-top:1px solid #2b3a48;
+  padding:.7rem .6rem calc(.7rem + env(safe-area-inset-bottom));
+  display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;
+  font:600 15px -apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif">
+  <button data-o=".30" style="flex:1 1 30%;min-height:52px;border-radius:12px;border:1px solid #40607c;background:#1c2631;color:#e3eaf1;font:inherit">Loud<br><span style="font-weight:400;font-size:12px;opacity:.7">to see it at all</span></button>
+  <button data-o=".12" style="flex:1 1 30%;min-height:52px;border-radius:12px;border:1px solid #40607c;background:#1c2631;color:#e3eaf1;font:inherit">Medium</button>
+  <button data-o=".036" style="flex:1 1 30%;min-height:52px;border-radius:12px;border:1px solid #40607c;background:#1c2631;color:#e3eaf1;font:inherit">Real<br><span style="font-weight:400;font-size:12px;opacity:.7">what ships</span></button>
+</div>
+<script>
+document.getElementById('dial').addEventListener('click', function (e) {
+  var b = e.target.closest('button'); if (!b) return;
+  document.documentElement.style.setProperty('--wf-op', b.dataset.o);
+});
+</script>
+
 </body>
 </html>
