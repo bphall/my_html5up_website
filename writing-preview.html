@@ -606,7 +606,7 @@ themeBtn.onclick = () => setDark(!document.documentElement.classList.contains('d
   <g id="gw-lines"></g>
   <circle id="gw-tip" r="13" fill="url(#gw-glow)" opacity="0"/>
 </svg>
-<div id="gw-bar"><span>FAINTER &rarr;</span><span style="opacity:.5">build 17:29</span>
+<div id="gw-bar"><span>FAINTER &rarr;</span><span style="opacity:.5">build 17:55</span>
   <button data-l="0">1</button><button data-l="1">2</button><button data-l="2">3</button></div>
 <script>/* ═══════════════════════════════════════════════════════════════════════
    A MONOLINE CURSIVE ALPHABET, 2026-08-29
@@ -738,16 +738,19 @@ window.GOLDWRITING = function (opts) {
   var group = document.getElementById('gw-lines');
   var tip = document.getElementById('gw-tip');
 
-  function glyphs(text, x0, y0) {
+  function scaleD(d, k) {
+    return d.replace(/-?\d*\.?\d+/g, function (n) { return (parseFloat(n) * k).toFixed(2); });
+  }
+  function glyphs(text, x0, y0, k) {
     var x = x0, d = '';
     for (var i = 0; i < text.length; i++) {
       var ch = text[i], acc = null;
       if (ACC[ch]) { acc = ACC[ch][1]; ch = ACC[ch][0]; }
       var g = G[ch];
       if (!g) { x += 6; continue; }
-      if (g.d) d += ' M ' + x.toFixed(1) + ',' + y0.toFixed(1) + ' ' + g.d;
+      if (g.d) d += ' M ' + (x * k).toFixed(1) + ',' + (y0 * k).toFixed(1) + ' ' + scaleD(g.d, k);
       x += g.a;
-      if (acc) d += ' M ' + x.toFixed(1) + ',' + y0.toFixed(1) + ' ' + acc;
+      if (acc) d += ' M ' + (x * k).toFixed(1) + ',' + (y0 * k).toFixed(1) + ' ' + scaleD(acc, k);
     }
     return { d: d.trim(), w: x - x0 };
   }
@@ -772,26 +775,47 @@ window.GOLDWRITING = function (opts) {
   }
 
   var paths = [], total = 0;
+
+  /* ONE PATH PER GLYPH.
+     SVG resets the dash pattern at every subpath, so a line built as one path
+     with an M before each letter cannot be revealed progressively: each letter
+     sits entirely inside one dash and snaps on whole. Giving every glyph its
+     own <path> makes the reveal genuinely character by character, which is
+     also what a hand actually does. */
   function build(passage) {
     group.innerHTML = ''; paths = []; total = 0;
     var lines = wrap(passage, P.wrap);
     for (var i = 0; i < lines.length; i++) {
-      var L = glyphs(lines[i], 0, 0);
-      var p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      p.setAttribute('d', L.d);
-      p.setAttribute('transform', 'translate(' + P.x + ',' + (P.y + i * P.lineGap) + ') scale(' + P.em + ')');
-      p.setAttribute('fill', 'none');
-      p.setAttribute('stroke', 'hsl(' + P.hue + ' 72% 66%)');
-      p.setAttribute('stroke-width', P.stroke);
-      p.setAttribute('stroke-linecap', 'round');
-      p.setAttribute('stroke-linejoin', 'round');
-      p.setAttribute('vector-effect', 'non-scaling-stroke');
-      p.setAttribute('opacity', P.alpha);
-      group.appendChild(p);
-      var len = p.getTotalLength();
-      p.style.strokeDasharray = len; p.style.strokeDashoffset = len;
-      paths.push({ el: p, len: len, start: total });
-      total += len;
+      var cursor = 0, txt = lines[i];
+      for (var j = 0; j < txt.length; j++) {
+        var ch = txt[j], acc = null;
+        if (ACC[ch]) { acc = ACC[ch][1]; ch = ACC[ch][0]; }
+        var gl = G[ch];
+        if (!gl) { cursor += 6; continue; }
+        var pieces = [];
+        if (gl.d) pieces.push(scaleD(gl.d, P.em));
+        if (acc)  pieces.push(scaleD(acc, P.em));
+        for (var k = 0; k < pieces.length; k++) {
+          var p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          p.setAttribute('d', 'M 0,0 ' + pieces[k]);
+          p.setAttribute('transform', 'translate(' +
+            (P.x + cursor * P.em).toFixed(1) + ',' + (P.y + i * P.lineGap).toFixed(1) + ')');
+          p.setAttribute('fill', 'none');
+          p.setAttribute('stroke', 'hsl(' + P.hue + ' 72% 66%)');
+          p.setAttribute('stroke-width', P.stroke);
+          p.setAttribute('stroke-linecap', 'round');
+          p.setAttribute('stroke-linejoin', 'round');
+          p.setAttribute('opacity', P.alpha);
+          group.appendChild(p);
+          var len = p.getTotalLength() || 0.01;
+          p.style.strokeDasharray = len;
+          p.style.strokeDashoffset = len;
+          paths.push({ el: p, len: len, start: total, ox: P.x + cursor * P.em,
+                       oy: P.y + i * P.lineGap });
+          total += len;
+        }
+        cursor += gl.a;
+      }
     }
   }
 
@@ -805,14 +829,12 @@ window.GOLDWRITING = function (opts) {
       else {
         p.el.style.strokeDashoffset = p.len - local;
         var pt = p.el.getPointAtLength(local);
-        var m = p.el.getScreenCTM();
-        tipPt = { x: pt.x * P.em + P.x, y: pt.y * P.em + P.y + i * P.lineGap };
+        tipPt = { x: pt.x + p.ox, y: pt.y + p.oy };
       }
     }
-    if (tipPt) {
-      tip.setAttribute('cx', tipPt.x); tip.setAttribute('cy', tipPt.y);
-      tip.setAttribute('opacity', P.tip);
-    } else tip.setAttribute('opacity', 0);
+    if (tipPt) { tip.setAttribute('cx', tipPt.x); tip.setAttribute('cy', tipPt.y);
+                 tip.setAttribute('opacity', P.tip); }
+    else tip.setAttribute('opacity', 0);
   }
 
   var idx = 0, phase = 'write', t0 = null, written = 0;
