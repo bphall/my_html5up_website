@@ -179,7 +179,7 @@
     pointer-events: none; user-select: none; -webkit-user-select: none;
     font-family: "Snell Roundhand", "Apple Chancery", "Segoe Script", cursive;
     color: var(--ink);
-    opacity: var(--wf-op, .030);
+    opacity: var(--wf-op, .08);
     /* every size below is derived from the viewport, never from a fixed px */
     font-size: var(--wf-size, clamp(72px, 8vw, 190px));
     line-height: 1.95;
@@ -931,32 +931,47 @@ themeBtn.onclick = () => setDark(!document.documentElement.classList.contains('d
 })();
 </script>
 <div id="dial" style="position:fixed;left:0;right:0;bottom:0;z-index:99;
-  background:rgba(10,16,22,.95);border-top:1px solid #2b3a48;
-  padding:.55rem .5rem calc(.55rem + env(safe-area-inset-bottom));
+  background:rgba(10,16,22,.96);border-top:1px solid #2b3a48;
+  padding:.5rem .7rem calc(.5rem + env(safe-area-inset-bottom));
   font:600 14px -apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;color:#e3eaf1">
-  <div style="display:flex;gap:.4rem;margin-bottom:.4rem">
-    <button data-s="clamp(40px,4.5vw,110px)" style="flex:1;min-height:46px;border-radius:11px;border:1px solid #40607c;background:#1c2631;color:inherit;font:inherit">Big</button>
-    <button data-s="clamp(72px,8vw,190px)" style="flex:1;min-height:46px;border-radius:11px;border:1px solid #6f97bb;background:#25384a;color:inherit;font:inherit">Giant</button>
-    <button data-s="clamp(120px,14vw,320px)" style="flex:1;min-height:46px;border-radius:11px;border:1px solid #40607c;background:#1c2631;color:inherit;font:inherit">Absurd</button>
+
+  <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.45rem">
+    <span style="min-width:4.4rem;font-weight:400;opacity:.75">opacity</span>
+    <input id="op" type="range" min="0.004" max="0.30" step="0.002" value="0.08"
+      style="flex:1;height:38px;accent-color:#8db3d2">
+    <span id="opv" style="min-width:3.4rem;text-align:right;font-variant-numeric:tabular-nums">0.080</span>
   </div>
-  <div style="display:flex;gap:.4rem">
-    <button data-o=".008" style="flex:1;min-height:46px;border-radius:11px;border:1px solid #40607c;background:#1c2631;color:inherit;font:inherit">Ghost</button>
-    <button data-o=".018" style="flex:1;min-height:46px;border-radius:11px;border:1px solid #40607c;background:#1c2631;color:inherit;font:inherit">Faint</button>
-    <button data-o=".030" style="flex:1;min-height:46px;border-radius:11px;border:1px solid #6f97bb;background:#25384a;color:inherit;font:inherit">Subtle</button>
+
+  <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem">
+    <span style="min-width:4.4rem;font-weight:400;opacity:.75">size</span>
+    <input id="sz" type="range" min="24" max="320" step="4" value="110"
+      style="flex:1;height:38px;accent-color:#8db3d2">
+    <span id="szv" style="min-width:3.4rem;text-align:right;font-variant-numeric:tabular-nums">110px</span>
   </div>
+
+  <button id="jump" style="width:100%;min-height:48px;border-radius:12px;
+    border:1px solid #6f97bb;background:#25384a;color:inherit;font:inherit">Jump to the writing</button>
 </div>
 <script>
 document.documentElement.classList.add('dark');
-document.getElementById('dial').addEventListener('click', function (e) {
-  var b = e.target.closest('button'); if (!b) return;
+(function () {
   var r = document.documentElement;
-  if (b.dataset.o) r.style.setProperty('--wf-op', b.dataset.o);
-  if (b.dataset.s) { r.style.setProperty('--wf-size', b.dataset.s); window.dispatchEvent(new Event('resize')); }
-  [].forEach.call(b.parentNode.children, function (x) {
-    x.style.background = x === b ? '#25384a' : '#1c2631';
-    x.style.borderColor = x === b ? '#6f97bb' : '#40607c';
+  var op = document.getElementById('op'), opv = document.getElementById('opv');
+  var sz = document.getElementById('sz'), szv = document.getElementById('szv');
+  function setOp() { r.style.setProperty('--wf-op', op.value); opv.textContent = (+op.value).toFixed(3); }
+  function setSz() {
+    r.style.setProperty('--wf-size', sz.value + 'px');
+    szv.textContent = sz.value + 'px';
+    window.dispatchEvent(new Event('resize'));
+  }
+  op.addEventListener('input', setOp);
+  sz.addEventListener('input', setSz);
+  setOp(); setSz();
+  document.getElementById('jump').addEventListener('click', function () {
+    var b = document.querySelector('.wf-box');
+    if (b) window.scrollTo({ top: b.getBoundingClientRect().top + window.pageYOffset - 90, behavior: 'smooth' });
   });
-});
+})();
 </script>
 </body>
 </html>
