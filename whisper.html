@@ -11,13 +11,15 @@
     --bg: #f5f6f7; --card: #ffffff; --ink: #1c2732; --dim: #5f6e7d;
     --line: #e2e7ec; --accent: #2e6a8e; --accent-soft: #b6cad8;
     --shadow: 0 1px 2px rgba(30,42,54,.05), 0 10px 28px rgba(30,42,54,.06);
-    --wf-op: .30;
+    --wf-op: .022;
+    --wf-size: clamp(72px, 8vw, 190px);
   }
   html.dark {
     --bg: #151d26; --card: #1c2631; --ink: #e3eaf1; --dim: #92a3b3;
     --line: #2b3a48; --accent: #8db3d2; --accent-soft: #40607c;
     --shadow: 0 1px 2px rgba(0,0,0,.25), 0 10px 28px rgba(0,0,0,.25);
-    --wf-op: .30;
+    --wf-op: .022;
+    --wf-size: clamp(72px, 8vw, 190px);
   }
   * { box-sizing: border-box; }
   body {
@@ -44,7 +46,7 @@
     color: var(--ink);
     opacity: var(--wf-op);
     /* every size below is derived from the viewport, never from a fixed px */
-    font-size: clamp(19px, 1.75vw, 62px);
+    font-size: var(--wf-size, clamp(19px, 1.75vw, 62px));
     line-height: 1.95;
     text-rendering: optimizeLegibility;
   }
@@ -511,18 +513,37 @@
 </script>
 
 <div id="dial" style="position:fixed;left:0;right:0;bottom:0;z-index:99;
-  background:rgba(10,16,22,.94);border-top:1px solid #2b3a48;
-  padding:.7rem .6rem calc(.7rem + env(safe-area-inset-bottom));
-  display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;
-  font:600 15px -apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif">
-  <button data-o=".30" style="flex:1 1 30%;min-height:52px;border-radius:12px;border:1px solid #40607c;background:#1c2631;color:#e3eaf1;font:inherit">Loud<br><span style="font-weight:400;font-size:12px;opacity:.7">to see it at all</span></button>
-  <button data-o=".12" style="flex:1 1 30%;min-height:52px;border-radius:12px;border:1px solid #40607c;background:#1c2631;color:#e3eaf1;font:inherit">Medium</button>
-  <button data-o=".036" style="flex:1 1 30%;min-height:52px;border-radius:12px;border:1px solid #40607c;background:#1c2631;color:#e3eaf1;font:inherit">Real<br><span style="font-weight:400;font-size:12px;opacity:.7">what ships</span></button>
+  background:rgba(10,16,22,.95);border-top:1px solid #2b3a48;
+  padding:.55rem .5rem calc(.55rem + env(safe-area-inset-bottom));
+  font:600 14px -apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;color:#e3eaf1">
+  <div style="display:flex;gap:.4rem;margin-bottom:.4rem">
+    <button data-s="clamp(40px,4.5vw,110px)" style="flex:1;min-height:46px;border-radius:11px;border:1px solid #40607c;background:#1c2631;color:inherit;font:inherit">Big</button>
+    <button data-s="clamp(72px,8vw,190px)" style="flex:1;min-height:46px;border-radius:11px;border:1px solid #6f97bb;background:#25384a;color:inherit;font:inherit">Giant</button>
+    <button data-s="clamp(120px,14vw,320px)" style="flex:1;min-height:46px;border-radius:11px;border:1px solid #40607c;background:#1c2631;color:inherit;font:inherit">Absurd</button>
+  </div>
+  <div style="display:flex;gap:.4rem">
+    <button data-o=".012" style="flex:1;min-height:46px;border-radius:11px;border:1px solid #40607c;background:#1c2631;color:inherit;font:inherit">Ghost</button>
+    <button data-o=".022" style="flex:1;min-height:46px;border-radius:11px;border:1px solid #6f97bb;background:#25384a;color:inherit;font:inherit">Very faint</button>
+    <button data-o=".045" style="flex:1;min-height:46px;border-radius:11px;border:1px solid #40607c;background:#1c2631;color:inherit;font:inherit">Faint</button>
+    <button data-o=".18" style="flex:1;min-height:46px;border-radius:11px;border:1px solid #40607c;background:#1c2631;color:inherit;font:inherit">Loud</button>
+  </div>
 </div>
 <script>
 document.getElementById('dial').addEventListener('click', function (e) {
   var b = e.target.closest('button'); if (!b) return;
-  document.documentElement.style.setProperty('--wf-op', b.dataset.o);
+  var root = document.documentElement;
+  if (b.dataset.o) root.style.setProperty('--wf-op', b.dataset.o);
+  if (b.dataset.s) {
+    root.style.setProperty('--wf-size', b.dataset.s);
+    /* the layer measures every character at boot, so a size change has to
+       trigger the same remeasure a window resize would */
+    window.dispatchEvent(new Event('resize'));
+  }
+  [].forEach.call(b.parentNode.children, function (x) {
+    var on = x === b;
+    x.style.background = on ? '#25384a' : '#1c2631';
+    x.style.borderColor = on ? '#6f97bb' : '#40607c';
+  });
 });
 </script>
 
