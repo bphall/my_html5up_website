@@ -864,12 +864,17 @@ themeBtn.onclick = () => setDark(!document.documentElement.classList.contains('d
   };
 
   var rt = null;
+  /* A DIRECT remeasure hook. Dispatching a synthetic resize instead of this
+     also woke the attention lens, which rebuilt 6000 patches and cleared its
+     canvas, and it re-entered this file's own resize listener, which fired
+     another synthetic resize. That loop was the flicker. */
+  window.__wfRemeasure = function () {
+    var was = running; stop(); measure();
+    if (window.__frozenAt != null) render(window.__frozenAt); else if (was) start(); else render(0);
+  };
   window.addEventListener("resize", function () {
     clearTimeout(rt);
-    rt = setTimeout(function () {
-      var was = running; stop(); measure();
-      if (window.__frozenAt != null) render(window.__frozenAt); else if (was) start(); else render(0);
-    }, CFG.remeasure);
+    rt = setTimeout(window.__wfRemeasure, CFG.remeasure);
   });
 
   function boot() {
@@ -919,7 +924,7 @@ themeBtn.onclick = () => setDark(!document.documentElement.classList.contains('d
     var span = Math.max(240, endY - startY);
     for (var i = 0; i < n; i++) P[i].top = Math.round(startY + span * i / n) + 'px';
   }
-  function replace_() { place(); window.dispatchEvent(new Event('resize')); }
+  function replace_() { place(); if (window.__wfRemeasure) window.__wfRemeasure(); }
   replace_();
   /* the photograph and the fonts land after first layout and push the bio
      down, so measure again once everything has actually arrived */
@@ -927,7 +932,7 @@ themeBtn.onclick = () => setDark(!document.documentElement.classList.contains('d
   setTimeout(replace_, 700);
   setTimeout(replace_, 1800);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(replace_);
-  var t; addEventListener('resize', function () { clearTimeout(t); t = setTimeout(replace_, 150); });
+  var t; addEventListener('resize', function () { clearTimeout(t); t = setTimeout(replace_, 260); });
 })();
 </script>
 <div id="dial" style="position:fixed;left:0;right:0;bottom:0;z-index:99;
@@ -959,10 +964,12 @@ document.documentElement.classList.add('dark');
   var op = document.getElementById('op'), opv = document.getElementById('opv');
   var sz = document.getElementById('sz'), szv = document.getElementById('szv');
   function setOp() { r.style.setProperty('--wf-op', op.value); opv.textContent = (+op.value).toFixed(3); }
+  var szT;
   function setSz() {
     r.style.setProperty('--wf-size', sz.value + 'px');
     szv.textContent = sz.value + 'px';
-    window.dispatchEvent(new Event('resize'));
+    clearTimeout(szT);
+    szT = setTimeout(function () { if (window.__wfRemeasure) window.__wfRemeasure(); }, 200);
   }
   op.addEventListener('input', setOp);
   sz.addEventListener('input', setSz);
